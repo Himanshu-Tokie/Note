@@ -4,6 +4,8 @@ import { useState } from "react";
 import CustomButton from "../../components/Button/customButton";
 import { Formik } from "formik";
 import * as Yup from 'yup'
+import { default as auth } from '@react-native-firebase/auth';
+
 
 const SignupSchema = Yup.object().shape({
     firstName: Yup.string().required('Please enter your first name'),
@@ -11,17 +13,24 @@ const SignupSchema = Yup.object().shape({
     email: Yup.string().email('Invalid email').required('Please enter email'),
     password: Yup.string().min(8).required('Please enter your password').matches(/^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[#?!@$%^&*-]).{8,}$/, 'Invalid Password'),
     confirmPassword: Yup.string().oneOf([Yup.ref('password')], "Password doesn't match"),
-    number: Yup.number().min(10, 'Invalid number').required('Enter Number').max(10)
+    number: Yup.number().min(10, 'Invalid number').required('Enter Number')
 });
 
 export default function SignUp({ navigation }) {
-    const [name, setName] = useState();
-    const [email, setEmail] = useState();
-    const [password, setPassword] = useState();
-    const [confirmPassword, setConfirmPassword] = useState();
-    const signUp = () => {
+    const signUpUser = async (values) => {
+        try {
+            await auth().createUserWithEmailAndPassword(values.email, values.password);
+            const user = auth().currentUser;
+            // await firestore().collection('users').doc(user.uid).set({
+            //   additionalData: {phoneNumber:number,name:name},
+            // });
+            console.log('User account created & signed in!');
+        } catch (error) {
+            console.error('Error creating account:', error.code, error.message);
+        }
+    };
 
-    }
+
     return (
         <>
             <SafeAreaView>
@@ -35,7 +44,7 @@ export default function SignUp({ navigation }) {
                         number: ''
                     }}
                     validationSchema={SignupSchema}
-                    onSubmit={(values) => {console.log(values)}}
+                    onSubmit={signUpUser}
                 >
                     {({ handleSubmit, touched, isValid, values, setFieldTouched, handleChange, errors }) => (
                         <View>
