@@ -5,6 +5,7 @@ import CustomButton from "../../components/Button/customButton";
 import { Formik } from "formik";
 import * as Yup from 'yup'
 import { default as auth } from '@react-native-firebase/auth';
+import firestore from '@react-native-firebase/firestore';
 
 
 const SignupSchema = Yup.object().shape({
@@ -19,11 +20,24 @@ const SignupSchema = Yup.object().shape({
 export default function SignUp({ navigation }) {
     const signUpUser = async (values) => {
         try {
-            await auth().createUserWithEmailAndPassword(values.email, values.password);
-            const user = auth().currentUser;
-            // await firestore().collection('users').doc(user.uid).set({
-            //   additionalData: {phoneNumber:number,name:name},
-            // });
+            let userCredentials = await auth().createUserWithEmailAndPassword(values.email, values.password);
+            await userCredentials.user.updateProfile({
+                displayName: values.firstName+values.lastName
+            });
+            console.log(userCredentials,1)
+            await firestore().collection('users').doc(userCredentials.user.uid).set({
+                labels: {
+                  other: {
+                    name: "Other",
+                  },
+                },
+                notes: {
+                  defaultNote: {
+                    content: "Default note content...",
+                    labelId: "other",
+                  },
+                },
+              });
             console.log('User account created & signed in!');
         } catch (error) {
             console.error('Error creating account:', error.code, error.message);

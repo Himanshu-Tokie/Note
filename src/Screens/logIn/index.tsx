@@ -21,7 +21,7 @@ export default function LogIn({ navigation }) {
     function onAuthStateChanged(user) {
         console.log(user,100);
         
-        setUser('');
+        setUser(user);
         if (initializing) setInitializing(false);
     }
 
@@ -113,5 +113,5 @@ export default function LogIn({ navigation }) {
             )
         }
         else
-        return navigation.navigate(screenConstant.Home)
+        return navigation.navigate(screenConstant.Home,{user})
     }
