@@ -1,13 +1,14 @@
 import { NavigationContainer } from "@react-navigation/native";
-import { createNativeStackNavigator } from "@react-navigation/native-stack"
-import { screenConstant } from "../../constants/Screen/index";
-import Enter from "../../Screens/enter";
-import LogIn from "../../Screens/logIn";
+import { createNativeStackNavigator } from "@react-navigation/native-stack";
 import Home from "../../Screens/Home";
+import Label from "../../Screens/Labels";
 import Note from "../../Screens/Note";
-import SignUp from "../../Screens/signUp";
-import ForgotPassword from "../../Screens/forgotPassword/forgotPass";
 import FormikTemp from "../../Screens/Practice/formikTemplate";
+import Enter from "../../Screens/enter";
+import ForgotPassword from "../../Screens/forgotPassword/forgotPass";
+import LogIn from "../../Screens/logIn";
+import SignUp from "../../Screens/signUp";
+import { screenConstant } from "../../constants/Screen/index";
 
 export default function AuthNavigation(){
     const Stack = createNativeStackNavigator();
@@ -22,6 +23,7 @@ export default function AuthNavigation(){
                 <Stack.Screen name={screenConstant.SignUp} component={SignUp} />
                 <Stack.Screen name={screenConstant.ForgotPassword} component={ForgotPassword} />
                 <Stack.Screen name={screenConstant.Formik} component={FormikTemp} />
+                <Stack.Screen name={screenConstant.Label} component={Label} />
             </Stack.Navigator>
         </NavigationContainer>
         </>

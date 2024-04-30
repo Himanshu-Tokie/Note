@@ -1,11 +1,8 @@
-import { SafeAreaView, Text, TextInput, TouchableOpacity, View } from "react-native";
-import CustomInput from "../../components/Button/input";
-import { useState } from "react";
-import CustomButton from "../../components/Button/customButton";
-import { Formik } from "formik";
-import * as Yup from 'yup'
 import { default as auth } from '@react-native-firebase/auth';
 import firestore from '@react-native-firebase/firestore';
+import { Formik } from "formik";
+import { SafeAreaView, Text, TextInput, TouchableOpacity, View } from "react-native";
+import * as Yup from 'yup';
 
 
 const SignupSchema = Yup.object().shape({
@@ -22,22 +19,14 @@ export default function SignUp({ navigation }) {
         try {
             let userCredentials = await auth().createUserWithEmailAndPassword(values.email, values.password);
             await userCredentials.user.updateProfile({
-                displayName: values.firstName+values.lastName
+                displayName: values.firstName+' '+values.lastName
             });
             console.log(userCredentials,1)
-            await firestore().collection('users').doc(userCredentials.user.uid).set({
-                labels: {
-                  other: {
-                    name: "Other",
-                  },
-                },
-                notes: {
-                  defaultNote: {
-                    content: "Default note content...",
-                    labelId: "other",
-                  },
-                },
-              });
+            await firestore().collection('user').doc(userCredentials.user.uid).collection('notes').add({
+                label: 'Others',
+                title: 'Meeting Notes',
+                content: 'Discussion points: project updates, deadlines, action items',
+              })
             console.log('User account created & signed in!');
         } catch (error) {
             console.error('Error creating account:', error.code, error.message);

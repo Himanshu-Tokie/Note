@@ -1,11 +1,9 @@
-import { Alert, SafeAreaView, Text, TextInput, TouchableOpacity, View } from "react-native";
-import CustomInput from "../../components/Button/input";
-import { useEffect, useState } from "react";
-import CustomButton from "../../components/Button/customButton";
-import { screenConstant } from "../../constants/Screen";
-import * as Yup from 'yup'
+import { default as auth } from '@react-native-firebase/auth';
 import { Formik } from "formik";
-import { default as auth, default as signInWithEmailAndPassword } from '@react-native-firebase/auth';
+import { useEffect, useState } from "react";
+import { SafeAreaView, Text, TextInput, TouchableOpacity, View } from "react-native";
+import * as Yup from 'yup';
+import { screenConstant } from "../../constants/Screen";
 
 const SignupSchema = Yup.object().shape({
     email: Yup.string().email('Invalid email').required('Please enter email'),
