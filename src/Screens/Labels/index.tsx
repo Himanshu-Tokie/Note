@@ -22,7 +22,7 @@ export default function Label({navigation,route}){
             // console.log(snapShot.docs,19);
             const labelData = []
             snapShot.forEach(doc => {     
-                labelData.push({ title:doc.data().title,data: doc.data().content,noteId:doc.id, uid:uid })
+                labelData.push({ title:doc.data().title,data: doc.data().content,noteId:doc.id, id:uid })
               });
               setData(labelData);
         } catch (error) {

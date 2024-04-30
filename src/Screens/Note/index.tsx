@@ -16,46 +16,24 @@ const Note = ({navigation, route}) => {
   const articleData = useRef();
   const [title, setTitle] = useState('');
   const [value, setValue] = useState(data);
-  const uid = route.params.note.uid;
-  const initialTitle = route.params.note.title;
-  const noteId = route.params.note.noteId;
+  const [label,setLable] = useState('')
+  const isNew = useRef(true)
+  let uid=''
+  let initialTitle=''
+  let noteId=''
+  let label=''
+  if(route.params.id){
+  uid = route.params.note.id;
+  initialTitle = route.params.note.title;
+  noteId = route.params.note.noteId;
+  isNew.current=false;
+}
+else {
+  uid = route.params.uid
+}
 
-  // this function will be called when the editor has been initialized
-  //   function editorInitializedCallback() {
-  //     RichText.current?.registerToolbar(function (items) {
-  //       // items contain all the actions that are currently active
-  //       console.log(
-  //         "Toolbar click, selected items (insert end callback):",
-  //         items
-  //       );
-  //     });
-  //   }
-  console.log(route);
-  // console.log(uid);
-  // console.log(initialTitle);
-  // console.log(data);
-  console.log(article);
-  //   const getData=async()=>{
-  //     try {
-  //       const snapShot = await firestore()
-  //         .collection('user')
-  //         .doc(uid)
-  //         .collection('notes')
-  //         .get();
-
-  //       snapShot.forEach(doc => {
-  //         // Process each note document
-  //         console.log(doc.data(), 90);
-  //         console.log(doc.id);
-
-  //       });
-  //     } catch (error) {
-  //       console.error('Error retrieving notes:', error);
-  //     }
-  //   }
   const updateData = async () => {
     try {
-      // const newData = article
       console.log(articleData.current);
       await firestore()
         .collection('user')
@@ -70,27 +48,23 @@ const Note = ({navigation, route}) => {
       console.log('fail');
     }
   };
-  useEffect(() => {
-    return updateData;
-  }, []);
-  // Callback after height change
-  function handleHeightChange(height) {
-    // console.log("editor height change:", height);
+  const createNote=async()=>{
+    
   }
+  useEffect(() => {
+    if(!isNew.current)
+    return updateData;
+    else
+    return createNote;
+  }, []);
 
-  //   function onPressAddImage() {
-  //     // you can easily add images from your gallery
-  //     RichText.current?.insertImage(
-  //       "https://upload.wikimedia.org/wikipedia/commons/thumb/a/a7/React-icon.svg/100px-React-icon.svg.png"
-  //     );
-  //   }
   const scrollRef = useRef(null);
-
   const onCursorPosition = scrollY => {
     if (scrollRef.current) {
       scrollRef.current.scrollTo({y: scrollY - 30, animated: true});
     }
   };
+
   return (
     <KeyboardAvoidingView style={styles.container}>
       <ScrollView style={styles.container} ref={scrollRef}>
@@ -98,6 +72,10 @@ const Note = ({navigation, route}) => {
         <TextInput
           onChangeText={setTitle}
           placeholder="title"
+          value={initialTitle}></TextInput>
+          <TextInput
+          onChangeText={setLable}
+          placeholder="label"
           value={initialTitle}></TextInput>
         <RichEditor
           disabled={false}
