@@ -27,6 +27,7 @@ export default function SignUp({ navigation }) {
                 title: 'Meeting Notes',
                 content: 'Discussion points: project updates, deadlines, action items',
               })
+              await firestore().collection('user').doc(userCredentials.user.uid).collection('labels').doc('others').set({count:1})
             console.log('User account created & signed in!');
         } catch (error) {
             console.error('Error creating account:', error.code, error.message);

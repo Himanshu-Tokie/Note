@@ -21,7 +21,7 @@ const Note = ({navigation, route}) => {
   let uid=''
   let initialTitle=''
   let noteId=''
-  let label=''
+  // let lable=''
   if(route.params.id){
   uid = route.params.note.id;
   initialTitle = route.params.note.title;
@@ -49,7 +49,26 @@ else {
     }
   };
   const createNote=async()=>{
-    
+    try{
+      await firestore()
+      .collection('user')
+      .doc(uid)
+      .collection('notes')
+      .add({
+        label: (label?label:'other'),
+        title: initialTitle,
+        content: articleData.current,
+      })
+      await firestore()
+      .collection('user')
+      .doc(uid)
+      .collection('labels')
+      .doc((label?label:'other'))
+      .set({count:((count??0)+1)})
+    }
+    catch{
+
+    }
   }
   useEffect(() => {
     if(!isNew.current)
@@ -76,7 +95,7 @@ else {
           <TextInput
           onChangeText={setLable}
           placeholder="label"
-          value={initialTitle}></TextInput>
+          value={label}></TextInput>
         <RichEditor
           disabled={false}
           containerStyle={styles.editor}
