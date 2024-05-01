@@ -13,6 +13,7 @@ import CustomText from '../../components/Text/customText';
 import Box from '../../components/homeBox/homeBox';
 import { screenConstant } from '../../constants/Screen';
 import { styles } from './style';
+import LabelTemplate from '../../components/labelTemplate/labelTemplate';
 export default function Home({navigation, route}) {
   const signOut = async () => {
     await auth()
@@ -82,6 +83,9 @@ export default function Home({navigation, route}) {
               <Text style={styles.text}>Inside</Text>
             </ImageBackground> */}
             {/* <SVGImg width={100} height={100} /> */}
+          </View>
+          <View>
+            <LabelTemplate></LabelTemplate>
           </View>
           {label && (
             <View>
