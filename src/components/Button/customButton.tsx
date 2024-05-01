@@ -1,20 +1,14 @@
-import { View, Text, TouchableOpacity, StyleSheet } from "react-native";
+import { Text, TouchableOpacity, View } from "react-native";
+import { styles } from "./style";
 
-export default function CustomButton({text,onPress}){
+export default function CustomButton({text,onPress,disabled=false,style}){
     console.log(text);    
+    const customstyles = style??[]
     return(
-        <View style={style.container}>
-            <TouchableOpacity onPress={onPress}>
-            <Text>{text}</Text>
+        <View style={[styles.container,...customstyles]}>
+            <TouchableOpacity onPress={onPress} disabled={disabled}>
+            <Text style={styles.text}>{text}</Text>
             </TouchableOpacity>
         </View>
     )
 }
-
-const style=StyleSheet.create({
-    container:{
-        borderRadius:20,
-        backgroundColor:"blue",
-
-    }
-})

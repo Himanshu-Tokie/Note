@@ -2,7 +2,8 @@ import firestore from '@react-native-firebase/firestore';
 import { useEffect, useState } from "react";
 import { FlatList, StyleSheet, View } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
-import ListTemplate from "../../components/listTemplate/listTemplate";
+import { Text } from 'react-native-svg';
+import ListTemplate from '../../components/listTemplate/listTemplate';
 
 
 export default function Label({navigation,route}){
@@ -31,12 +32,17 @@ export default function Label({navigation,route}){
       }
     useEffect(()=>{
         getData();
-        
+        console.log('label fetched data',10);
+        // console.log(data);
+        // console.log(label);     
     },[])
 
     return(
         <>
         <SafeAreaView>
+          <View>
+          <Text>Hi</Text>
+          </View>
         <View>
         <FlatList
             renderItem={({ item, index }) => {

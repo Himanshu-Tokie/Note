@@ -1,3 +1,4 @@
+import { FieldValue } from '@firebase/firestore';
 import firestore from '@react-native-firebase/firestore';
 import React, { useEffect, useRef, useState } from 'react';
 import {
@@ -12,7 +13,7 @@ import { RichEditor, RichToolbar, actions } from 'react-native-pell-rich-editor'
 const Note = ({navigation, route}) => {
   const data = route.params.note.data;
   const RichText = useRef();
-  const [article, setArticle] = useState('');
+  // const [article, setArticle] = useState('');
   const articleData = useRef();
   const [title, setTitle] = useState('');
   const [value, setValue] = useState(data);
@@ -64,7 +65,7 @@ else {
       .doc(uid)
       .collection('labels')
       .doc((label?label:'other'))
-      .set({count:((count??0)+1)})
+      .set({count:FieldValue.increment(1)})
     }
     catch{
 
@@ -104,7 +105,7 @@ else {
           style={styles.rich}
           placeholder={'Start Writing Here'}
           onChange={text => {
-            setArticle(text);
+            // setArticle(text);
             articleData.current = text;
           }}
           onCursorPosition={onCursorPosition}

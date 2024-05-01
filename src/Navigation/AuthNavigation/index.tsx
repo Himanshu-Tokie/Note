@@ -16,7 +16,7 @@ export default function AuthNavigation(){
         <>
         <NavigationContainer>
             <Stack.Navigator initialRouteName={screenConstant.Enter}>
-                <Stack.Screen name={screenConstant.Enter} component={Enter} />
+                <Stack.Screen name={screenConstant.Enter} component={Enter} options={{headerShown:false}}/>
                 <Stack.Screen name={screenConstant.Login} component={LogIn} />
                 <Stack.Screen name={screenConstant.Home} component={Home} />
                 <Stack.Screen name={screenConstant.Note} component={Note} />
@@ -29,3 +29,5 @@ export default function AuthNavigation(){
         </>
     )
 }
+
+// useNavigation

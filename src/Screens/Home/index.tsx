@@ -20,7 +20,7 @@ export default function Home({navigation, route}) {
   const addNote = () => {
     navigation.navigate(screenConstant.Note, {uid: user.uid});
   };
-  const [label,setLabel] = useState([]);
+  const [label,setLabel] = useState();
 
   const getLabel = async () => {
     try {
@@ -34,15 +34,18 @@ export default function Home({navigation, route}) {
         labelData.push({ id:doc.id,count: doc.data().count })
       });
       setLabel(labelData);
-      // console.log(label, 70);
+      console.log(label, 70);
 
     } catch (error) {
       console.error('Error retrieving notes:', error);
     }
   };
+  
   useEffect(() => {
     getLabel();
-    console.log('label fetced');
+    console.log('mounted home');
+    
+    return console.log('unmount home');
   }, []);
   return (
     <>
