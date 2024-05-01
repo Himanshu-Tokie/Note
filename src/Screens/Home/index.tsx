@@ -1,8 +1,13 @@
 import auth from '@react-native-firebase/auth';
 import firestore from '@react-native-firebase/firestore';
 import { useEffect, useState } from 'react';
-import { Button, FlatList, SafeAreaView, View } from 'react-native';
-import SVGImg from '../../assets/svg/Diary.svg';
+import {
+  Button,
+  FlatList,
+  SafeAreaView,
+  StyleSheet,
+  View
+} from 'react-native';
 import CustomButton from '../../components/Button/customButton';
 import CustomText from '../../components/Text/customText';
 import Box from '../../components/homeBox/homeBox';
@@ -47,14 +52,19 @@ export default function Home({navigation, route}) {
 
     return console.log('unmount home');
   }, []);
+  const image = {uri: 'https://legacy.reactjs.org/logo-og.png'};
+
   return (
     <>
       <SafeAreaView style={styles.container}>
         <View style={styles.subcontainer}>
           <View style={styles.header}>
             <View>
-              <CustomText text={'Welcome'+', '+user.displayName+'!'} styles={[styles.welcome]}/>
-              <CustomText text='Note Taking App' styles={[styles.welcome]}/>
+              <CustomText
+                text={'Welcome' + ', ' + user.displayName + '!'}
+                styles={[styles.welcome]}
+              />
+              <CustomText text="Note Taking App" styles={[styles.welcome]} />
             </View>
             <View>
               {/* <Image
@@ -65,7 +75,13 @@ export default function Home({navigation, route}) {
             </View>
           </View>
           <View>
-          <SVGImg width={100} height={100} />
+            {/* <ImageBackground
+              source={image}
+              resizeMode="cover"
+              style={styles.image}>
+              <Text style={styles.text}>Inside</Text>
+            </ImageBackground> */}
+            {/* <SVGImg width={100} height={100} /> */}
           </View>
           {label && (
             <View>
@@ -88,3 +104,18 @@ export default function Home({navigation, route}) {
     </>
   );
 }
+
+const styl = StyleSheet.create({
+  image: {
+    flex: 1,
+    justifyContent: 'center',
+  },
+  text: {
+    color: 'white',
+    fontSize: 42,
+    lineHeight: 84,
+    fontWeight: 'bold',
+    textAlign: 'center',
+    backgroundColor: '#000000c0',
+  },
+});

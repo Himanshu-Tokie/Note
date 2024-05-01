@@ -24,7 +24,7 @@ export const styles = StyleSheet.create({
         fontWeight:'bold'
     },
     svg:{
-        borderWidth:2,
+        // borderWidth:2,
         width:220,
         height:220,
         marginVertical:60
