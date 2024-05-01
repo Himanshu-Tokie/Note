@@ -18,7 +18,7 @@ export default function AuthNavigation(){
             <Stack.Navigator initialRouteName={screenConstant.Enter}>
                 <Stack.Screen name={screenConstant.Enter} component={Enter} options={{headerShown:false}}/>
                 <Stack.Screen name={screenConstant.Login} component={LogIn} />
-                <Stack.Screen name={screenConstant.Home} component={Home} />
+                <Stack.Screen name={screenConstant.Home} component={Home} options={{headerShown:false}}/>
                 <Stack.Screen name={screenConstant.Note} component={Note} />
                 <Stack.Screen name={screenConstant.SignUp} component={SignUp} />
                 <Stack.Screen name={screenConstant.ForgotPassword} component={ForgotPassword} />
