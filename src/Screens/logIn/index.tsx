@@ -41,12 +41,14 @@ export default function LogIn({navigation}) {
 
   const logInUser = async (email, password) => {
     try {
+      console.log(email,password,18);
+      
       const userCredential = await auth().signInWithEmailAndPassword(
         email,
         password,
       );
       // const user_ = userCredential.user;
-      console.log(userCredential, 200);
+      // console.log(userCredential, 200);
     } catch (error) {
       if (error.code === 'auth/invalid-credential') {
         console.log('User does not exist. Please register.');
@@ -111,8 +113,8 @@ export default function LogIn({navigation}) {
                   </Text>
                   <CustomButton
                     text="Log In"
-                    onPress={logInUser}
-                    disabled={!isValid}
+                    onPress={handleSubmit}
+                    // disabled={!isValid}
                     style={[styles.button]}
                   />
                 </View>
