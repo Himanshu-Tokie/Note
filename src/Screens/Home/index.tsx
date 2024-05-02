@@ -2,18 +2,19 @@ import auth from '@react-native-firebase/auth';
 import firestore from '@react-native-firebase/firestore';
 import { useEffect, useState } from 'react';
 import {
-  Button,
   FlatList,
+  Image,
+  ImageBackground,
   SafeAreaView,
-  StyleSheet,
+  Text,
   View
 } from 'react-native';
-import CustomButton from '../../components/Button/customButton';
-import CustomText from '../../components/Text/customText';
-import Box from '../../components/homeBox/homeBox';
-import { screenConstant } from '../../constants/Screen';
-import { styles } from './style';
+import Plus from '../../components/Plus/Plus';
 import LabelTemplate from '../../components/labelTemplate/labelTemplate';
+import { screenConstant } from '../../constants';
+import { ICONS } from '../../constants/Icons';
+import { images } from '../../constants/Images';
+import { styles } from './style';
 export default function Home({navigation, route}) {
   const signOut = async () => {
     await auth()
@@ -61,65 +62,69 @@ export default function Home({navigation, route}) {
         <View style={styles.subcontainer}>
           <View style={styles.header}>
             <View>
-              <CustomText
-                text={'Welcome' + ', ' + user.displayName + '!'}
-                styles={[styles.welcome]}
-              />
-              <CustomText text="Note Taking App" styles={[styles.welcome]} />
+              <Text style={styles.welcome}>
+                {'Welcome' + ', ' + user.displayName + '!'}
+              </Text>
+              <Text style={styles.NoteTaking}>Note-Taking App</Text>
             </View>
-            <View>
-              {/* <Image
+            <View style={styles.innerHeader}>
+              <View style={styles.icon}>{ICONS.BELL(24, 24, 'white')}</View>
+              <Image
                 //   style={styles.image}
                 source={{
-                  uri: {photoURL},
-                }}></Image> */}
+                  uri: photoURL,
+                  height: 52,
+                  width: 52,
+                }}></Image>
             </View>
           </View>
-          <View>
-            {/* <ImageBackground
-              source={image}
-              resizeMode="cover"
+          <View style={styles.imageContainer}>
+            <ImageBackground
+              source={images.HOME}
+              // resizeMode="cover"
               style={styles.image}>
-              <Text style={styles.text}>Inside</Text>
-            </ImageBackground> */}
-            {/* <SVGImg width={100} height={100} /> */}
-          </View>
-          <View>
-            <LabelTemplate></LabelTemplate>
+              <View style={styles.imageInner}>
+                {ICONS.PIECHART(68, 68, 'none')}
+                <View style={{paddingLeft:28}}>
+                  <Text style={styles.text}>Available Space</Text>
+                  <Text style={styles.size}>20 .254 GB of 25 GB Used</Text>
+                </View>
+              </View>
+            </ImageBackground>
           </View>
           {label && (
-            <View>
+            <View style={styles.labels}>
               <FlatList
                 data={label}
-                numColumns={1}
+                numColumns={2}
+                // numColumns={2}
                 renderItem={({item}) => (
-                  <Box text={item} nav={navigation} note={user.uid}></Box>
+                  <LabelTemplate
+                    icon={ICONS.OTHERS}
+                    text={item.id}
+                    files={item.count}
+                    nav={navigation}
+                    note={user.uid}></LabelTemplate>
                 )}
               />
             </View>
           )}
-          <View>
-            {/* add note */}
-            <CustomButton text="Add Note" onPress={addNote} />
+          <View style={styles.footer}>
+            {/* <View style={styles.footerInner}> */}
+
+            {ICONS.DOC(24,24,'none')}
+            {ICONS.CHECKS(24,24,'none')}
+            {/* </View> */}
+            <Plus onPress={addNote}></Plus>
+            {/* <View style={styles.footerInner}> */}
+            {ICONS.INTEL(24,24,'none')}
+            {ICONS.SETTING(24,24,'none')}
+            {/* </View> */}
           </View>
         </View>
-        <Button title="SignOut" onPress={signOut} />
+        {/* <Button title="SignOut" onPress={signOut} /> */}
       </SafeAreaView>
     </>
   );
 }
 
-const styl = StyleSheet.create({
-  image: {
-    flex: 1,
-    justifyContent: 'center',
-  },
-  text: {
-    color: 'white',
-    fontSize: 42,
-    lineHeight: 84,
-    fontWeight: 'bold',
-    textAlign: 'center',
-    backgroundColor: '#000000c0',
-  },
-});

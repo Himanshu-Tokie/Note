@@ -8,7 +8,7 @@ import Enter from "../../Screens/enter";
 import ForgotPassword from "../../Screens/forgotPassword/forgotPass";
 import LogIn from "../../Screens/logIn";
 import SignUp from "../../Screens/signUp";
-import { screenConstant } from "../../constants/Screen/index";
+import { screenConstant } from "../../constants/index";
 
 export default function AuthNavigation(){
     const Stack = createNativeStackNavigator();

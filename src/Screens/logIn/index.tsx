@@ -5,7 +5,7 @@ import { SafeAreaView, Text, View } from 'react-native';
 import * as Yup from 'yup';
 import CustomButton from '../../components/Button/customButton';
 import FormikTemplate from '../../components/FormikTemplate/formikTemplate';
-import { screenConstant } from '../../constants/Screen';
+import { screenConstant } from '../../constants';
 import { styles } from './style';
 
 const SignupSchema = Yup.object().shape({

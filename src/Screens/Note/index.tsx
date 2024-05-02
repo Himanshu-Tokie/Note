@@ -11,7 +11,6 @@ import {
 import { RichEditor, RichToolbar, actions } from 'react-native-pell-rich-editor';
 
 const Note = ({navigation, route}) => {
-  const data = route.params.note.data;
   const RichText = useRef();
   // const [article, setArticle] = useState('');
   const articleData = useRef();
@@ -22,8 +21,10 @@ const Note = ({navigation, route}) => {
   let uid=''
   let initialTitle=''
   let noteId=''
+  let data=''
   // let lable=''
   if(route.params.id){
+  data = route.params.note.data;
   uid = route.params.note.id;
   initialTitle = route.params.note.title;
   noteId = route.params.note.noteId;

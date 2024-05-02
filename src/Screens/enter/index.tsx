@@ -1,10 +1,10 @@
 import React, { useState } from 'react';
 import { Text, View } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
-import SVGImg from '../../assets/svg/Diary.svg';
 import CustomButton from '../../components/Button/customButton';
 import CustomText from '../../components/Text/customText';
-import { screenConstant } from '../../constants/Screen/index';
+import { ICONS } from '../../constants/Icons';
+import { screenConstant } from '../../constants/index';
 import Google from './google';
 import { styles } from './style';
 export default function Enter({navigation}) {
@@ -27,7 +27,7 @@ export default function Enter({navigation}) {
           {/* <Svg width="220" height="220">
           <Path d={MySvg} fill="blue" />
         </Svg> */}
-        <SVGImg width={220} height={220} />
+        {ICONS.DAIRY(220,220)}
         </View>
         <CustomText
           text="Save and share notes"
