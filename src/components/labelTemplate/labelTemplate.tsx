@@ -13,8 +13,6 @@ export default function LabelTemplate({icon, text, files, nav, note}) {
   function navigationHandler() {
     nav.navigate(screenConstant.Label, {text, note});
   }
-  console.log(files,13);
-  console.log(text,14);
 
   return (
     <>

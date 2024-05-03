@@ -50,7 +50,7 @@ import { StyleSheet } from 'react-native';
         color={GoogleSigninButton.Color.Light}
         onPress={_signIn}
         disabled={true}
-        // style={styles.google}
+        style={styles.google}
         />
         </>
     );
@@ -58,9 +58,11 @@ import { StyleSheet } from 'react-native';
 const styles = StyleSheet.create({
   google:{
     borderRadius:30,
-    width:300,
+    width:310,
     alignContent:'center',
-    alignItems:'center'
+    alignItems:'center',
+    // textAlign:
+    // paddingTop:10
   }
 })
   

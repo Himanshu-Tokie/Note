@@ -1,5 +1,4 @@
-import { StyleSheet, useWindowDimensions } from "react-native";
-const widthWindow  = useWindowDimensions().width;
+import { StyleSheet } from "react-native";
 export const styles = StyleSheet.create({
     container:{
         flex: 1,
@@ -9,6 +8,9 @@ export const styles = StyleSheet.create({
         // maxWidth:RFPercentage(50),
         // width:"50%",
         // width:100
+    },
+    list:{
+        
     }
 })
 

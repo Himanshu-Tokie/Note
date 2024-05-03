@@ -29,7 +29,12 @@ export default function Home({navigation, route}) {
     navigation.navigate(screenConstant.Note, {uid: user.uid});
   };
   const [label, setLabel] = useState();
-
+  
+  useEffect(() => {
+    getLabel();
+    console.log('mounted home');
+    // return console.log('unmount home');
+  }, []);
   const getLabel = async () => {
     try {
       const snapShot = await firestore()
@@ -48,12 +53,6 @@ export default function Home({navigation, route}) {
     }
   };
 
-  useEffect(() => {
-    getLabel();
-    console.log('mounted home');
-
-    return console.log('unmount home');
-  }, []);
   const image = {uri: 'https://legacy.reactjs.org/logo-og.png'};
 
   return (
@@ -110,16 +109,16 @@ export default function Home({navigation, route}) {
             </View>
           )}
           <View style={styles.footer}>
-            {/* <View style={styles.footerInner}> */}
+            
 
             {ICONS.DOC(24,24,'none')}
             {ICONS.CHECKS(24,24,'none')}
-            {/* </View> */}
+            
             <Plus onPress={addNote}></Plus>
-            {/* <View style={styles.footerInner}> */}
+            
             {ICONS.INTEL(24,24,'none')}
             {ICONS.SETTING(24,24,'none')}
-            {/* </View> */}
+            
           </View>
         </View>
         {/* <Button title="SignOut" onPress={signOut} /> */}

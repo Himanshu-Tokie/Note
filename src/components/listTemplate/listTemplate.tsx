@@ -1,55 +1,48 @@
 import React from 'react';
 import { StyleSheet, Text, TouchableOpacity, View } from 'react-native';
+import { RFValue } from 'react-native-responsive-fontsize';
 import { screenConstant } from '../../constants';
 
-export default function ListTemplate({note, nav}) {
+export default function ListTemplate({ note, nav, maxHeight }) {
   return (
-    <>
-      <TouchableOpacity
-        onPress={() => nav.navigate(screenConstant.Note, {note})}>
-        <View style={styles.container}>
-          <Text>{note.title}</Text>
-          <Text>{note.data}</Text>
-        </View>
-      </TouchableOpacity>
-    </>
+    <TouchableOpacity
+      onPress={() => nav.navigate(screenConstant.Note, { note })}
+      style={[styles.touch, { maxHeight }]}>
+      <View style={styles.container}>
+        <Text style={styles.title}>{note.title}</Text>
+        <Text style={styles.data}>{note.data}</Text>
+      </View>
+    </TouchableOpacity>
   );
 }
 
 const styles = StyleSheet.create({
   container: {
-    display: 'flex',
-    // flexDirection:"row",
     backgroundColor: 'white',
     borderRadius: 15,
-    marginHorizontal: 20,
-
+    marginHorizontal: 8,
     marginBottom: 8,
-    padding: 8,
+    padding: 12,
     alignContent: 'center',
     justifyContent: 'center',
+    shadowColor: 'rgb(153,144,255)',
+    shadowOffset: { width: -2, height: 4 },
+    shadowOpacity: 0.2,
+    shadowRadius: 3,
   },
-  imageView: {
-    // width:
-    paddingLeft: 10,
-  },
-  image: {
-    height: 65,
-    width: 65,
-    borderRadius: 30,
-  },
-  name: {
+  title: {
     fontWeight: 'bold',
-    fontSize: 15,
-    marginBottom: 4,
+    fontFamily: 'Nunito',
+    fontSize: RFValue(12),
+    color: 'black',
+    paddingBottom: 4,
   },
-  text: {
-    paddingLeft: 15,
-    alignContent: 'center',
-    justifyContent: 'center',
+  data: {
+    fontFamily: 'Nunito',
+    fontSize: RFValue(10),
+    color: 'rgb(42,34,81)',
+  },
+  touch: {
     flex: 1,
-  },
-  phone: {
-    marginBottom: 0,
   },
 });
