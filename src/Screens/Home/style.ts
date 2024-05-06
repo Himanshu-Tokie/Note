@@ -8,12 +8,12 @@ export const styles = StyleSheet.create({
     paddingHorizontal: 16,
   },
   subcontainer: {
-    paddingTop: RFValue(34),
+    paddingTop: RFValue(20),
   },
   welcome: {
     color: 'rgb(182,176,217)',
     fontFamily: 'Nunito',
-    paddingBottom: 4,
+    paddingBottom: RFValue(2),
     fontWeight:'600'
   },
   NoteTaking: {
@@ -61,8 +61,8 @@ export const styles = StyleSheet.create({
     justifyContent: 'center',
     alignContent: 'center',
     paddingHorizontal: 16,
-    paddingTop: 40,
-    paddingBottom:35
+    paddingTop: RFValue(28),
+    paddingBottom:RFValue(26)
     // paddingTop:45,
     // paddingBottom:30
   },
@@ -85,7 +85,7 @@ export const styles = StyleSheet.create({
     backgroundColor:'white',
     marginHorizontal:18,
     borderRadius:15,
-    paddingVertical:15,
+    paddingVertical:RFValue(10),
     marginTop:15
   },
   // footerInner:{

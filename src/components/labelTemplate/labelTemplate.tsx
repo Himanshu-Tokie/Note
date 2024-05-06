@@ -46,7 +46,7 @@ const styles = StyleSheet.create({
   },
   container: {
     height: RFValue(145),
-    width: RFValue(150),
+    width: RFValue(141),
     flex:1,
     justifyContent: 'center',
     // alignContent:'center',
@@ -58,6 +58,6 @@ const styles = StyleSheet.create({
     fontWeight: 'bold',
   },
   inner: {
-paddingLeft:35
+paddingLeft:RFValue(24)
   },
 });

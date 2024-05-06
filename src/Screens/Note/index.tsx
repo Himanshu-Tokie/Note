@@ -10,33 +10,43 @@ import {
 } from 'react-native';
 import { RichEditor, RichToolbar, actions } from 'react-native-pell-rich-editor';
 
-const Note = ({navigation, route}) => {
+const Note = ({ navigation, route }) => {
+  let uid = ''
+  let initialTitle = ''
+  let noteId = ''
+  let data = ''
+  let lable = ''
+  const isNew = useRef(true)
+  console.log(route.params.note,1212);
+
+  if (route.params.note != undefined) {
+    
+    data = route.params.note.data;
+    uid = route.params.note.id;
+    initialTitle = route.params.note.title;
+    noteId = route.params.note.noteId;
+    lable = route.params.note.label;
+    isNew.current = false;
+  }
+
+  else {
+    console.log('hi welcome to note');
+    uid = route.params.uid
+  }
   const RichText = useRef();
   // const [article, setArticle] = useState('');
   const articleData = useRef();
   const [title, setTitle] = useState('');
   const [value, setValue] = useState(data);
-  const [label,setLable] = useState('')
-  const isNew = useRef(true)
-  let uid=''
-  let initialTitle=''
-  let noteId=''
-  let data=''
-  // let lable=''
-  if(route.params.id){
-  data = route.params.note.data;
-  uid = route.params.note.id;
-  initialTitle = route.params.note.title;
-  noteId = route.params.note.noteId;
-  isNew.current=false;
-}
-else {
-  uid = route.params.uid
-}
+  const [label, setLable] = useState('')
+  console.log(data, 1);
+  console.log(uid, 2);
+  console.log(initialTitle, 3);
+  console.log(noteId, 4);
 
   const updateData = async () => {
     try {
-      console.log(articleData.current);
+      console.log(articleData.current,'data tobe uppdated');
       await firestore()
         .collection('user')
         .doc(uid)
@@ -50,39 +60,40 @@ else {
       console.log('fail');
     }
   };
-  const createNote=async()=>{
-    try{
+  const createNote = async () => {
+    try {
       await firestore()
-      .collection('user')
-      .doc(uid)
-      .collection('notes')
-      .add({
-        label: (label?label:'other'),
-        title: initialTitle,
-        content: articleData.current,
-      })
-      await firestore()
-      .collection('user')
-      .doc(uid)
-      .collection('labels')
-      .doc((label?label:'other'))
-      .set({count:FieldValue.increment(1)})
+        .collection('user')
+        .doc(uid)
+        .collection('notes')
+        .add({
+          label: (label ? label : 'others'),
+          title: initialTitle,
+          content: articleData.current,
+        })
+        console.log('success');
+      // await firestore()
+      //   .collection('user')
+      //   .doc(uid)
+      //   .collection('labels')
+      //   .doc((label ? label : 'other'))
+      //   .set({ count: FieldValue.increment(1) })
     }
-    catch{
+    catch {
 
     }
   }
   useEffect(() => {
-    if(!isNew.current)
-    return updateData;
+    if (!isNew.current)
+      return updateData;
     else
-    return createNote;
+      return createNote;
   }, []);
 
   const scrollRef = useRef(null);
   const onCursorPosition = scrollY => {
     if (scrollRef.current) {
-      scrollRef.current.scrollTo({y: scrollY - 30, animated: true});
+      scrollRef.current.scrollTo({ y: scrollY - 30, animated: true });
     }
   };
 
@@ -93,11 +104,13 @@ else {
         <TextInput
           onChangeText={setTitle}
           placeholder="title"
-          value={initialTitle}></TextInput>
-          <TextInput
+          value={initialTitle}>
+        </TextInput>
+        <TextInput
           onChangeText={setLable}
           placeholder="label"
-          value={label}></TextInput>
+          value={lable}>
+        </TextInput>
         <RichEditor
           disabled={false}
           containerStyle={styles.editor}
