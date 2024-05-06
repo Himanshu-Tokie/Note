@@ -1,4 +1,3 @@
-import auth from '@react-native-firebase/auth';
 import firestore from '@react-native-firebase/firestore';
 import { useEffect, useState } from 'react';
 import {
@@ -17,12 +16,6 @@ import { ICONS } from '../../constants/Icons';
 import { images } from '../../constants/Images';
 import { styles } from './style';
 export default function Home({navigation, route}) {
-  const signOut = async () => {
-    await auth()
-      .signOut()
-      .then(() => console.log('User signed out!'));
-    navigation.popToTop();
-  };
   const user = route.params.user;
   const photoURL = user.photoURL;
   // console.log(user);
@@ -119,7 +112,7 @@ export default function Home({navigation, route}) {
             
             {ICONS.INTEL(24,24,'none')}
             {/* {ICONS.SETTING(24,24,'none')} */}
-            <Icon icon={ICONS.SETTING} width={24} height={24} color='none' action={signOut}/>
+            <Icon icon={ICONS.SETTING} width={24} height={24} color='none' action={()=>navigation.navigate(screenConstant.Setting)}/>
             
           </View>
         </View>

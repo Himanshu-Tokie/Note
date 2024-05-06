@@ -4,6 +4,7 @@ import Home from "../../Screens/Home";
 import Label from "../../Screens/Labels";
 import Note from "../../Screens/Note";
 import FormikTemp from "../../Screens/Practice/formikTemplate";
+import Setting from "../../Screens/Setting";
 import Enter from "../../Screens/enter";
 import ForgotPassword from "../../Screens/forgotPassword/forgotPass";
 import LogIn from "../../Screens/logIn";
@@ -24,6 +25,7 @@ export default function AuthNavigation(){
                 <Stack.Screen name={screenConstant.ForgotPassword} component={ForgotPassword} />
                 <Stack.Screen name={screenConstant.Formik} component={FormikTemp} />
                 <Stack.Screen name={screenConstant.Label} component={Label} />
+                <Stack.Screen name={screenConstant.Setting} component={Setting} />
             </Stack.Navigator>
         </NavigationContainer>
         </>

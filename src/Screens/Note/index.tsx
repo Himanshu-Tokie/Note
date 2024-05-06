@@ -3,11 +3,10 @@ import React, { useEffect, useRef, useState } from 'react';
 import {
   KeyboardAvoidingView,
   ScrollView,
-  StyleSheet,
-  Text,
-  TextInput,
+  TextInput
 } from 'react-native';
 import { RichEditor, RichToolbar, actions } from 'react-native-pell-rich-editor';
+import { styles } from './styles';
 
 const Note = ({ navigation, route }) => {
   let uid = ''
@@ -38,12 +37,14 @@ const Note = ({ navigation, route }) => {
   const [title, setTitle] = useState(initialTitle);
   const [value, setValue] = useState(data);
   const [label, setLable] = useState(lable)
+  const labelRef = useRef('others')
+  const titleRef = useRef('')
   console.log(value, 1);
   console.log(articleData,2);
   
   // console.log(uid, 2);
   console.log(title, 3);
-  console.log(label, 4);
+  console.log(labelRef, 4);
 
   const updateData = async () => {
     try {
@@ -54,6 +55,8 @@ const Note = ({ navigation, route }) => {
         .collection('notes')
         .doc(noteId)
         .update({
+          // label: labelRef.current, 
+          title: titleRef.current,
           content: articleData.current,
         });
       console.log('success');
@@ -63,17 +66,17 @@ const Note = ({ navigation, route }) => {
   };
   const createNote = async () => {
     try {
-      // await firestore()
-      //   .collection('user')
-      //   .doc(uid)
-      //   .collection('notes')
-      //   .add({
-      //     label: (label ? label : 'others'),
-      //     title: initialTitle,
-      //     content: articleData.current,
-      //   })
+      await firestore()
+        .collection('user')
+        .doc(uid)
+        .collection('notes')
+        .add({
+          label: labelRef.current,
+          title: titleRef.current,
+          content: articleData.current,
+        })
       const increment = firestore.FieldValue.increment(1);
-      if(label == 'others')
+      if(labelRef.current == 'others')
         await firestore()
         .collection('user')
         .doc(uid)
@@ -87,7 +90,7 @@ const Note = ({ navigation, route }) => {
         .collection('user')
         .doc(uid)
         .collection('labels')
-        .doc(label)
+        .doc(labelRef.current)
         .set({ count: 1 }).then(()=>
         console.log('success label')).catch(e=>console.log(e)
         )
@@ -112,19 +115,25 @@ const Note = ({ navigation, route }) => {
   };
 
   return (
-    <KeyboardAvoidingView style={styles.container}>
-      <ScrollView style={styles.container} ref={scrollRef}>
-        <Text style={styles.text}>Editor</Text>
+    <ScrollView style={styles.container} ref={scrollRef}>
+        <KeyboardAvoidingView style={styles.container}>
         <TextInput
-          onChangeText={setTitle}
+          onChangeText={(text)=>{
+            titleRef.current =text
+            setTitle(text)
+          }}
           placeholder="title"
-          value={title}>
+          value={title}
+          style={styles.title}>
         </TextInput>
-        <TextInput
-          onChangeText={setLable}
+        {/* <TextInput
+          onChangeText={(text)=>{
+            labelRef.current =text
+            setLable(text)
+          }}
           placeholder="label"
           value={label}>
-        </TextInput>
+        </TextInput> */}
         <RichEditor
           disabled={false}
           containerStyle={styles.editor}
@@ -160,48 +169,10 @@ const Note = ({ navigation, route }) => {
             actions.heading1,
           ]}
         />
-      </ScrollView>
     </KeyboardAvoidingView>
+      </ScrollView>
   );
 };
 
 export default Note;
 
-const styles = StyleSheet.create({
-  a: {
-    fontWeight: 'bold',
-    color: 'purple',
-  },
-  div: {
-    fontFamily: 'monospace',
-  },
-  p: {
-    fontSize: 30,
-  },
-  container: {
-    flex: 1,
-    // marginTop: 40,
-    backgroundColor: '#F5FCFF',
-  },
-  editor: {
-    backgroundColor: 'black',
-    borderColor: 'black',
-    borderWidth: 1,
-  },
-  rich: {
-    minHeight: 300,
-    flex: 1,
-  },
-  richBar: {
-    height: 50,
-    backgroundColor: '#F5FCFF',
-  },
-  text: {
-    fontWeight: 'bold',
-    fontSize: 20,
-  },
-  tib: {
-    textAlign: 'center',
-    color: '#515156',
-  },
-});

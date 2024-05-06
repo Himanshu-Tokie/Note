@@ -6,5 +6,6 @@ export const screenConstant={
     SignUp:'signup',
     ForgotPassword:'forgotPassword',
     Formik:'formik',
-    Label:'label'
+    Label:'label',
+    Setting:'setting'
 }
