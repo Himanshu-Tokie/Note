@@ -10,7 +10,7 @@ export default function Label({navigation, route}) {
   const uid = route.params.note;
   const label = route.params.text;
   const [notesData, setNotesData] = useState([]);
-  console.log("TESTTTTT");
+  console.log("label Page");
 
   const getData = async() => {
       const data=await firestore()
@@ -19,7 +19,7 @@ export default function Label({navigation, route}) {
       .collection('notes')
       .where('label', '==', label)
       .get()
-        console.log(data,'testttt');
+        // console.log(data.doc(),'testttt');
 
         const newData = []; // Temporary array to accumulate data
 
