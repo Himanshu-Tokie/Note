@@ -1,4 +1,3 @@
-import { FieldValue } from '@firebase/firestore';
 import firestore from '@react-native-firebase/firestore';
 import React, { useEffect, useRef, useState } from 'react';
 import {
@@ -15,7 +14,7 @@ const Note = ({ navigation, route }) => {
   let initialTitle = ''
   let noteId = ''
   let data = ''
-  let lable = ''
+  let lable = 'others'
   const isNew = useRef(true)
   console.log(route.params.note,1212);
 
@@ -30,19 +29,21 @@ const Note = ({ navigation, route }) => {
   }
 
   else {
-    console.log('hi welcome to note');
+    // console.log('hi welcome to note');
     uid = route.params.uid
   }
   const RichText = useRef();
   // const [article, setArticle] = useState('');
   const articleData = useRef();
-  const [title, setTitle] = useState('');
+  const [title, setTitle] = useState(initialTitle);
   const [value, setValue] = useState(data);
-  const [label, setLable] = useState('')
-  console.log(data, 1);
-  console.log(uid, 2);
-  console.log(initialTitle, 3);
-  console.log(noteId, 4);
+  const [label, setLable] = useState(lable)
+  console.log(value, 1);
+  console.log(articleData,2);
+  
+  // console.log(uid, 2);
+  console.log(title, 3);
+  console.log(label, 4);
 
   const updateData = async () => {
     try {
@@ -62,22 +63,35 @@ const Note = ({ navigation, route }) => {
   };
   const createNote = async () => {
     try {
-      await firestore()
-        .collection('user')
-        .doc(uid)
-        .collection('notes')
-        .add({
-          label: (label ? label : 'others'),
-          title: initialTitle,
-          content: articleData.current,
-        })
-        console.log('success');
       // await firestore()
       //   .collection('user')
       //   .doc(uid)
-      //   .collection('labels')
-      //   .doc((label ? label : 'other'))
-      //   .set({ count: FieldValue.increment(1) })
+      //   .collection('notes')
+      //   .add({
+      //     label: (label ? label : 'others'),
+      //     title: initialTitle,
+      //     content: articleData.current,
+      //   })
+      const increment = firestore.FieldValue.increment(1);
+      if(label == 'others')
+        await firestore()
+        .collection('user')
+        .doc(uid)
+        .collection('labels')
+        .doc('others')
+        .update({ count: increment }).then(()=>
+        console.log('success')).catch(e=>console.log(e)
+        )
+        else{
+          await firestore()
+        .collection('user')
+        .doc(uid)
+        .collection('labels')
+        .doc(label)
+        .set({ count: 1 }).then(()=>
+        console.log('success label')).catch(e=>console.log(e)
+        )
+        }
     }
     catch {
 
@@ -104,12 +118,12 @@ const Note = ({ navigation, route }) => {
         <TextInput
           onChangeText={setTitle}
           placeholder="title"
-          value={initialTitle}>
+          value={title}>
         </TextInput>
         <TextInput
           onChangeText={setLable}
           placeholder="label"
-          value={lable}>
+          value={label}>
         </TextInput>
         <RichEditor
           disabled={false}

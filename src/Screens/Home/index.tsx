@@ -9,6 +9,7 @@ import {
   Text,
   View
 } from 'react-native';
+import Icon from '../../components/Icon';
 import Plus from '../../components/Plus/Plus';
 import LabelTemplate from '../../components/labelTemplate/labelTemplate';
 import { screenConstant } from '../../constants';
@@ -117,7 +118,8 @@ export default function Home({navigation, route}) {
             <Plus onPress={addNote}></Plus>
             
             {ICONS.INTEL(24,24,'none')}
-            {ICONS.SETTING(24,24,'none')}
+            {/* {ICONS.SETTING(24,24,'none')} */}
+            <Icon icon={ICONS.SETTING} width={24} height={24} color='none' action={signOut}/>
             
           </View>
         </View>
