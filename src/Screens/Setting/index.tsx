@@ -7,7 +7,7 @@ export default function Setting({navigation}) {
   console.log(JSON.stringify(user.uid));
 
   let signOut;
-  if (user?.providerData[0].providerId === 'google.com') {
+  if (user?.providerData[0].providerId !== 'google.com') {
     signOut = async () => {
       await auth()
         .signOut()
@@ -18,6 +18,7 @@ export default function Setting({navigation}) {
     signOut = async () => {
       try {
         await GoogleSignin.signOut();
+        navigation.popToTop();
         //   setState({ user: null }); // Remember to remove the user from your app's state as well
       } catch (error) {
         console.error(error);

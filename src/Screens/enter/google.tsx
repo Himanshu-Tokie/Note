@@ -65,7 +65,7 @@ export default function Google() {
         .doc(user.uid)
         .collection('notes')
         .add({
-          label: 'others',
+          label: 'Others',
           title: 'Meeting Notes',
           content:
             'Discussion points: project updates, deadlines, action items',
@@ -74,7 +74,7 @@ export default function Google() {
         .collection('user')
         .doc(user.uid)
         .collection('labels')
-        .doc('others')
+        .doc('Others')
         .set({count: 1});
       navigation.navigate(screenConstant.Home);
       console.log('User account created & signed in!');

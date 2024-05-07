@@ -11,7 +11,7 @@ const Note = ({navigation, route}) => {
   let initialTitle = '';
   let noteId = '';
   let data = '';
-  let lable = 'others';
+  let lable = 'Others';
   const isNew = useRef(true);
   console.log(route.params, 1212);
   console.log(user);
@@ -30,7 +30,7 @@ const Note = ({navigation, route}) => {
   const [title, setTitle] = useState(initialTitle);
   const [value, setValue] = useState(data);
   const [label, setLable] = useState(lable);
-  const labelRef = useRef('others');
+  const labelRef = useRef('Others');
   const titleRef = useRef('');
   console.log(value, 1);
   console.log(articleData, 2);
@@ -65,12 +65,12 @@ const Note = ({navigation, route}) => {
         content: articleData.current,
       });
       const increment = firestore.FieldValue.increment(1);
-      if (labelRef.current == 'others')
+      if (labelRef.current == 'Others')
         await firestore()
           .collection('user')
           .doc(uid)
           .collection('labels')
-          .doc('others')
+          .doc('Others')
           .update({count: increment})
           .then(() => console.log('success'))
           .catch(e => console.log(e));

@@ -7,6 +7,7 @@ import CustomButton from '../../components/Button/customButton';
 import FormikTemplate from '../../components/FormikTemplate/formikTemplate';
 import { screenConstant } from '../../constants';
 import { styles } from './style';
+import { WriteBatch } from '@firebase/firestore';
 
 const SignupSchema = Yup.object().shape({
   firstName: Yup.string().required('Please enter your first name'),
@@ -27,7 +28,7 @@ const SignupSchema = Yup.object().shape({
 });
 
 // utils
-export default function SignUp({navigation}) {
+export default function SignUp({ navigation }) {
   const signUpUser = async values => {
     try {
       let userCredentials = await auth().createUserWithEmailAndPassword(
@@ -38,24 +39,59 @@ export default function SignUp({navigation}) {
         displayName: values.firstName + ' ' + values.lastName,
       });
       // console.log(userCredentials,1)
-      await firestore()
-        .collection('user')
-        .doc(userCredentials.user.uid)
-        .collection('notes')
-        .add({
-          label: 'others',
+      const notes = [
+        {
+          label: 'Personal',
           title: 'Meeting Notes',
-          content:
-            'Discussion points: project updates, deadlines, action items',
-        });
-      await firestore()
-        .collection('user')
-        .doc(userCredentials.user.uid)
-        .collection('labels')
-        .doc('others')
-        .set({count: 1});
-      navigation.navigate(screenConstant.Login);
+          content: 'Discussion points: project updates, deadlines, action items',
+        },
+        {
+          label: 'Academic',
+          title: 'Meeting Notes',
+          content: 'Discussion points: project updates, deadlines, action items',
+        },
+        {
+          label: 'Work',
+          title: 'Meeting Notes',
+          content: 'Discussion points: project updates, deadlines, action items',
+        }
+        ,
+        {
+          label: 'Others',
+          title: 'Meeting Notes',
+          content: 'Discussion points: project updates, deadlines, action items',
+        }
+      ]
+      const label = [
+        'Personal',
+        'Academic',
+        'Work',
+        'Others'
+      ]
+
+      const batch =  firestore().batch();
+      const collectionRef =  firestore().collection('user');
+
+     notes.forEach((doc) => {
+        const newDocRef = firestore().collection('user').doc(userCredentials.user.uid).collection('notes').doc(); // Automatically generates a new document ID
+        batch.set(newDocRef, doc);
+      });
+
+      label.forEach((doc) => {
+        const newDocRef = collectionRef.doc(userCredentials.user.uid).collection('labels').doc(doc); // Automatically generates a new document ID
+        batch.set(newDocRef, { count: 1 });
+      });
+      await batch.commit();
+
+
+      // await firestore()
+      //   .collection('user')
+      //   .doc(userCredentials.user.uid)
+      //   .collection('labels')
+      //   .doc('Others')
+      //   .set({ count: 1 });
       console.log('User account created & signed in!');
+      navigation.navigate(screenConstant.Login);
     } catch (error) {
       console.error('Error creating account:', error.code, error.message);
     }
