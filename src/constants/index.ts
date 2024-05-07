@@ -7,5 +7,8 @@ export const screenConstant={
     ForgotPassword:'forgotPassword',
     Formik:'formik',
     Label:'label',
-    Setting:'setting'
+    Setting:'setting',
+    NewNote:'note',
+    Extra1:'extra1',
+    Extra2:'extra2',
 }

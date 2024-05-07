@@ -24,6 +24,11 @@ export const styles = StyleSheet.create({
     rich: {
       minHeight: 300,
       flex: 1,
+      borderRadius:0,
+      color:'red'
+    },
+    richeditor:{
+
     },
     richBar: {
       height: 50,
@@ -42,6 +47,9 @@ export const styles = StyleSheet.create({
       fontSize:20,
       paddingVertical:20,
       // paddingLeft:
+    },
+    subContainer:{
+      marginHorizontal:16
     }
   });
   

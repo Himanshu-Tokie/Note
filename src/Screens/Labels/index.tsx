@@ -56,7 +56,7 @@ useEffect(() => {
             >
             </FlatList>
         </View>
-        <View>
+        <View style={styles.addNotes}>
           <CustomButton  text='+  Add New Notes'/>
         </View>
       </SafeAreaView>

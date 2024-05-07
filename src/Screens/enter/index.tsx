@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { Text, View } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import CustomButton from '../../components/Button/customButton';
@@ -8,7 +8,7 @@ import { screenConstant } from '../../constants/index';
 import Google from './google';
 import { styles } from './style';
 export default function Enter({navigation}) {
-    const [user,setUser] = useState()
+    // const [user,setUser] = useState()
   const onPress = () => {
     navigation.navigate(screenConstant.SignUp);
   };
@@ -35,7 +35,7 @@ export default function Enter({navigation}) {
         />
 
         <CustomButton text="Create Account" onPress={onPress} />
-        <Google setState={setUser}></Google>
+        <Google></Google>
         <View style={styles.footer}>
           <CustomText text="Have an account?" styles={[styles.simpleText]} />
           <Text onPress={logIn} style={[styles.simpleText,styles.colorText]}>

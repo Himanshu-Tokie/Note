@@ -11,6 +11,11 @@ export const styles = StyleSheet.create({
     },
     list:{
         
+    },
+    addNotes:{
+        position:'absolute',
+        bottom:40,
+        left:'25%'
     }
 })
 

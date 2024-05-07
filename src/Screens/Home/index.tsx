@@ -1,3 +1,4 @@
+import { default as auth } from '@react-native-firebase/auth';
 import firestore from '@react-native-firebase/firestore';
 import { useEffect, useState } from 'react';
 import {
@@ -8,15 +9,15 @@ import {
   Text,
   View
 } from 'react-native';
-import Icon from '../../components/Icon';
-import Plus from '../../components/Plus/Plus';
+import { RFValue } from 'react-native-responsive-fontsize';
 import LabelTemplate from '../../components/labelTemplate/labelTemplate';
 import { screenConstant } from '../../constants';
 import { ICONS } from '../../constants/Icons';
 import { images } from '../../constants/Images';
 import { styles } from './style';
+
 export default function Home({navigation, route}) {
-  const user = route.params.user;
+  const user = auth().currentUser;
   const photoURL = user.photoURL;
   // console.log(user);
   const addNote = () => {
@@ -26,7 +27,7 @@ export default function Home({navigation, route}) {
   
   useEffect(() => {
     getLabel();
-    console.log('mounted home');
+    // console.log('mounted home');
     // return console.log('unmount home');
   }, []);
   const getLabel = async () => {
@@ -66,8 +67,8 @@ export default function Home({navigation, route}) {
                 //   style={styles.image}
                 source={{
                   uri: photoURL,
-                  height: 52,
-                  width: 52,
+                  height: RFValue(45),
+                  width: RFValue(45),
                 }}></Image>
             </View>
           </View>
@@ -102,7 +103,7 @@ export default function Home({navigation, route}) {
               />
             </View>
           )}
-          <View style={styles.footer}>
+          {/* <View style={styles.footer}>
             
 
             {ICONS.DOC(24,24,'none')}
@@ -111,10 +112,9 @@ export default function Home({navigation, route}) {
             <Plus onPress={addNote}></Plus>
             
             {ICONS.INTEL(24,24,'none')}
-            {/* {ICONS.SETTING(24,24,'none')} */}
             <Icon icon={ICONS.SETTING} width={24} height={24} color='none' action={()=>navigation.navigate(screenConstant.Setting)}/>
             
-          </View>
+          </View> */}
         </View>
         {/* <Button title="SignOut" onPress={signOut} /> */}
       </SafeAreaView>

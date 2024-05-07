@@ -1,61 +1,54 @@
+import { default as auth } from '@react-native-firebase/auth';
 import firestore from '@react-native-firebase/firestore';
 import React, { useEffect, useRef, useState } from 'react';
-import {
-  KeyboardAvoidingView,
-  ScrollView,
-  TextInput
-} from 'react-native';
-import { RichEditor, RichToolbar, actions } from 'react-native-pell-rich-editor';
+import { KeyboardAvoidingView, ScrollView, TextInput } from 'react-native';
+import { RichEditor } from 'react-native-pell-rich-editor';
 import { styles } from './styles';
 
-const Note = ({ navigation, route }) => {
-  let uid = ''
-  let initialTitle = ''
-  let noteId = ''
-  let data = ''
-  let lable = 'others'
-  const isNew = useRef(true)
-  console.log(route.params.note,1212);
-
-  if (route.params.note != undefined) {
-    
-    data = route.params.note.data;
-    uid = route.params.note.id;
-    initialTitle = route.params.note.title;
-    noteId = route.params.note.noteId;
-    lable = route.params.note.label;
-    isNew.current = false;
-  }
-
-  else {
-    // console.log('hi welcome to note');
-    uid = route.params.uid
-  }
+const Note = ({navigation, route}) => {
+  const user = auth().currentUser;
+  let uid = user?.uid;
+  let initialTitle = '';
+  let noteId = '';
+  let data = '';
+  let lable = 'others';
+  const isNew = useRef(true);
+  console.log(route.params, 1212);
+  console.log(user);
+  if (route.params != undefined)
+    if (route.params?.note != undefined) {
+      data = route.params.note.data;
+      uid = route.params.note.id;
+      initialTitle = route.params.note.title;
+      noteId = route.params.note.noteId;
+      lable = route.params.note.label;
+      isNew.current = false;
+    }
   const RichText = useRef();
   // const [article, setArticle] = useState('');
   const articleData = useRef();
   const [title, setTitle] = useState(initialTitle);
   const [value, setValue] = useState(data);
-  const [label, setLable] = useState(lable)
-  const labelRef = useRef('others')
-  const titleRef = useRef('')
+  const [label, setLable] = useState(lable);
+  const labelRef = useRef('others');
+  const titleRef = useRef('');
   console.log(value, 1);
-  console.log(articleData,2);
-  
+  console.log(articleData, 2);
+
   // console.log(uid, 2);
   console.log(title, 3);
   console.log(labelRef, 4);
 
   const updateData = async () => {
     try {
-      console.log(articleData.current,'data tobe uppdated');
+      console.log(articleData.current, 'data tobe uppdated');
       await firestore()
         .collection('user')
         .doc(uid)
         .collection('notes')
         .doc(noteId)
         .update({
-          // label: labelRef.current, 
+          // label: labelRef.current,
           title: titleRef.current,
           content: articleData.current,
         });
@@ -66,66 +59,56 @@ const Note = ({ navigation, route }) => {
   };
   const createNote = async () => {
     try {
-      await firestore()
-        .collection('user')
-        .doc(uid)
-        .collection('notes')
-        .add({
-          label: labelRef.current,
-          title: titleRef.current,
-          content: articleData.current,
-        })
+      await firestore().collection('user').doc(uid).collection('notes').add({
+        label: labelRef.current,
+        title: titleRef.current,
+        content: articleData.current,
+      });
       const increment = firestore.FieldValue.increment(1);
-      if(labelRef.current == 'others')
+      if (labelRef.current == 'others')
         await firestore()
-        .collection('user')
-        .doc(uid)
-        .collection('labels')
-        .doc('others')
-        .update({ count: increment }).then(()=>
-        console.log('success')).catch(e=>console.log(e)
-        )
-        else{
-          await firestore()
-        .collection('user')
-        .doc(uid)
-        .collection('labels')
-        .doc(labelRef.current)
-        .set({ count: 1 }).then(()=>
-        console.log('success label')).catch(e=>console.log(e)
-        )
-        }
-    }
-    catch {
-
-    }
-  }
+          .collection('user')
+          .doc(uid)
+          .collection('labels')
+          .doc('others')
+          .update({count: increment})
+          .then(() => console.log('success'))
+          .catch(e => console.log(e));
+      else {
+        await firestore()
+          .collection('user')
+          .doc(uid)
+          .collection('labels')
+          .doc(labelRef.current)
+          .set({count: 1})
+          .then(() => console.log('success label'))
+          .catch(e => console.log(e));
+      }
+    } catch {}
+  };
   useEffect(() => {
-    if (!isNew.current)
-      return updateData;
-    else
-      return createNote;
+    if (!isNew.current) return updateData;
+    else return createNote;
   }, []);
 
   const scrollRef = useRef(null);
   const onCursorPosition = scrollY => {
     if (scrollRef.current) {
-      scrollRef.current.scrollTo({ y: scrollY - 30, animated: true });
+      scrollRef.current.scrollTo({y: scrollY - 30, animated: true});
     }
   };
 
   return (
     <ScrollView style={styles.container} ref={scrollRef}>
-        <KeyboardAvoidingView style={styles.container}>
+      <KeyboardAvoidingView style={styles.subContainer}>
         <TextInput
-          onChangeText={(text)=>{
-            titleRef.current =text
-            setTitle(text)
+          onChangeText={text => {
+            titleRef.current = text;
+            setTitle(text);
           }}
           placeholder="title"
           value={title}
-          style={styles.title}>
-        </TextInput>
+          style={styles.title}></TextInput>
         {/* <TextInput
           onChangeText={(text)=>{
             labelRef.current =text
@@ -140,6 +123,7 @@ const Note = ({ navigation, route }) => {
           ref={RichText}
           initialContentHTML={value}
           style={styles.rich}
+          editorStyle={styles.richeditor}
           placeholder={'Start Writing Here'}
           onChange={text => {
             // setArticle(text);
@@ -147,7 +131,7 @@ const Note = ({ navigation, route }) => {
           }}
           onCursorPosition={onCursorPosition}
         />
-        <RichToolbar
+        {/* <RichToolbar
           style={[styles.richBar]}
           editor={RichText}
           disabled={false}
@@ -168,11 +152,10 @@ const Note = ({ navigation, route }) => {
             actions.setUnderline,
             actions.heading1,
           ]}
-        />
-    </KeyboardAvoidingView>
-      </ScrollView>
+        /> */}
+      </KeyboardAvoidingView>
+    </ScrollView>
   );
 };
 
 export default Note;
-

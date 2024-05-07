@@ -26,6 +26,7 @@ const SignupSchema = Yup.object().shape({
   number: Yup.number().min(10, 'Invalid number').required('Enter Number'),
 });
 
+// utils
 export default function SignUp({navigation}) {
   const signUpUser = async values => {
     try {

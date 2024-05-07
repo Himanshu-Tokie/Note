@@ -8,7 +8,8 @@ export const styles = StyleSheet.create({
     paddingHorizontal: 16,
   },
   subcontainer: {
-    paddingTop: RFValue(20),
+    paddingTop: RFValue(25),
+    // flex:1
   },
   welcome: {
     color: 'rgb(182,176,217)',
@@ -33,6 +34,7 @@ export const styles = StyleSheet.create({
   },
   icon: {
     justifyContent: 'center',
+    paddingRight:5
   },
   labels: {
     // padding:0
@@ -86,7 +88,11 @@ export const styles = StyleSheet.create({
     marginHorizontal:18,
     borderRadius:15,
     paddingVertical:RFValue(10),
-    marginTop:15
+    marginTop:15,
+    position:'absolute',
+    bottom:0,
+    right:0,
+    left:0
   },
   // footerInner:{
   //   flexDirection:'row',
