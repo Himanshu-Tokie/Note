@@ -17,18 +17,21 @@ export const styles = StyleSheet.create({
       backgroundColor: 'rgb(249, 248, 253)',
     },
     editor: {
-      backgroundColor: 'black',
+      backgroundColor: 'rgb(249, 248, 253)',
       borderColor: 'black',
-      borderWidth: 1,
+      borderWidth: 0,
     },
     rich: {
       minHeight: 300,
       flex: 1,
       borderRadius:0,
-      color:'red'
+      borderWidth:0,
+      backgroundColor:'red'
     },
+    // text under rich 
     richeditor:{
-
+      color:'black',
+      fontFamily:'Nunito'
     },
     richBar: {
       height: 50,

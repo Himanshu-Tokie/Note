@@ -1,13 +1,12 @@
 import { default as auth } from '@react-native-firebase/auth';
 import firestore from '@react-native-firebase/firestore';
 import { Formik } from 'formik';
-import { SafeAreaView, Text, View } from 'react-native';
+import { KeyboardAvoidingView, Platform, SafeAreaView, ScrollView, Text, View } from 'react-native';
 import * as Yup from 'yup';
 import CustomButton from '../../components/Button/customButton';
 import FormikTemplate from '../../components/FormikTemplate/formikTemplate';
 import { screenConstant } from '../../constants';
 import { styles } from './style';
-import { WriteBatch } from '@firebase/firestore';
 
 const SignupSchema = Yup.object().shape({
   firstName: Yup.string().required('Please enter your first name'),
@@ -100,6 +99,11 @@ export default function SignUp({ navigation }) {
   return (
     <>
       <SafeAreaView style={styles.container}>
+        <KeyboardAvoidingView
+        behavior={Platform.OS === 'ios' ? 'padding' : 'height'}
+        >
+          <ScrollView>
+
         <View style={styles.subContainer}>
           <Formik
             initialValues={{
@@ -129,7 +133,7 @@ export default function SignUp({ navigation }) {
                   onChangeText={handleChange('firstName')}
                   onBlur={() => setFieldTouched('firstName')}
                   error={errors.firstName}
-                />
+                  />
                 <FormikTemplate
                   placeholder="Last Name"
                   values={values.lastName}
@@ -137,7 +141,7 @@ export default function SignUp({ navigation }) {
                   onChangeText={handleChange('lastName')}
                   onBlur={() => setFieldTouched('lastName')}
                   error={errors.lastName}
-                />
+                  />
                 <FormikTemplate
                   placeholder="Email"
                   values={values.email}
@@ -145,7 +149,7 @@ export default function SignUp({ navigation }) {
                   onChangeText={handleChange('email')}
                   onBlur={() => setFieldTouched('email')}
                   error={errors.email}
-                />
+                  />
                 <FormikTemplate
                   placeholder="Password"
                   values={values.password}
@@ -153,7 +157,7 @@ export default function SignUp({ navigation }) {
                   onChangeText={handleChange('password')}
                   onBlur={() => setFieldTouched('password')}
                   error={errors.password}
-                />
+                  />
                 <FormikTemplate
                   placeholder="Confirm Password"
                   values={values.confirmPassword}
@@ -161,7 +165,7 @@ export default function SignUp({ navigation }) {
                   onChangeText={handleChange('confirmPassword')}
                   onBlur={() => setFieldTouched('confirmPassword')}
                   error={errors.confirmPassword}
-                />
+                  />
                 <FormikTemplate
                   placeholder="Phone Number"
                   values={values.number}
@@ -169,7 +173,7 @@ export default function SignUp({ navigation }) {
                   onChangeText={handleChange('number')}
                   onBlur={() => setFieldTouched('number')}
                   error={errors.number}
-                />
+                  />
                 <Text>
                   By continuing, you agree to our Terms of Service and Privacy
                   Policy.
@@ -179,11 +183,13 @@ export default function SignUp({ navigation }) {
                   onPress={handleSubmit}
                   disabled={!isValid}
                   style={[styles.button]}
-                />
+                  />
               </View>
             )}
           </Formik>
         </View>
+            </ScrollView>
+            </KeyboardAvoidingView>
       </SafeAreaView>
     </>
   );
