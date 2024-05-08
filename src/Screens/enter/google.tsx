@@ -59,25 +59,53 @@ export default function Google() {
   };
   const signUpUser = async (user) => {
     try {
-      // console.log(userCredentials,1)
-      await firestore()
-        .collection('user')
-        .doc(user.uid)
-        .collection('notes')
-        .add({
+      // console.log(1)
+      const notes = [
+        {
+          label: 'Personal',
+          title: 'Meeting Notes',
+          content: 'Discussion points: project updates, deadlines, action items',
+        },
+        {
+          label: 'Academic',
+          title: 'Meeting Notes',
+          content: 'Discussion points: project updates, deadlines, action items',
+        },
+        {
+          label: 'Work',
+          title: 'Meeting Notes',
+          content: 'Discussion points: project updates, deadlines, action items',
+        }
+        ,
+        {
           label: 'Others',
           title: 'Meeting Notes',
-          content:
-            'Discussion points: project updates, deadlines, action items',
-        });
-      await firestore()
-        .collection('user')
-        .doc(user.uid)
-        .collection('labels')
-        .doc('Others')
-        .set({count: 1});
+          content: 'Discussion points: project updates, deadlines, action items',
+        }
+      ]
+      const label = [
+        'Personal',
+        'Academic',
+        'Work',
+        'Others'
+      ]
+
+      const batch =  firestore().batch();
+      const collectionRef =  firestore().collection('user');
+
+     notes.forEach((doc) => {
+        const newDocRef = firestore().collection('user').doc(user.uid).collection('notes').doc(); // Automatically generates a new document ID
+        batch.set(newDocRef, doc);
+      });
+
+      label.forEach((doc) => {
+        const newDocRef = collectionRef.doc(user.uid).collection('labels').doc(doc); // Automatically generates a new document ID
+        batch.set(newDocRef, { count: 1 });
+      });
+      await batch.commit();
+
       navigation.navigate(screenConstant.Home);
-      console.log('User account created & signed in!');
+      console.log('User account created & signed in! Google');
     } catch (error) {
       console.error('Error creating account:', error.code, error.message);
     }

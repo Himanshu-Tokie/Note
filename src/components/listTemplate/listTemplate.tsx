@@ -1,16 +1,22 @@
 import React from 'react';
-import { StyleSheet, Text, TouchableOpacity, View } from 'react-native';
+import { StyleSheet, Text, TouchableOpacity, View, useWindowDimensions } from 'react-native';
+import RenderHTML from 'react-native-render-html';
 import { RFValue } from 'react-native-responsive-fontsize';
 import { screenConstant } from '../../constants';
 
 export default function ListTemplate({ note, nav, maxHeight }) {
+  const source = {
+    html: note.data
+    };
+    const {width: contentWidth} = useWindowDimensions();
   return (
     <TouchableOpacity
       onPress={() => nav.navigate(screenConstant.Note, { note })}
       style={[styles.touch, { maxHeight }]}>
       <View style={styles.container}>
         <Text style={styles.title}>{note.title}</Text>
-        <Text style={styles.data}>{note.data}</Text>
+        <RenderHTML source={source}
+        contentWidth={contentWidth}/>
       </View>
     </TouchableOpacity>
   );
