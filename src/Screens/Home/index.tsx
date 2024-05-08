@@ -10,6 +10,7 @@ import {
   View
 } from 'react-native';
 import { RFValue } from 'react-native-responsive-fontsize';
+import { ScrollView } from 'react-native-virtualized-view';
 import LabelTemplate from '../../components/labelTemplate/labelTemplate';
 import { screenConstant } from '../../constants';
 import { ICONS } from '../../constants/Icons';
@@ -18,7 +19,7 @@ import { styles } from './style';
 
 export default function Home({navigation, route}) {
   const user = auth().currentUser;
-  const photoURL = user.photoURL;
+  const photoURL = user.photoURL?? images.DEFAULTUSER;
   // console.log(user);
   const addNote = () => {
     navigation.navigate(screenConstant.Note, {uid: user.uid});
@@ -72,6 +73,8 @@ export default function Home({navigation, route}) {
                 }}></Image>
             </View>
           </View>
+          <ScrollView>
+
           <View style={styles.imageContainer}>
             <ImageBackground
               source={images.HOME}
@@ -94,29 +97,17 @@ export default function Home({navigation, route}) {
                 // numColumns={2}
                 renderItem={({item}) => (
                   <LabelTemplate
-                    icon={ICONS.OTHERS}
-                    text={item.id}
-                    files={item.count}
-                    nav={navigation}
-                    note={user.uid}></LabelTemplate>
+                  icon={ICONS.OTHERS}
+                  text={item.id}
+                  files={item.count}
+                  nav={navigation}
+                  note={user.uid}></LabelTemplate>
                 )}
-              />
+                />
             </View>
           )}
-          {/* <View style={styles.footer}>
-            
-
-            {ICONS.DOC(24,24,'none')}
-            {ICONS.CHECKS(24,24,'none')}
-            
-            <Plus onPress={addNote}></Plus>
-            
-            {ICONS.INTEL(24,24,'none')}
-            <Icon icon={ICONS.SETTING} width={24} height={24} color='none' action={()=>navigation.navigate(screenConstant.Setting)}/>
-            
-          </View> */}
+          </ScrollView>
         </View>
-        {/* <Button title="SignOut" onPress={signOut} /> */}
       </SafeAreaView>
     </>
   );
