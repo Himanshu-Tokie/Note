@@ -19,7 +19,8 @@ import { styles } from './style';
 
 export default function Home({navigation, route}) {
   const user = auth().currentUser;
-  const photoURL = user.photoURL?? images.DEFAULTUSER;
+  const image = 'https://legacy.reactjs.org/logo-og.png';
+  const photoURL = user.photoURL?? image;
   // console.log(user);
   const addNote = () => {
     navigation.navigate(screenConstant.Note, {uid: user.uid});
@@ -49,7 +50,6 @@ export default function Home({navigation, route}) {
     }
   };
 
-  const image = {uri: 'https://legacy.reactjs.org/logo-og.png'};
 
   return (
     <>
