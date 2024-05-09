@@ -17,7 +17,7 @@ function isErrorWithCode(error) {
 export default function Google() {
   const navigation = useNavigation();
     GoogleSignin.configure({
-        webClientId: '963157051833-a1elv0njn1tu58p9fjnfe8277bi2aj6c.apps.googleusercontent.com', 
+        webClientId: '963157051833-gu56ol8ut09e2dsp3s1mcd43abdp8ifb.apps.googleusercontent.com', 
     })  
   const _signIn = async () => {
     try {

@@ -14,7 +14,7 @@ if linkage != nil
   use_frameworks! :linkage => linkage.to_sym
 end
 
-target 'Note' do
+target 'NoteTaking' do
   config = use_native_modules!
   use_frameworks! :linkage => :static
   $RNFirebaseAsStaticFramework = true
@@ -25,7 +25,7 @@ target 'Note' do
     :app_path => "#{Pod::Config.instance.installation_root}/.."
   )
 
-  target 'NoteTests' do
+  target 'NoteTakingTests' do
     inherit! :complete
     # Pods for testing
   end

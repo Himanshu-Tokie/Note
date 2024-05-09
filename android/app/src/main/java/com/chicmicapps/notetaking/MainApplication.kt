@@ -1,4 +1,4 @@
-package com.note
+package com.chicmicapps.notetaking
 
 import android.app.Application
 import com.facebook.react.PackageList
