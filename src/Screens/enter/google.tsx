@@ -16,28 +16,28 @@ function isErrorWithCode(error) {
 
 export default function Google() {
   const navigation = useNavigation();
-  GoogleSignin.configure();
+    GoogleSignin.configure({
+        webClientId: '963157051833-a1elv0njn1tu58p9fjnfe8277bi2aj6c.apps.googleusercontent.com', 
+    })  
   const _signIn = async () => {
-    console.log('hello');
-
     try {
       await GoogleSignin.hasPlayServices();
       const userInfo = await GoogleSignin.signIn();
+      console.log('hello');
       // setState({userInfo, error: undefined});
       const googleCredential = auth.GoogleAuthProvider.credential(
         userInfo.idToken,
       );
       const ans = await auth().signInWithCredential(googleCredential);
-      // console.log(JSON.stringify(ans));
-      // console.log(ans.user.uid);
       if(ans.additionalUserInfo?.isNewUser)
       signUpUser(ans.user);
     else{
       navigation.navigate(screenConstant.Home);
-    }
-      
+    }     
 
     } catch (error) {
+      console.log(error);
+      
       if (isErrorWithCode(error)) {
         switch (error.code) {
           case statusCodes.SIGN_IN_CANCELLED:
