@@ -12,7 +12,7 @@ import { RichEditor, RichToolbar, actions } from 'react-native-pell-rich-editor'
 import Header from '../../components/Header';
 import { styles } from './styles';
 
-const Note = ({navigation, route}) => {
+const Note = ({route}) => {
   const user = auth().currentUser;
   let uid = user?.uid;
   let initialTitle = '';
@@ -177,7 +177,6 @@ const Note = ({navigation, route}) => {
             disabledIconTint={'purple'}
             // onPressAddImage={onPressAddImage}
             iconSize={25}
-            // onCursorPosition={onCursorPosition}
             actions={[
               actions.insertImage,
               actions.setBold,

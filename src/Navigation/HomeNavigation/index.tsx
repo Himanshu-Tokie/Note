@@ -13,14 +13,10 @@ import { ICONS } from '../../constants/Icons';
 import { styles } from './style';
 
 export default function HomeNavigation() {
-  const parentNavigation = useNavigation();
-  console.log(parentNavigation,567);
-  
+  const parentNavigation = useNavigation(); 
   const Tab = createBottomTabNavigator();
+
   function MyTabBar({state, descriptors, navigation}) {
-    // console.log(state, 'state');
-    // console.log(descriptors, 'descriptors');
-    // console.log(navigation, 'navigation');
     const iconSelection = index => {
       switch (index) {
         case 0:
@@ -60,14 +56,6 @@ export default function HomeNavigation() {
                 navigation.navigate(route.name, route.params);
               }
             }
-          };
-          
-
-          const onLongPress = () => {
-            navigation.emit({
-              type: 'tabLongPress',
-              target: route.key,
-            });
           };
           if (index == 2) {
             return (

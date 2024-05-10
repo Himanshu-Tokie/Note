@@ -19,50 +19,44 @@ const SignupSchema = Yup.object().shape({
     ),
 });
 
-export default function LogIn({navigation}) {
+export default function LogIn({ navigation }) {
   const [initializing, setInitializing] = useState(true);
   const [user, setUser] = useState();
   const [errorLogin, setErrorLogin] = useState(false);
-  console.log(user, 12);
-
+  // console.log(user, 12);
   function onAuthStateChanged(user) {
     console.log(user, 100);
-
     setUser(user);
     if (initializing) setInitializing(false);
   }
 
   useEffect(() => {
     const subscriber = auth().onAuthStateChanged(onAuthStateChanged);
-    // console.log("asdfasdf");
-
-    return subscriber; // unsubscribe on unmount
+    return subscriber;
   }, []);
 
   const logInUser = async (email, password) => {
     try {
-      console.log(email,password,18);
-      
       const userCredential = await auth().signInWithEmailAndPassword(
         email,
         password,
       );
-      // const user_ = userCredential.user;
-      // console.log(userCredential, 200);
-    } catch (error) {
+    }
+    catch (error) {
       if (error.code === 'auth/invalid-credential') {
         console.log('User does not exist. Please register.');
         setErrorLogin(true);
       }
       const errorCode = error.code;
       const errorMessage = error.message;
-      // console.log(errorCode, errorMessage);
+      console.log(errorCode, errorMessage);
     }
   };
 
   const forgot = () => {
     navigation.navigate(screenConstant.ForgotPassword);
   };
+
   if (initializing) return null;
   if (!user) {
     return (
@@ -71,7 +65,7 @@ export default function LogIn({navigation}) {
           {errorLogin && <Text>Invalid Credentials</Text>}
           <View style={styles.subContainer}>
             <Formik
-              initialValues={{email: '', password: ''}}
+              initialValues={{ email: '', password: '' }}
               validationSchema={SignupSchema}
               onSubmit={values => {
                 console.log(values, 1);
@@ -125,5 +119,5 @@ export default function LogIn({navigation}) {
         </SafeAreaView>
       </>
     );
-  } else return navigation.navigate(screenConstant.Home, {user});
+  } else return navigation.navigate(screenConstant.Home, { user });
 }

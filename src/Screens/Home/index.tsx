@@ -17,11 +17,10 @@ import { ICONS } from '../../constants/Icons';
 import { images } from '../../constants/Images';
 import { styles } from './style';
 
-export default function Home({navigation, route}) {
+export default function Home({navigation}) {
   const user = auth().currentUser;
   const image = 'https://legacy.reactjs.org/logo-og.png';
   const photoURL = user.photoURL?? image;
-  // console.log(user);
   const addNote = () => {
     navigation.navigate(screenConstant.Note, {uid: user.uid});
   };
@@ -29,8 +28,6 @@ export default function Home({navigation, route}) {
   
   useEffect(() => {
     getLabel();
-    // console.log('mounted home');
-    // return console.log('unmount home');
   }, []);
   const getLabel = async () => {
     try {
@@ -100,8 +97,8 @@ export default function Home({navigation, route}) {
                   icon={ICONS.OTHERS}
                   text={item.id}
                   files={item.count}
-                  nav={navigation}
-                  note={user.uid}></LabelTemplate>
+                  note={user.uid}
+                  />
                 )}
                 />
             </View>

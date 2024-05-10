@@ -7,8 +7,10 @@ import { ICONS } from '../../constants/Icons';
 import { screenConstant } from '../../constants/index';
 import Google from './google';
 import { styles } from './style';
-export default function Enter({navigation}) {
-    // const [user,setUser] = useState()
+
+
+export default function Enter({ navigation }) {
+  // const [user,setUser] = useState()
   const onPress = () => {
     navigation.navigate(screenConstant.SignUp);
   };
@@ -22,23 +24,18 @@ export default function Enter({navigation}) {
           text="Note-Taking App"
           styles={[styles.textNote, styles.font]}
         />
-        {/* <Diary/> */}
         <View style={styles.svg}>
-          {/* <Svg width="220" height="220">
-          <Path d={MySvg} fill="blue" />
-        </Svg> */}
-        {ICONS.DAIRY(220,220)}
+          {ICONS.DAIRY(220, 220)}
         </View>
         <CustomText
           text="Save and share notes"
           styles={[styles.textSave, styles.font]}
         />
-
         <CustomButton text="Create Account" onPress={onPress} />
         <Google></Google>
         <View style={styles.footer}>
           <CustomText text="Have an account?" styles={[styles.simpleText]} />
-          <Text onPress={logIn} style={[styles.simpleText,styles.colorText]}>
+          <Text onPress={logIn} style={[styles.simpleText, styles.colorText]}>
             Log In
           </Text>
         </View>

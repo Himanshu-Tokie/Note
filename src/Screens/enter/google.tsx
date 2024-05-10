@@ -15,29 +15,31 @@ function isErrorWithCode(error) {
 }
 
 export default function Google() {
+
   const navigation = useNavigation();
-    GoogleSignin.configure({
-        webClientId: '963157051833-gu56ol8ut09e2dsp3s1mcd43abdp8ifb.apps.googleusercontent.com', 
-    })  
+
+  GoogleSignin.configure({
+    webClientId: '963157051833-gu56ol8ut09e2dsp3s1mcd43abdp8ifb.apps.googleusercontent.com',
+  })
+
   const _signIn = async () => {
-    try {
+    try 
+    {
       await GoogleSignin.hasPlayServices();
       const userInfo = await GoogleSignin.signIn();
-      console.log('hello');
       // setState({userInfo, error: undefined});
       const googleCredential = auth.GoogleAuthProvider.credential(
         userInfo.idToken,
       );
       const ans = await auth().signInWithCredential(googleCredential);
-      if(ans.additionalUserInfo?.isNewUser)
-      signUpUser(ans.user);
-    else{
-      navigation.navigate(screenConstant.Home);
-    }     
-
-    } catch (error) {
-      console.log(error);
-      
+      if (ans.additionalUserInfo?.isNewUser)
+        signUpUser(ans.user);
+      else {
+        navigation.navigate(screenConstant.Home);
+      }
+    } 
+    catch (error) 
+    {
       if (isErrorWithCode(error)) {
         switch (error.code) {
           case statusCodes.SIGN_IN_CANCELLED:
@@ -90,10 +92,10 @@ export default function Google() {
         'Others'
       ]
 
-      const batch =  firestore().batch();
-      const collectionRef =  firestore().collection('user');
+      const batch = firestore().batch();
+      const collectionRef = firestore().collection('user');
 
-     notes.forEach((doc) => {
+      notes.forEach((doc) => {
         const newDocRef = firestore().collection('user').doc(user.uid).collection('notes').doc(); // Automatically generates a new document ID
         batch.set(newDocRef, doc);
       });

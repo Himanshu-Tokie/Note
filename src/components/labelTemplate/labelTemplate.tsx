@@ -8,8 +8,10 @@ import {
 import { RFValue } from 'react-native-responsive-fontsize';
 import { screenConstant } from '../../constants';
 import { images } from '../../constants/Images';
+import { useNavigation } from '@react-navigation/native';
 
-export default function LabelTemplate({icon, text, files, nav, note}) {
+export default function LabelTemplate({icon, text, files, note}) {
+  const nav = useNavigation()
   function navigationHandler() {
     nav.navigate(screenConstant.Label, {text, note});
   }
