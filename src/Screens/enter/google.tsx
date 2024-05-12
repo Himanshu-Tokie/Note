@@ -8,6 +8,9 @@ import {
 import { useNavigation } from '@react-navigation/native';
 import { StyleSheet } from 'react-native';
 import { screenConstant } from '../../constants';
+import { useDispatch } from 'react-redux';
+import { logIn, updateUser } from '../../store/common';
+import { signUpUser } from '../../utils';
 
 
 function isErrorWithCode(error) {
@@ -15,7 +18,7 @@ function isErrorWithCode(error) {
 }
 
 export default function Google() {
-
+  const dispatch = useDispatch();
   const navigation = useNavigation();
 
   GoogleSignin.configure({
@@ -27,14 +30,19 @@ export default function Google() {
     {
       await GoogleSignin.hasPlayServices();
       const userInfo = await GoogleSignin.signIn();
-      // setState({userInfo, error: undefined});
       const googleCredential = auth.GoogleAuthProvider.credential(
         userInfo.idToken,
       );
       const ans = await auth().signInWithCredential(googleCredential);
+      console.log(ans);
+      
       if (ans.additionalUserInfo?.isNewUser)
-        signUpUser(ans.user);
+        signUpUser(ans.user,"google.com");
       else {
+        dispatch(logIn(true))
+        dispatch(updateUser({uid:ans.user.uid,
+          providerId:"google.com",
+        }))
         navigation.navigate(screenConstant.Home);
       }
     } 
@@ -59,59 +67,7 @@ export default function Google() {
       }
     }
   };
-  const signUpUser = async (user) => {
-    try {
-      // console.log(1)
-      const notes = [
-        {
-          label: 'Personal',
-          title: 'Meeting Notes',
-          content: 'Discussion points: project updates, deadlines, action items',
-        },
-        {
-          label: 'Academic',
-          title: 'Meeting Notes',
-          content: 'Discussion points: project updates, deadlines, action items',
-        },
-        {
-          label: 'Work',
-          title: 'Meeting Notes',
-          content: 'Discussion points: project updates, deadlines, action items',
-        }
-        ,
-        {
-          label: 'Others',
-          title: 'Meeting Notes',
-          content: 'Discussion points: project updates, deadlines, action items',
-        }
-      ]
-      const label = [
-        'Personal',
-        'Academic',
-        'Work',
-        'Others'
-      ]
-
-      const batch = firestore().batch();
-      const collectionRef = firestore().collection('user');
-
-      notes.forEach((doc) => {
-        const newDocRef = firestore().collection('user').doc(user.uid).collection('notes').doc(); // Automatically generates a new document ID
-        batch.set(newDocRef, doc);
-      });
-
-      label.forEach((doc) => {
-        const newDocRef = collectionRef.doc(user.uid).collection('labels').doc(doc); // Automatically generates a new document ID
-        batch.set(newDocRef, { count: 1 });
-      });
-      await batch.commit();
-
-      navigation.navigate(screenConstant.Home);
-      console.log('User account created & signed in! Google');
-    } catch (error) {
-      console.error('Error creating account:', error.code, error.message);
-    }
-  };
+  
 
   return (
     <>

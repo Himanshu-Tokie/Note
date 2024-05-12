@@ -10,7 +10,6 @@ import { styles } from './style';
 
 
 export default function Enter({ navigation }) {
-  // const [user,setUser] = useState()
   const onPress = () => {
     navigation.navigate(screenConstant.SignUp);
   };

@@ -2,22 +2,29 @@ import auth from '@react-native-firebase/auth';
 import { GoogleSignin } from '@react-native-google-signin/google-signin';
 import { SafeAreaView, Text, View } from 'react-native';
 import { styles } from './style';
+import { useDispatch } from 'react-redux';
+import { logIn, updateUser } from '../../store/common';
 export default function Setting({navigation}) {
   const user = auth().currentUser;
-  console.log(JSON.stringify(user.uid));
-
+  const dispatch = useDispatch();
   let signOut;
   if (user?.providerData[0].providerId !== 'google.com') {
     signOut = async () => {
       await auth()
         .signOut()
         .then(() => console.log('User signed out!'));
+        dispatch(logIn(false))
+        dispatch(updateUser(null))
       navigation.popToTop();
     };
   } else {
     signOut = async () => {
       try {
         await GoogleSignin.signOut();
+        dispatch(logIn(false))
+        dispatch(updateUser(null))
+        console.log('google log out');
+        
         navigation.popToTop();
         //   setState({ user: null }); // Remember to remove the user from your app's state as well
       } catch (error) {

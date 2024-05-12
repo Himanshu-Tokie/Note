@@ -7,6 +7,8 @@ import CustomButton from '../../components/Button/customButton';
 import FormikTemplate from '../../components/FormikTemplate/formikTemplate';
 import { screenConstant } from '../../constants';
 import { styles } from './style';
+import { useDispatch, useSelector } from 'react-redux';
+import { logIn, updateUser } from '../../store/common';
 
 const SignupSchema = Yup.object().shape({
   email: Yup.string().email('Invalid email').required('Please enter email'),
@@ -20,20 +22,27 @@ const SignupSchema = Yup.object().shape({
 });
 
 export default function LogIn({ navigation }) {
-  const [initializing, setInitializing] = useState(true);
-  const [user, setUser] = useState();
+  // const [initializing, setInitializing] = useState(true);
+  const isLogedIn = useSelector(state=>state.common.isLogedIn)
+  const dispatch = useDispatch();
   const [errorLogin, setErrorLogin] = useState(false);
-  // console.log(user, 12);
   function onAuthStateChanged(user) {
-    console.log(user, 100);
-    setUser(user);
-    if (initializing) setInitializing(false);
+    console.log(user, 101);
+    if(!isLogedIn && user){
+      dispatch(logIn(true))
+      dispatch(updateUser({uid:user.uid,
+        providerId:"firebase",
+      }))
+    }
+    
+    // if (initializing) setInitializing(false);
   }
+  console.log(isLogedIn,1234);
 
-  useEffect(() => {
-    const subscriber = auth().onAuthStateChanged(onAuthStateChanged);
-    return subscriber;
-  }, []);
+  // useEffect(() => {
+  //   const subscriber = auth().onAuthStateChanged(onAuthStateChanged);
+  //   return subscriber;
+  // }, []);
 
   const logInUser = async (email, password) => {
     try {
@@ -41,6 +50,11 @@ export default function LogIn({ navigation }) {
         email,
         password,
       );
+      console.log('login complete');
+      dispatch(logIn(true))
+      dispatch(updateUser({uid:user.uid,
+        providerId:"firebase",
+      }))
     }
     catch (error) {
       if (error.code === 'auth/invalid-credential') {
@@ -57,8 +71,8 @@ export default function LogIn({ navigation }) {
     navigation.navigate(screenConstant.ForgotPassword);
   };
 
-  if (initializing) return null;
-  if (!user) {
+  // if (initializing) return null;
+  if (!isLogedIn) {
     return (
       <>
         <SafeAreaView style={styles.container}>
@@ -119,5 +133,5 @@ export default function LogIn({ navigation }) {
         </SafeAreaView>
       </>
     );
-  } else return navigation.navigate(screenConstant.Home, { user });
+  } else return navigation.navigate(screenConstant.Home);
 }
