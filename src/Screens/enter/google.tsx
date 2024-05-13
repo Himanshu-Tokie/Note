@@ -1,5 +1,4 @@
 import auth from '@react-native-firebase/auth';
-import firestore from '@react-native-firebase/firestore';
 import {
   GoogleSignin,
   GoogleSigninButton,
@@ -7,11 +6,11 @@ import {
 } from '@react-native-google-signin/google-signin';
 import { useNavigation } from '@react-navigation/native';
 import { StyleSheet } from 'react-native';
-import { screenConstant } from '../../constants';
+import { heightPercentageToDP, widthPercentageToDP } from 'react-native-responsive-screen';
 import { useDispatch } from 'react-redux';
+import { screenConstant } from '../../constants';
 import { logIn, updateUser } from '../../store/common';
 import { signUpUser } from '../../utils';
-import { heightPercentageToDP, widthPercentageToDP } from 'react-native-responsive-screen';
 
 
 function isErrorWithCode(error) {
@@ -23,23 +22,30 @@ export default function Google() {
   const navigation = useNavigation();
 
   GoogleSignin.configure({
-    webClientId: '963157051833-gu56ol8ut09e2dsp3s1mcd43abdp8ifb.apps.googleusercontent.com',
+    webClientId: '963157051833-a1elv0njn1tu58p9fjnfe8277bi2aj6c.apps.googleusercontent.com',
   })
 
   const _signIn = async () => {
     try 
     {
+      
       await GoogleSignin.hasPlayServices();
-      const userInfo = await GoogleSignin.signIn();
+      const userInfo = await GoogleSignin.signIn().catch((e)=>{console.log(e);
+      });
+      // console.log(userInfo);
       const googleCredential = auth.GoogleAuthProvider.credential(
         userInfo.idToken,
       );
       const ans = await auth().signInWithCredential(googleCredential);
       console.log(ans);
+      console.log('google sign in successful');
       
       if (ans.additionalUserInfo?.isNewUser)
-        signUpUser(ans.user,"google.com");
+        {console.log('welcome new user');
+        signUpUser(ans.user,"google.com",dispatch,navigation);}
       else {
+        console.log('your are not welcome');
+        
         dispatch(logIn(true))
         dispatch(updateUser({uid:ans.user.uid,
           providerId:"google.com",

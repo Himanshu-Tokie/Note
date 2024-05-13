@@ -1867,6 +1867,13 @@
   dependencies:
     invariant "^2.2.4"
 
+"@react-native-community/push-notification-ios@^1.10.1", "@react-native-community/push-notification-ios@^1.11.0":
+  version "1.11.0"
+  resolved "https://registry.npmjs.org/@react-native-community/push-notification-ios/-/push-notification-ios-1.11.0.tgz"
+  integrity sha512-nfkUs8P2FeydOCR4r7BNmtGxAxI22YuGP6RmqWt6c8EEMUpqvIhNKWkRSFF3pHjkgJk2tpRb9wQhbezsqTyBvA==
+  dependencies:
+    invariant "^2.2.4"
+
 "@react-native-firebase/app@^19.2.2", "@react-native-firebase/app@19.2.2":
   version "19.2.2"
   resolved "https://registry.npmjs.org/@react-native-firebase/app/-/app-19.2.2.tgz"
@@ -6756,6 +6763,11 @@ react-native-pell-rich-editor@^1.9.0:
   resolved "https://registry.npmjs.org/react-native-pell-rich-editor/-/react-native-pell-rich-editor-1.9.0.tgz"
   integrity sha512-BKzlu++FySzPXrb5bczD8b/ZZJtfzcD4z7FvW7TrH+4OENEQtaIiEMfmb5N09Kv3YVJcfm8fut8Y+GLNAcCQHA==
 
+react-native-push-notification@^8.1.1:
+  version "8.1.1"
+  resolved "https://registry.npmjs.org/react-native-push-notification/-/react-native-push-notification-8.1.1.tgz"
+  integrity sha512-XpBtG/w+a6WXTxu6l1dNYyTiHnbgnvjoc3KxPTxYkaIABRmvuJZkFxqruyGvfCw7ELAlZEAJO+dthdTabCe1XA==
+
 react-native-rename@^3.2.14:
   version "3.2.14"
   resolved "https://registry.npmjs.org/react-native-rename/-/react-native-rename-3.2.14.tgz"
@@ -6843,7 +6855,7 @@ react-native-webview@^13.8.7, react-native-webview@>=7.5.2:
     escape-string-regexp "2.0.0"
     invariant "2.2.4"
 
-react-native@*, react-native@^*, react-native@^0.73.0, react-native@>=0.35, react-native@>=0.42.0, react-native@>=0.50.0, react-native@>=0.59.0, react-native@0.74.0:
+react-native@*, react-native@^*, react-native@^0.73.0, react-native@>=0.33, react-native@>=0.35, react-native@>=0.42.0, react-native@>=0.50.0, react-native@>=0.58.4, react-native@>=0.59.0, react-native@0.74.0:
   version "0.74.0"
   resolved "https://registry.npmjs.org/react-native/-/react-native-0.74.0.tgz"
   integrity sha512-Vpp9WPmkCm4TUH5YDxwQhqktGVon/yLpjbTgjgLqup3GglOgWagYCX3MlmK1iksIcqtyMJHMEWa+UEzJ3G9T8w==
@@ -6916,7 +6928,7 @@ react-test-renderer@18.2.0:
     react-shallow-renderer "^16.15.0"
     scheduler "^0.23.0"
 
-react@*, "react@^16.0.0 || ^17.0.0 || ^18.0.0", "react@^16.8.0 || ^17.0.0 || ^18.0.0", "react@^16.9.0 || ^17.0.0 || ^18", react@^18.0, react@^18.2.0, react@>=16.8, react@>=16.8.0, react@>=17.0.0, react@18.2.0:
+react@*, "react@^16.0.0 || ^17.0.0 || ^18.0.0", "react@^16.8.0 || ^17.0.0 || ^18.0.0", "react@^16.9.0 || ^17.0.0 || ^18", react@^18.0, react@^18.2.0, react@>=16.6.3, react@>=16.8, react@>=16.8.0, react@>=17.0.0, react@18.2.0:
   version "18.2.0"
   resolved "https://registry.npmjs.org/react/-/react-18.2.0.tgz"
   integrity sha512-/3IjMdb2L9QbBdWiW5e3P2/npwMBaU9mHCSCUzNln0ZCYbcfTsGbTJrU/kGemdH2IWmB2ioZ+zkxtmq6g09fGQ==

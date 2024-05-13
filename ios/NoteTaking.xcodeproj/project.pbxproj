@@ -32,6 +32,7 @@
 		00E356F11AD99517003FC87E /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		00E356F21AD99517003FC87E /* NoteTakingTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = NoteTakingTests.m; sourceTree = "<group>"; };
 		0D18E4C59B86E229852F7F29 /* Pods_NoteTaking_NoteTakingTests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_NoteTaking_NoteTakingTests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		1193B00F2BF20CAD0097C5BB /* NoteTaking.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; name = NoteTaking.entitlements; path = NoteTaking/NoteTaking.entitlements; sourceTree = "<group>"; };
 		13B07F961A680F5B00A75B9A /* NoteTaking.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = NoteTaking.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		13B07FAF1A68108700A75B9A /* AppDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = AppDelegate.h; path = NoteTaking/AppDelegate.h; sourceTree = "<group>"; };
 		13B07FB01A68108700A75B9A /* AppDelegate.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; name = AppDelegate.mm; path = NoteTaking/AppDelegate.mm; sourceTree = "<group>"; };
@@ -89,6 +90,7 @@
 		13B07FAE1A68108700A75B9A /* NoteTaking */ = {
 			isa = PBXGroup;
 			children = (
+				1193B00F2BF20CAD0097C5BB /* NoteTaking.entitlements */,
 				AD0904892BDE6EFD00F24A84 /* GoogleService-Info.plist */,
 				13B07FAF1A68108700A75B9A /* AppDelegate.h */,
 				13B07FB01A68108700A75B9A /* AppDelegate.mm */,
@@ -485,6 +487,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_MODULES = YES;
+				CODE_SIGN_ENTITLEMENTS = NoteTaking/NoteTaking.entitlements;
 				CURRENT_PROJECT_VERSION = 1;
 				ENABLE_BITCODE = NO;
 				INFOPLIST_FILE = NoteTaking/Info.plist;
@@ -513,6 +516,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_MODULES = YES;
+				CODE_SIGN_ENTITLEMENTS = NoteTaking/NoteTaking.entitlements;
 				CURRENT_PROJECT_VERSION = 1;
 				INFOPLIST_FILE = NoteTaking/Info.plist;
 				INFOPLIST_KEY_CFBundleDisplayName = "Note Taking";
@@ -617,10 +621,7 @@
 					"-DFOLLY_CFG_NO_COROUTINES=1",
 					"-DFOLLY_HAVE_CLOCK_GETTIME=1",
 				);
-				OTHER_LDFLAGS = (
-					"$(inherited)",
-					" ",
-				);
+				OTHER_LDFLAGS = "$(inherited)  ";
 				REACT_NATIVE_PATH = "${PODS_ROOT}/../../node_modules/react-native";
 				SDKROOT = iphoneos;
 				USE_HERMES = true;
@@ -703,10 +704,7 @@
 					"-DFOLLY_CFG_NO_COROUTINES=1",
 					"-DFOLLY_HAVE_CLOCK_GETTIME=1",
 				);
-				OTHER_LDFLAGS = (
-					"$(inherited)",
-					" ",
-				);
+				OTHER_LDFLAGS = "$(inherited)  ";
 				REACT_NATIVE_PATH = "${PODS_ROOT}/../../node_modules/react-native";
 				SDKROOT = iphoneos;
 				USE_HERMES = true;

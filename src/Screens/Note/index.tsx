@@ -1,14 +1,15 @@
 import { default as auth } from '@react-native-firebase/auth';
 import firestore from '@react-native-firebase/firestore';
-import React, { useEffect, useRef, useState } from 'react';
+import React, { useRef, useState } from 'react';
 import {
   KeyboardAvoidingView,
+  Platform,
   SafeAreaView,
-  ScrollView,
   TextInput,
   View,
 } from 'react-native';
 import { RichEditor, RichToolbar, actions } from 'react-native-pell-rich-editor';
+import DateTime from '../../components/DateTime';
 import Header from '../../components/Header';
 import { styles } from './styles';
 
@@ -19,10 +20,12 @@ const Note = ({route}) => {
   let noteId = '';
   let data = '';
   let lable = 'Others';
+  let timeStamp = '';
+  const reminder = useRef(false);
   const isNew = useRef(true);
   const noteIdExist = useRef(false);
-  console.log(route.params, 1212);
-  console.log(user);
+  // console.log(route.params.note.timestamp, 1212);
+  // console.log(user);
   if (route.params != undefined)
     if (route.params?.note != undefined) {
       if (route.params.note.noteId == undefined) {
@@ -38,6 +41,12 @@ const Note = ({route}) => {
         isNew.current = false;
         noteIdExist.current = true;
       }
+      if (route.params.note.timestamp !== undefined) {
+        timeStamp = route.params.note.timestamp;
+        reminder.current = true;
+        if(route.params.note.newReminder !== undefined)
+          isNew.current = true
+      }
     }
   const RichText = useRef();
   // const [article, setArticle] = useState('');
@@ -47,11 +56,48 @@ const Note = ({route}) => {
   const [label, setLable] = useState(lable);
   const labelRef = useRef(lable);
   const titleRef = useRef('');
-  console.log(value, 1);
-  console.log(articleData.current, 2);
-  console.log(title, 3);
-  console.log(labelRef, 4);
+  // console.log(value, 1);
+  // console.log(articleData.current, 2);
+  // console.log(title, 3);
+  // console.log(labelRef, 4);
 
+  const createReminder = async () => {
+    try {
+      await firestore()
+        .collection('user')
+        .doc(uid)
+        .collection('reminder')
+        .add({
+          title: titleRef.current,
+          content: articleData.current,
+          timeStamp: timeStamp,
+        })
+        .then(() => {
+          console.log('new reminder added successfully');
+        });
+    } catch (e) {
+      console.log(e, 'reminder');
+    }
+  };
+  const updateReminder = async () => {
+    try {
+      await firestore()
+        .collection('user')
+        .doc(uid)
+        .collection('reminder')
+        .doc(noteId)
+        .update({
+          title: titleRef.current,
+          content: articleData.current,
+          timeStamp: timeStamp,
+        })
+        .then(() => {
+          console.log('reminder updated successfully');
+        });
+    } catch (e) {
+      console.log(e, 'reminder');
+    }
+  };
   const updateData = async () => {
     try {
       console.log(articleData.current, 'data tobe uppdated');
@@ -115,9 +161,15 @@ const Note = ({route}) => {
   // useEffect(() => {
   //   const fetchData = async () => {
   //     if (!isNew.current) {
+  //       if(reminder.current)
+  //         await updateReminder()
+  //       else
   //       await updateData();
   //     } else {
-  //       // await createNote();
+  //       if(reminder.current)
+  //         await createReminder();
+  //       else
+  //       await createNote();
   //     }
   //   };
   //   return fetchData; // Invoke the function immediately
@@ -137,60 +189,63 @@ const Note = ({route}) => {
       <View>
         <Header headerText={label} />
       </View>
-      <ScrollView style={styles.container} ref={scrollRef}>
-        <KeyboardAvoidingView style={styles.subContainer}>
-          <TextInput
-            onChangeText={text => {
-              titleRef.current = text;
-              setTitle(text);
-            }}
-            placeholder="title"
-            value={title}
-            style={styles.title}></TextInput>
-          {/* <TextInput
+      {/* <ScrollView style={styles.container} ref={scrollRef}> */}
+      <KeyboardAvoidingView
+        behavior={Platform.OS === 'ios' ? 'padding' : 'height'}
+        style={styles.subContainer}>
+        <TextInput
+          onChangeText={text => {
+            titleRef.current = text;
+            setTitle(text);
+          }}
+          placeholder="title"
+          value={title}
+          style={styles.title}></TextInput>
+        {/* <TextInput
             onChangeText={text => {
               labelRef.current = text;
               setLable(text);
             }}
             placeholder="label"
-            value={label}></TextInput> */}
-          <RichEditor
-            disabled={false}
-            containerStyle={styles.editor}
-            ref={RichText}
-            initialContentHTML={value}
-            style={styles.rich}
-            editorStyle={styles.richeditor}
-            placeholder={'Start Writing Here'}
-            onChange={text => {
-              // setArticle(text);
-              articleData.current = text;
-            }}
-            onCursorPosition={onCursorPosition}
-          />
-          <RichToolbar
-            style={[styles.richBar]}
-            editor={RichText}
-            disabled={false}
-            iconTint={'purple'}
-            selectedIconTint={'pink'}
-            disabledIconTint={'purple'}
-            // onPressAddImage={onPressAddImage}
-            iconSize={25}
-            actions={[
-              actions.insertImage,
-              actions.setBold,
-              actions.setItalic,
-              actions.insertBulletsList,
-              actions.insertOrderedList,
-              actions.insertLink,
-              actions.setStrikethrough,
-              actions.setUnderline,
-              actions.heading1,
-            ]}
-          />
-        </KeyboardAvoidingView>
-      </ScrollView>
+          value={label}></TextInput> */}
+        <RichEditor
+          disabled={true}
+          containerStyle={styles.editor}
+          ref={RichText}
+          initialContentHTML={value}
+          style={styles.rich}
+          editorStyle={styles.richeditor}
+          placeholder={'Start Writing Here'}
+          onChange={text => {
+            // setArticle(text);
+            articleData.current = text;
+          }}
+          onCursorPosition={onCursorPosition}
+        />
+        {reminder.current && <DateTime></DateTime>}
+        <RichToolbar
+          style={[styles.richBar]}
+          editor={RichText}
+          disabled={false}
+          iconTint={'purple'}
+          selectedIconTint={'pink'}
+          disabledIconTint={'purple'}
+          // onPressAddImage={onPressAddImage}
+          iconSize={25}
+          actions={[
+            actions.insertImage,
+            actions.setBold,
+            actions.setItalic,
+            actions.insertBulletsList,
+            actions.insertOrderedList,
+            actions.insertLink,
+            actions.setStrikethrough,
+            actions.setUnderline,
+            actions.heading1,
+          ]}
+        />
+      </KeyboardAvoidingView>
+      {/* </ScrollView> */}
     </SafeAreaView>
   );
 };

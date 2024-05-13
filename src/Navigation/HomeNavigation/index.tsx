@@ -13,10 +13,14 @@ import { ICONS } from '../../constants/Icons';
 import { styles } from './style';
 
 export default function HomeNavigation() {
-  const parentNavigation = useNavigation(); 
+  const parentNavigation = useNavigation();
   const Tab = createBottomTabNavigator();
 
   function MyTabBar({state, descriptors, navigation}) {
+    // console.log(state);
+    // console.log(descriptors);
+    // console.log(navigation);
+
     const iconSelection = index => {
       switch (index) {
         case 0:
@@ -43,25 +47,31 @@ export default function HomeNavigation() {
           const isFocused = state.index === index;
 
           const onPress = () => {
-            if (index === 2) { // Check if the "Note" tab is clicked
-              parentNavigation.navigate(screenConstant.Note); // Use the parent navigation to navigate to the "Note" screen
+            if (index === 2) {
+              // Check if the "Note" tab is clicked
+              if (state.index == 3) {
+                const note = {
+                  timestamp: '',
+                  newReminder:''
+                };
+                parentNavigation.navigate(screenConstant.Note, {note});
+              } else {
+                parentNavigation.navigate(screenConstant.Note);
+              } // Use the parent navigation to navigate to the "Note" screen
             } else {
               const event = navigation.emit({
                 type: 'tabPress',
                 target: route.key,
                 canPreventDefault: true,
               });
-          
+
               if (!isFocused && !event.defaultPrevented) {
                 navigation.navigate(route.name, route.params);
               }
             }
           };
           if (index == 2) {
-            return (
-              <Plus
-                onPress={onPress}></Plus>
-            );
+            return <Plus onPress={onPress}></Plus>;
           }
           return (
             <Icon
@@ -80,11 +90,20 @@ export default function HomeNavigation() {
     <>
       <Tab.Navigator
         initialRouteName={screenConstant.Home}
-        tabBar={props => <MyTabBar {...props}/>}>
-        <Tab.Screen name={screenConstant.Home} component={Home} options={{headerShown: false}}/>
+        tabBar={props => <MyTabBar {...props} />}>
+        <Tab.Screen
+          name={screenConstant.Home}
+          component={Home}
+          options={{headerShown: false}}
+        />
         <Tab.Screen name={screenConstant.Extra1} component={Extar1} />
         <Tab.Screen name={screenConstant.Note} component={Note} />
-        <Tab.Screen name={screenConstant.Extra2} component={Extar2} options={{headerShown: false}}/>
+        <Tab.Screen
+          name={screenConstant.Extra2}
+          component={Extar2}
+          options={{headerShown: false}}
+          initialParams={{parentNavigation}}
+        />
         <Tab.Screen name={screenConstant.Setting} component={Setting} />
       </Tab.Navigator>
     </>

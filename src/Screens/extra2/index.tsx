@@ -1,13 +1,20 @@
-import React, { useState } from "react"
-import { FlatList, SafeAreaView, View } from "react-native"
+import React, { useState } from "react";
+import { FlatList, SafeAreaView, View } from "react-native";
 import Search from '../../components/Header';
-import { styles } from "./style";
 import ListTemplate from "../../components/listTemplate/listTemplate";
-export default function Extar2({navigation}) {
+import { styles } from "./style";
+export default function Extar2({route}) {
     const notesData = [
         {
-            title: 'reminder',
-            note: 'notification',
+            id:1,
+            title: 'reminder 1',
+            data: 'notification',
+            timestamp: 'xyz'
+        },
+        {
+            id:2,
+            title: 'reminder 2',
+            data: 'notification',
             timestamp: 'xyz'
         }
     ]
@@ -34,7 +41,7 @@ export default function Extar2({navigation}) {
                         // keyExtractor={item => item.noteId}
                         // numColumns={2}
                         renderItem={({ item }) => (
-                            <ListTemplate note={item} nav={navigation} maxHeight={150} />
+                            <ListTemplate note={item} nav={route.params.parentNavigation} maxHeight={150} />
                         )}></FlatList>
                 </View>
                 {/* <View style={styles.addNotes}>

@@ -1,68 +1,69 @@
 import firestore from '@react-native-firebase/firestore';
-import { useNavigation } from '@react-navigation/native';
-import { screenConstant } from '../constants';
 import * as Yup from 'yup';
-import { useDispatch } from 'react-redux';
+import { screenConstant } from '../constants';
 import { logIn, updateUser } from '../store/common';
 
-const navigation = useNavigation();
-const dispatch = useDispatch();
-export const signUpUser = async (user,providerId) => {
-    try {
-      console.log('new user Alert')
-      const notes = [
-        {
-          label: 'Personal',
-          title: 'Meeting Notes',
-          content: 'Discussion points: project updates, deadlines, action items',
-        },
-        {
-          label: 'Academic',
-          title: 'Meeting Notes',
-          content: 'Discussion points: project updates, deadlines, action items',
-        },
-        {
-          label: 'Work',
-          title: 'Meeting Notes',
-          content: 'Discussion points: project updates, deadlines, action items',
-        }
-        ,
-        {
-          label: 'Others',
-          title: 'Meeting Notes',
-          content: 'Discussion points: project updates, deadlines, action items',
-        }
-      ]
-      const label = [
-        'Personal',
-        'Academic',
-        'Work',
-        'Others'
-      ]
+export const signUpUser = async (user, providerId,dispatch,navigation) => {
+  try {
+    console.log('new user Alert');
+    const notes = [
+      {
+        label: 'Personal',
+        title: 'Meeting Notes',
+        content: 'Discussion points: project updates, deadlines, action items',
+      },
+      {
+        label: 'Academic',
+        title: 'Meeting Notes',
+        content: 'Discussion points: project updates, deadlines, action items',
+      },
+      {
+        label: 'Work',
+        title: 'Meeting Notes',
+        content: 'Discussion points: project updates, deadlines, action items',
+      },
+      {
+        label: 'Others',
+        title: 'Meeting Notes',
+        content: 'Discussion points: project updates, deadlines, action items',
+      },
+    ];
+    const label = ['Personal', 'Academic', 'Work', 'Others'];
+    const reminder = [];
 
-      const batch = firestore().batch();
-      const collectionRef = firestore().collection('user');
+    const batch = firestore().batch();
+    const collectionRef = firestore().collection('user');
 
-      notes.forEach((doc) => {
-        const newDocRef = firestore().collection('user').doc(user.uid).collection('notes').doc(); // Automatically generates a new document ID
-        batch.set(newDocRef, doc);
-      });
+    notes.forEach((doc) => {
+      const newDocRef = firestore()
+        .collection('user')
+        .doc(user.uid)
+        .collection('notes')
+        .doc(); // Automatically generates a new document ID
+      batch.set(newDocRef, doc);
+    });
 
-      label.forEach((doc) => {
-        const newDocRef = collectionRef.doc(user.uid).collection('labels').doc(doc); // Automatically generates a new document ID
-        batch.set(newDocRef, { count: 1 });
-      });
-      await batch.commit();
-      dispatch(logIn(true));
-      dispatch(updateUser({uid:user.uid,
-        providerId:providerId,
-      }))
-      navigation.navigate(screenConstant.Home);
-      console.log('User account created & signed in! Google');
-    } catch (error) {
-      console.error('Error creating initial database:', error.code, error.message);
-    }
-  };
+    label.forEach((doc) => {
+      const newDocRef = collectionRef
+        .doc(user.uid)
+        .collection('labels')
+        .doc(doc); // Automatically generates a new document ID
+      batch.set(newDocRef, { count: 1 });
+    });
+    await batch.commit();
+    dispatch(logIn(true));
+    dispatch(
+      updateUser({
+        uid: user.uid,
+        providerId: providerId,
+      })
+    );
+    navigation.navigate(screenConstant.Home);
+    console.log('User account created & signed in! Google');
+  } catch (error) {
+    console.error('Error creating initial database:', error.code, error.message);
+  }
+};
 
 export const SignupSchema = Yup.object().shape({
   firstName: Yup.string().required('Please enter your first name'),

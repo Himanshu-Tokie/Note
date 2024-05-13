@@ -2340,6 +2340,8 @@ PODS:
     - React-perflogger (= 0.74.0)
     - React-utils (= 0.74.0)
   - RecaptchaInterop (100.0.0)
+  - RNCPushNotificationIOS (1.11.0):
+    - React-Core
   - RNDateTimePicker (8.0.0):
     - React-Core
   - RNFBApp (19.2.2):
@@ -2473,6 +2475,7 @@ DEPENDENCIES:
   - React-runtimescheduler (from `../node_modules/react-native/ReactCommon/react/renderer/runtimescheduler`)
   - React-utils (from `../node_modules/react-native/ReactCommon/react/utils`)
   - ReactCommon/turbomodule/core (from `../node_modules/react-native/ReactCommon`)
+  - "RNCPushNotificationIOS (from `../node_modules/@react-native-community/push-notification-ios`)"
   - "RNDateTimePicker (from `../node_modules/@react-native-community/datetimepicker`)"
   - "RNFBApp (from `../node_modules/@react-native-firebase/app`)"
   - "RNFBAuth (from `../node_modules/@react-native-firebase/auth`)"
@@ -2629,6 +2632,8 @@ EXTERNAL SOURCES:
     :path: "../node_modules/react-native/ReactCommon/react/utils"
   ReactCommon:
     :path: "../node_modules/react-native/ReactCommon"
+  RNCPushNotificationIOS:
+    :path: "../node_modules/@react-native-community/push-notification-ios"
   RNDateTimePicker:
     :path: "../node_modules/@react-native-community/datetimepicker"
   RNFBApp:
@@ -2735,6 +2740,7 @@ SPEC CHECKSUMS:
   React-utils: e3a1dd8f290ecc2a015d8de54c9ffbc04ada7605
   ReactCommon: caf0aeedbd8afc25731582379f15a4f86407ae29
   RecaptchaInterop: 7d1a4a01a6b2cb1610a47ef3f85f0c411434cb21
+  RNCPushNotificationIOS: 64218f3c776c03d7408284a819b2abfda1834bc8
   RNDateTimePicker: cd42eda5f315fc320f0b359413bd598957f7e601
   RNFBApp: 91311b27bc9a33e23b76a62825afd1635501018a
   RNFBAuth: 92172d8976baaa829825017174106e2b2c550319
@@ -2746,7 +2752,7 @@ SPEC CHECKSUMS:
   RNScreens: 30249f9331c3b00ae7cb7922e11f58b3ed369c07
   RNSVG: 43b64ed39c14ce830d840903774154ca0c1f27ec
   SocketRocket: abac6f5de4d4d62d24e11868d7a2f427e0ef940d
-  Yoga: 3f9165051bbc60b66f6a88c5eeafd9e9faa29500
+  Yoga: d97d4830fe26d7abad29a92f2b11012d2e1f58d1
 
 PODFILE CHECKSUM: 14998d7c16f8156b896caff593c9982c6a216fd8
 
