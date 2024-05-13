@@ -1,19 +1,20 @@
 /* button */
 
 import { StyleSheet } from "react-native";
+import { heightPercentageToDP, widthPercentageToDP } from "react-native-responsive-screen";
 
 export const styles =StyleSheet.create({
     container:{
-        borderRadius:20,
+        borderRadius:50,
         backgroundColor:"rgb(107,78,255)",
-        width:300,
-        padding:14,
-        marginTop:50,
+        width:widthPercentageToDP('82%'),
+        padding:widthPercentageToDP('4%'),
+        marginTop:heightPercentageToDP('5.5%'),
     },
     text:{
         color:'white',
         textAlign:'center',
-        fontSize:15,
+        fontSize:heightPercentageToDP('2%'),
         fontWeight:'bold'
     }
 })

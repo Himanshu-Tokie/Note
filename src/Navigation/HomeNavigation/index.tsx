@@ -84,7 +84,7 @@ export default function HomeNavigation() {
         <Tab.Screen name={screenConstant.Home} component={Home} options={{headerShown: false}}/>
         <Tab.Screen name={screenConstant.Extra1} component={Extar1} />
         <Tab.Screen name={screenConstant.Note} component={Note} />
-        <Tab.Screen name={screenConstant.Extra2} component={Extar2} />
+        <Tab.Screen name={screenConstant.Extra2} component={Extar2} options={{headerShown: false}}/>
         <Tab.Screen name={screenConstant.Setting} component={Setting} />
       </Tab.Navigator>
     </>

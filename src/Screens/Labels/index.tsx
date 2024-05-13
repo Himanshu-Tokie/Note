@@ -23,30 +23,6 @@ export default function Label({ navigation, route }) {
     uid,
     label,
   };
-  const getData = async () => {
-    const data = await firestore()
-      .collection('user')
-      .doc(uid)
-      .collection('notes')
-      .where('label', '==', label)
-      .get();
-    // console.log(data.doc(),'testttt');
-
-    const newData = []; // Temporary array to accumulate data
-
-    data.forEach(doc => {
-      newData.push({
-        title: doc.data().title,
-        data: doc.data().content,
-        noteId: doc.id,
-        id: uid,
-        label: label,
-      });
-    });
-
-    setNotesData(newData);
-    setSearchData(newData);
-  };
 
   const search = (e) => {
     let text = e.toLowerCase();
@@ -95,8 +71,7 @@ export default function Label({ navigation, route }) {
       .collection('notes')
       .where('label', '==', label)
       .onSnapshot(querySnapshot => {
-        const newData = []; // Temporary array to accumulate data
-  
+        const newData = []; // Temporary array to accumulate data  
         querySnapshot.forEach(doc => {
           newData.push({
             title: doc.data().title,

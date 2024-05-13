@@ -112,18 +112,18 @@ const Note = ({route}) => {
       }
     } catch {}
   };
-  useEffect(() => {
-    const fetchData = async () => {
-      if (!isNew.current) {
-        await updateData();
-      } else {
-        await createNote();
-      }
-    };
-    return fetchData; // Invoke the function immediately
+  // useEffect(() => {
+  //   const fetchData = async () => {
+  //     if (!isNew.current) {
+  //       await updateData();
+  //     } else {
+  //       // await createNote();
+  //     }
+  //   };
+  //   return fetchData; // Invoke the function immediately
 
-    // Return a cleanup function if needed
-  }, []);
+  //   // Return a cleanup function if needed
+  // }, []);
 
   const scrollRef = useRef(null);
   const onCursorPosition = scrollY => {

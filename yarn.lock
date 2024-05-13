@@ -1860,6 +1860,13 @@
     prompts "^2.4.2"
     semver "^7.5.2"
 
+"@react-native-community/datetimepicker@^8.0.0":
+  version "8.0.0"
+  resolved "https://registry.npmjs.org/@react-native-community/datetimepicker/-/datetimepicker-8.0.0.tgz"
+  integrity sha512-hFiGlG5ovhspLYIZlvRs7sMg2NtKjHaG2CJQbECQH1M31760cR7BjYujS/MCM2d44ihhn4ZKLspAyXVN+Gh08g==
+  dependencies:
+    invariant "^2.2.4"
+
 "@react-native-firebase/app@^19.2.2", "@react-native-firebase/app@19.2.2":
   version "19.2.2"
   resolved "https://registry.npmjs.org/@react-native-firebase/app/-/app-19.2.2.tgz"
@@ -1884,6 +1891,11 @@
   version "19.2.2"
   resolved "https://registry.npmjs.org/@react-native-firebase/firestore/-/firestore-19.2.2.tgz"
   integrity sha512-SaW/f8vDwvP24KdCBo7uaBmE+5Y8JMKfWpOzJtY1XXuA7wlua3IjIilEXNVGrFk8az6N3n9RhCIpWbn4mOml9g==
+
+"@react-native-firebase/messaging@^19.2.2":
+  version "19.2.2"
+  resolved "https://registry.npmjs.org/@react-native-firebase/messaging/-/messaging-19.2.2.tgz"
+  integrity sha512-oZNamTvYH3rBneJQ+m0PZED5dzyxcEwyjzwszk/jMjJRgzUrIK3TGu65d6txxIFm6LU5MigpjyqyxrHxrT8aCg==
 
 "@react-native-google-signin/google-signin@^11.0.1":
   version "11.0.1"
@@ -6782,6 +6794,11 @@ react-native-responsive-fontsize@^0.5.1:
   dependencies:
     react-native-iphone-x-helper "^1.3.1"
 
+react-native-responsive-screen@^1.4.2:
+  version "1.4.2"
+  resolved "https://registry.npmjs.org/react-native-responsive-screen/-/react-native-responsive-screen-1.4.2.tgz"
+  integrity sha512-BLYz0UUpeohrib7jbz6wDmtBD5OmiuMRko4IT8kIF63taXPod/c5iZgmWnr5qOnK8hMuKiGMvsM3sC+eHX/lEQ==
+
 react-native-safe-area-context@^4.10.1, "react-native-safe-area-context@>= 3.0.0":
   version "4.10.1"
   resolved "https://registry.npmjs.org/react-native-safe-area-context/-/react-native-safe-area-context-4.10.1.tgz"
@@ -6826,7 +6843,7 @@ react-native-webview@^13.8.7, react-native-webview@>=7.5.2:
     escape-string-regexp "2.0.0"
     invariant "2.2.4"
 
-react-native@*, react-native@^*, react-native@>=0.42.0, react-native@>=0.50.0, react-native@>=0.59.0, react-native@0.74.0:
+react-native@*, react-native@^*, react-native@^0.73.0, react-native@>=0.35, react-native@>=0.42.0, react-native@>=0.50.0, react-native@>=0.59.0, react-native@0.74.0:
   version "0.74.0"
   resolved "https://registry.npmjs.org/react-native/-/react-native-0.74.0.tgz"
   integrity sha512-Vpp9WPmkCm4TUH5YDxwQhqktGVon/yLpjbTgjgLqup3GglOgWagYCX3MlmK1iksIcqtyMJHMEWa+UEzJ3G9T8w==

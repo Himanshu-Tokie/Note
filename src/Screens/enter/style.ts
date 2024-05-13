@@ -1,4 +1,5 @@
 import { StyleSheet } from "react-native";
+import { heightPercentageToDP, widthPercentageToDP } from "react-native-responsive-screen";
 // Enter
 export const styles = StyleSheet.create({
     container:{
@@ -7,7 +8,7 @@ export const styles = StyleSheet.create({
         // justifyContent:'center',
         alignItems:'center',
         alignContent:'center',
-        paddingTop:100
+        paddingTop:heightPercentageToDP('8%')
     },
     subContainer:{
         alignItems:'center',
@@ -15,27 +16,30 @@ export const styles = StyleSheet.create({
     },
     // customText
     textNote:{
-        fontSize:25
+        fontSize:heightPercentageToDP('3.2%'),
+        fontFamily:'Nunito'
     },
     textSave:{
-        fontSize:20
+        fontSize:heightPercentageToDP('3%'),
+        fontFamily:'Nunito'
     },
     font:{
         fontWeight:'bold'
     },
     svg:{
-        // borderWidth:2,
-        width:220,
-        height:220,
-        marginVertical:60
+        marginVertical:heightPercentageToDP('5%'),
+        paddingLeft:widthPercentageToDP('6%')
     },
     simpleText:{
-        fontSize:14
+        fontSize:heightPercentageToDP('1.8%'),
+        color:'rgb(107,78,255)',
+        fontFamily:'Nunito',
+        paddingTop:heightPercentageToDP('.5%')
     },
     footer:{
         flexDirection:'row'
     },
     colorText:{
-        color:'rgb(107,78,255)'
+        paddingTop:heightPercentageToDP('1%')
     }
 })

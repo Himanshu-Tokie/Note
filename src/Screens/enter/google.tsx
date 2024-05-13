@@ -11,6 +11,7 @@ import { screenConstant } from '../../constants';
 import { useDispatch } from 'react-redux';
 import { logIn, updateUser } from '../../store/common';
 import { signUpUser } from '../../utils';
+import { heightPercentageToDP, widthPercentageToDP } from 'react-native-responsive-screen';
 
 
 function isErrorWithCode(error) {
@@ -84,10 +85,14 @@ export default function Google() {
 const styles = StyleSheet.create({
   google: {
     borderRadius: 30,
-    width: 310,
+    textAlign:'center',
+    width:widthPercentageToDP('82%'),
     alignContent: 'center',
     alignItems: 'center',
-    // textAlign:
-    // paddingTop:10
+    // textAlign:.
+    marginTop:heightPercentageToDP('1'),
+    paddingTop:10,
+    // backgroundColor:'rgb(249, 248, 253)',
   },
+  // wideSize: { width: 350, height: 48 }
 });

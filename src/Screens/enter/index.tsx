@@ -7,6 +7,7 @@ import { ICONS } from '../../constants/Icons';
 import { screenConstant } from '../../constants/index';
 import Google from './google';
 import { styles } from './style';
+import { heightPercentageToDP, widthPercentageToDP } from 'react-native-responsive-screen';
 
 
 export default function Enter({ navigation }) {
@@ -24,13 +25,13 @@ export default function Enter({ navigation }) {
           styles={[styles.textNote, styles.font]}
         />
         <View style={styles.svg}>
-          {ICONS.DAIRY(220, 220)}
+          {ICONS.DAIRY(widthPercentageToDP('60'),heightPercentageToDP('25'),)}
         </View>
         <CustomText
           text="Save and share notes"
           styles={[styles.textSave, styles.font]}
         />
-        <CustomButton text="Create Account" onPress={onPress} />
+        <CustomButton text="Create Account" onPress={onPress}/>
         <Google></Google>
         <View style={styles.footer}>
           <CustomText text="Have an account?" styles={[styles.simpleText]} />
