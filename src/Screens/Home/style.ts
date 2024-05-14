@@ -1,46 +1,42 @@
 import { StyleSheet } from 'react-native';
-import { RFValue } from 'react-native-responsive-fontsize';
+import { heightPercentageToDP, widthPercentageToDP } from 'react-native-responsive-screen';
 
 export const styles = StyleSheet.create({
   container: {
     backgroundColor: 'rgb(249, 248, 253)',
     flex: 1,
-    paddingHorizontal: 16,
+    paddingHorizontal: widthPercentageToDP('4%'),
   },
   subcontainer: {
-    paddingTop: RFValue(25),
+    paddingTop: heightPercentageToDP('5%'),
     // flex:1
   },
   welcome: {
     color: 'rgb(182,176,217)',
     fontFamily: 'Nunito',
-    paddingBottom: RFValue(2),
+    paddingBottom: heightPercentageToDP('0.25%'),
     fontWeight:'600'
   },
   NoteTaking: {
     fontWeight: 'bold',
     fontFamily: 'Nunito',
-    fontSize: RFValue(22),
+    fontSize: heightPercentageToDP('3%'),
+    color:'rgb(9,9,10)'
   },
   header: {
-    paddingHorizontal: RFValue(16),
+    paddingHorizontal: heightPercentageToDP('2%'),
     flexDirection: 'row',
     justifyContent: 'space-between',
-    // flexGrow:''
-    // flexGrow:''
   },
   innerHeader: {
     flexDirection: 'row',
+    // borderRadius:50
   },
-  icon: {
-    justifyContent: 'center',
-    paddingRight:5
-  },
+  // icon: {
+  //   justifyContent: 'center',
+  //   paddingRight:5
+  // },
   labels: {
-    // padding:0
-    //     borderRadius:2,
-    // borderColor:'black',
-
     justifyContent: 'center',
     alignContent: 'center',
     alignItems: 'center',
@@ -48,28 +44,27 @@ export const styles = StyleSheet.create({
   text: {
     fontFamily: 'Nunito',
     color: 'white',
-    fontSize: 20.48,
+    fontSize: heightPercentageToDP('2.4%'),
     fontWeight: '800',
   },
   image: {
-    // flex: 1,
     justifyContent: 'center',
-    alignContent: 'center',
+    // alignContent: 'center',
     alignItems: 'center',
-    width: 358,
-    height: 162,
+    width: heightPercentageToDP('42.5%'),
+    height: heightPercentageToDP('19.2%'),
   },
   imageContainer: {
-    justifyContent: 'center',
-    alignContent: 'center',
-    paddingHorizontal: 16,
-    paddingTop: RFValue(28),
-    paddingBottom:RFValue(26)
+    // justifyContent: 'center',
+    // alignContent: 'center',
+    paddingHorizontal: widthPercentageToDP('4.1%'),
+    paddingTop: heightPercentageToDP('3.5%'),
+    paddingBottom:heightPercentageToDP('3%')
     // paddingTop:45,
     // paddingBottom:30
   },
   size: {
-    fontSize: 12.8,
+    fontSize: heightPercentageToDP('1.5%'),
     color: 'rgb(153, 144, 254)',
     fontWeight: 'bold',
   },
@@ -78,22 +73,22 @@ export const styles = StyleSheet.create({
     justifyContent: 'center',
     alignContent: 'center',
     alignItems: 'center',
-    paddingBottom: 30,
+    paddingBottom: heightPercentageToDP('3.5%'),
   },
-  footer:{
-    flexDirection:'row',
-    paddingHorizontal:16,
-    justifyContent:'space-between',
-    backgroundColor:'white',
-    marginHorizontal:18,
-    borderRadius:15,
-    paddingVertical:RFValue(10),
-    marginTop:15,
-    position:'absolute',
-    bottom:0,
-    right:0,
-    left:0
-  },
+  // footer:{
+  //   flexDirection:'row',
+  //   paddingHorizontal:16,
+  //   justifyContent:'space-between',
+  //   backgroundColor:'white',
+  //   marginHorizontal:18,
+  //   borderRadius:15,
+  //   paddingVertical:RFValue(10),
+  //   marginTop:15,
+  //   position:'absolute',
+  //   bottom:0,
+  //   right:0,
+  //   left:0
+  // },
   // footerInner:{
   //   flexDirection:'row',
   //   justifyContent:'space-between',

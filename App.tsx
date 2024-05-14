@@ -1,4 +1,5 @@
 import { useEffect } from "react";
+import 'react-native-gesture-handler';
 import { Provider } from "react-redux";
 import { usePushNotification } from "./src/Hooks/pushNotificationcustomHooks";
 import AuthNavigation from "./src/Navigation/AuthNavigation";

@@ -1,3 +1,4 @@
+import { useNavigation } from '@react-navigation/native';
 import {
   ImageBackground,
   StyleSheet,
@@ -5,61 +6,62 @@ import {
   TouchableOpacity,
   View,
 } from 'react-native';
-import { RFValue } from 'react-native-responsive-fontsize';
+import {
+  heightPercentageToDP,
+  widthPercentageToDP,
+} from 'react-native-responsive-screen';
 import { screenConstant } from '../../constants';
 import { images } from '../../constants/Images';
-import { useNavigation } from '@react-navigation/native';
 
 export default function LabelTemplate({icon, text, files, note}) {
-  const nav = useNavigation()
+  const nav = useNavigation();
   function navigationHandler() {
     nav.navigate(screenConstant.Label, {text, note});
   }
 
   return (
     <>
-     <View style={styles.sub}>
-
+      <View style={styles.sub}>
         <ImageBackground
           source={images.LABEL}
           resizeMode="cover"
           style={styles.container}>
           <TouchableOpacity onPress={navigationHandler}>
             <View style={styles.inner}>
-              {icon(52.52, 52.52)}
+              {icon(heightPercentageToDP('6.2%'), heightPercentageToDP('6.2%'))}
               <Text style={styles.text}>{text}</Text>
-              <Text>{files} Files</Text>
+              <Text style={{color:'rgb(9,9,10)'}}>{files} Files</Text>
             </View>
           </TouchableOpacity>
         </ImageBackground>
-            </View>
-     </>
+      </View>
+    </>
   );
 }
 const styles = StyleSheet.create({
-  sub:{
-    paddingHorizontal:5,
-    paddingTop:9,
-    paddingBottom:7,
+  sub: {
+    paddingHorizontal: widthPercentageToDP('1.1%'),
+    paddingTop: heightPercentageToDP('1.1%'),
+    paddingBottom: heightPercentageToDP('1.4%'),
     shadowColor: 'rgb(153,144,255)',
     shadowOffset: {width: -2, height: 4},
     shadowOpacity: 0.2,
     shadowRadius: 3,
   },
   container: {
-    height: RFValue(145),
-    width: RFValue(141),
-    flex:1,
+    height: heightPercentageToDP('20%'),
+    width: widthPercentageToDP('44.5%'),
+    flex: 1,
     justifyContent: 'center',
     // alignContent:'center',
     // alignItems: 'center',
-    
   },
   text: {
-    paddingTop: 10,
+    paddingTop: heightPercentageToDP('1.2%'),
     fontWeight: 'bold',
+    color: 'rgb(9,9,10)',
   },
   inner: {
-paddingLeft:RFValue(24)
+    paddingLeft: widthPercentageToDP('7%'),
   },
 });

@@ -1,9 +1,9 @@
 import auth from '@react-native-firebase/auth';
 import { GoogleSignin } from '@react-native-google-signin/google-signin';
 import { SafeAreaView, Text, View } from 'react-native';
-import { styles } from './style';
 import { useDispatch } from 'react-redux';
 import { logIn, updateUser } from '../../store/common';
+import { styles } from './style';
 export default function Setting({navigation}) {
   const user = auth().currentUser;
   const dispatch = useDispatch();

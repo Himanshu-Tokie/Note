@@ -7,6 +7,7 @@ export const style = StyleSheet.create({
     },
     text:{
         fontSize:20,
+        color:'rgb(9,9,10)',
         // fontWeight:'bold'
     }
 })

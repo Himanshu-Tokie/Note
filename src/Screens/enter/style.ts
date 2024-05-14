@@ -15,13 +15,22 @@ export const styles = StyleSheet.create({
         alignContent:'center',
     },
     // customText
-    textNote:{
-        fontSize:heightPercentageToDP('3.2%'),
-        fontFamily:'Nunito'
+    text1:{
+        fontFamily:'Nunito', 
+        fontWeight:'bold',
+        color:'rgb(107,78,225)',
+        fontSize:heightPercentageToDP('3.2%')       
+    },
+    text2:{
+        fontFamily:'Nunito', 
+        fontWeight:'bold',
+        color:'rgb(9,9,10)',
+        fontSize:heightPercentageToDP('3.2%')        
     },
     textSave:{
         fontSize:heightPercentageToDP('3%'),
-        fontFamily:'Nunito'
+        fontFamily:'Nunito',
+        color:'rgba(9,10,10,100%)'
     },
     font:{
         fontWeight:'bold'
@@ -41,5 +50,8 @@ export const styles = StyleSheet.create({
     },
     colorText:{
         paddingTop:heightPercentageToDP('1%')
+    },
+    viewText:{
+        flexDirection:'row'
     }
 })

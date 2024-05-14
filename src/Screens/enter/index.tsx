@@ -1,5 +1,6 @@
 import React from 'react';
 import { Text, View } from 'react-native';
+import { heightPercentageToDP, widthPercentageToDP } from 'react-native-responsive-screen';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import CustomButton from '../../components/Button/customButton';
 import CustomText from '../../components/Text/customText';
@@ -7,7 +8,6 @@ import { ICONS } from '../../constants/Icons';
 import { screenConstant } from '../../constants/index';
 import Google from './google';
 import { styles } from './style';
-import { heightPercentageToDP, widthPercentageToDP } from 'react-native-responsive-screen';
 
 
 export default function Enter({ navigation }) {
@@ -20,10 +20,10 @@ export default function Enter({ navigation }) {
   return (
     <SafeAreaView style={styles.container}>
       <View style={styles.subContainer}>
-        <CustomText
-          text="Note-Taking App"
-          styles={[styles.textNote, styles.font]}
-        />
+        <View style={styles.viewText}>
+            <Text style={[styles.text1,styles.font]}>Note-Ta</Text>
+            <Text style={[styles.text2,styles.font]}>king App</Text>
+          </View>
         <View style={styles.svg}>
           {ICONS.DAIRY(widthPercentageToDP('60'),heightPercentageToDP('25'),)}
         </View>

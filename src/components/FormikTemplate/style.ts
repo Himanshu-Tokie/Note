@@ -19,5 +19,12 @@ export const styles = StyleSheet.create({
     },
     label:{
         color:'rgb(114,119,122)'
+    },
+    eye:{
+        flexDirection:'row',
+        justifyContent:'space-between'
+    },
+    icon:{
+        
     }
 })

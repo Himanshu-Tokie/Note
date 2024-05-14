@@ -1,14 +1,11 @@
 import { default as auth } from '@react-native-firebase/auth';
-import firestore from '@react-native-firebase/firestore';
 import { Formik } from 'formik';
 import { KeyboardAvoidingView, Platform, SafeAreaView, ScrollView, Text, View } from 'react-native';
-import * as Yup from 'yup';
+import { useDispatch } from 'react-redux';
 import CustomButton from '../../components/Button/customButton';
 import FormikTemplate from '../../components/FormikTemplate/formikTemplate';
-import { screenConstant } from '../../constants';
-import { styles } from './style';
 import { SignupSchema, signUpUser } from '../../utils';
-import { useDispatch } from 'react-redux';
+import { styles } from './style';
 
 // utils
 export default function SignUp({ navigation }) {
@@ -107,7 +104,7 @@ export default function SignUp({ navigation }) {
                       onBlur={() => setFieldTouched('number')}
                       error={errors.number}
                     />
-                    <Text>
+                    <Text style={{color:'rgb(9,9,10)'}}>
                       By continuing, you agree to our Terms of Service and Privacy
                       Policy.
                     </Text>

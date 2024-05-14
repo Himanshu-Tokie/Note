@@ -1,5 +1,6 @@
 import React from 'react'
 import { RFValue } from 'react-native-responsive-fontsize'
+import BOOK from '../assets/svg/Black.svg'
 import DAIRY from '../assets/svg/Diary.svg'
 import ACADEMIC from '../assets/svg/academic.svg'
 import ADD from '../assets/svg/add.svg'
@@ -7,6 +8,7 @@ import BACK from '../assets/svg/back.svg'
 import BELL from '../assets/svg/bell.svg'
 import CHECKS from '../assets/svg/checks.svg'
 import DOC from '../assets/svg/doc.svg'
+import EYE from '../assets/svg/eye.svg'
 import INTEL from '../assets/svg/intel.svg'
 import OTHERS from '../assets/svg/others.svg'
 import PERSONAL from '../assets/svg/personal.svg'
@@ -41,4 +43,6 @@ export const ICONS = {
   ADD: (...params) => <ADD {...iconStyle(...params)} />,
   SEARCH: (...params) => <SEARCH {...iconStyle(...params)} />,
   BACK: (...params) => <BACK {...iconStyle(...params)} />,
+  BOOK: (...params) => <BOOK {...iconStyle(...params)} />,
+  EYE: (...params) => <EYE {...iconStyle(...params)} />,
 }

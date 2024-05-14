@@ -9,8 +9,9 @@ import {
   Text,
   View
 } from 'react-native';
-import { RFValue } from 'react-native-responsive-fontsize';
+import { heightPercentageToDP, widthPercentageToDP } from 'react-native-responsive-screen';
 import { ScrollView } from 'react-native-virtualized-view';
+import { useSelector } from 'react-redux';
 import LabelTemplate from '../../components/labelTemplate/labelTemplate';
 import { screenConstant } from '../../constants';
 import { ICONS } from '../../constants/Icons';
@@ -18,6 +19,7 @@ import { images } from '../../constants/Images';
 import { styles } from './style';
 
 export default function Home({navigation}) {
+  const userRedux = useSelector(state=>state.common.user)
   const user = auth().currentUser;
   const image = 'https://legacy.reactjs.org/logo-og.png';
   const photoURL = user.photoURL?? image;
@@ -60,13 +62,12 @@ export default function Home({navigation}) {
               <Text style={styles.NoteTaking}>Note-Taking App</Text>
             </View>
             <View style={styles.innerHeader}>
-              <View style={styles.icon}>{ICONS.BELL(24, 24, 'white')}</View>
+              {/* <View style={styles.icon}>{ICONS.BELL(heightPercentageToDP('2.5%'), heightPercentageToDP('2.5%'), 'white')}</View> */}
               <Image
-                //   style={styles.image}
                 source={{
                   uri: photoURL,
-                  height: RFValue(45),
-                  width: RFValue(45),
+                  height: heightPercentageToDP('6%'),
+                  width: heightPercentageToDP('6%'),
                 }}></Image>
             </View>
           </View>
@@ -78,8 +79,8 @@ export default function Home({navigation}) {
               // resizeMode="cover"
               style={styles.image}>
               <View style={styles.imageInner}>
-                {ICONS.PIECHART(68, 68, 'none')}
-                <View style={{paddingLeft:28}}>
+                {ICONS.PIECHART(heightPercentageToDP('8.2%'), heightPercentageToDP('8.2%'), 'none')}
+                <View style={{paddingLeft:widthPercentageToDP('7%')}}>
                   <Text style={styles.text}>Available Space</Text>
                   <Text style={styles.size}>20 .254 GB of 25 GB Used</Text>
                 </View>

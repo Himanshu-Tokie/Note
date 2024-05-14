@@ -1,12 +1,13 @@
 import { useNavigation } from '@react-navigation/native';
 import {
-    Pressable,
-    StyleSheet,
-    Text,
-    TextInput,
-    TouchableOpacity,
-    View,
+  Pressable,
+  StyleSheet,
+  Text,
+  TextInput,
+  TouchableOpacity,
+  View,
 } from 'react-native';
+import { heightPercentageToDP, widthPercentageToDP } from 'react-native-responsive-screen';
 import { ICONS } from '../../constants/Icons';
 import Icon from '../Icon';
 
@@ -58,31 +59,33 @@ const styles = StyleSheet.create({
   container: {
     flexDirection: 'row',
     justifyContent: 'space-between',
-    marginHorizontal: 8,
-    marginVertical: 12,
+    marginHorizontal: widthPercentageToDP('2%'),
+    marginVertical: heightPercentageToDP('1.5%'),
   },
   searchContainer: {
     flexDirection: 'row',
     // justifyContent:'space-between',
-    marginHorizontal: 8,
+    marginHorizontal:  widthPercentageToDP('2%'),
   },
   headerText: {
     fontFamily: 'Nunito',
     fontWeight: 'bold',
-    fontSize: 20,
+    fontSize: heightPercentageToDP('2.2%'),
     marginLeft: 10,
+    color:'rgb(9,9,10)'
   },
   leftHeader: {
     flexDirection: 'row',
   },
   rightHeader: {
-    width: 100,
+    width: widthPercentageToDP('25%'),
   },
   text: {
-    fontSize: 16,
+    fontSize: heightPercentageToDP('2%'),
     color: 'rgb(107,78,253)',
     paddingLeft: 0,
     paddingTop: 2,
+    fontFamily:'Nunito'
   },
   iconContainer: {
     paddingRight: 5,

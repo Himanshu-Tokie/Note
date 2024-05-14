@@ -5,7 +5,7 @@ const common = createSlice({
     initialState:{
         user:{
             uid:null,
-        providerId:null,
+            providerId:null,
         },
         providerId:null,
         isLogedIn:false
@@ -15,6 +15,8 @@ const common = createSlice({
             state.user = action.payload;
         },
         logIn:(state,action)=>{
+            console.log(action.payload,'login reducer');
+            
             state.isLogedIn=action.payload;
         },
         provider:(state,action)=>{

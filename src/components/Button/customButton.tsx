@@ -5,10 +5,13 @@ export default function CustomButton({text, onPress, disabled = false, style}) {
   // console.log(text);
   const customstyles = style ?? [];
   return (
+    <View style={{alignItems: 'center'}}>
+
     <TouchableOpacity onPress={onPress} disabled={disabled}>
       <View style={[styles.container, ...customstyles]}>
         <Text style={styles.text}>{text}</Text>
       </View>
     </TouchableOpacity>
+    </View>
   );
 }

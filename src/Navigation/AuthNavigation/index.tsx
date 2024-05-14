@@ -6,6 +6,7 @@ import Enter from "../../Screens/enter";
 import ForgotPassword from "../../Screens/forgotPassword/forgotPass";
 import LogIn from "../../Screens/logIn";
 import SignUp from "../../Screens/signUp";
+import Splash from "../../Screens/splashScreen1";
 import { screenConstant } from "../../constants/index";
 import HomeNavigation from "../HomeNavigation";
 
@@ -14,7 +15,7 @@ export default function AuthNavigation() {
     return (
         <>
             <NavigationContainer>
-                <Stack.Navigator initialRouteName={screenConstant.Enter}
+                <Stack.Navigator initialRouteName={screenConstant.Splash1}
                     screenOptions={{
                         headerStyle: { backgroundColor: 'rgb(249, 248, 253)' },
                         headerTintColor: 'rgb(107, 78, 253)',
@@ -24,6 +25,7 @@ export default function AuthNavigation() {
                             fontSize: 20
                         },
                     }}>
+                        <Stack.Screen name={screenConstant.Splash1} component={Splash} options={{headerShown: false}}/>
                     <Stack.Screen name={screenConstant.Enter} component={Enter} options={{ headerShown: false }} />
                     <Stack.Screen name={screenConstant.Login} component={LogIn} />
                     <Stack.Screen name={screenConstant.Home} component={HomeNavigation} options={{ headerShown: false }} />

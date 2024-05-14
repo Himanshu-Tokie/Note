@@ -1,10 +1,10 @@
+import { default as auth } from '@react-native-firebase/auth';
+import firestore from '@react-native-firebase/firestore';
 import React, { useEffect, useState } from "react";
 import { FlatList, SafeAreaView, View } from "react-native";
 import Search from '../../components/Header';
 import ListTemplate from "../../components/listTemplate/listTemplate";
 import { styles } from "./style";
-import firestore from '@react-native-firebase/firestore';
-import { default as auth } from '@react-native-firebase/auth';
 
 export default function Extar2({ route }) {
     const user = auth().currentUser;
@@ -77,7 +77,7 @@ export default function Extar2({ route }) {
     }, [uid]);
     return (
         <>
-            <SafeAreaView>
+            <SafeAreaView style={styles.container}>
                 <View>
                     <Search
                         onChangeText={search}

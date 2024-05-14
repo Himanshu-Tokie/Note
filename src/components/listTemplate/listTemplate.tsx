@@ -28,7 +28,7 @@ export default function ListTemplate({ note, nav, maxHeight }) {
 const styles = StyleSheet.create({
   container: {
     backgroundColor: 'white',
-    borderRadius: 15,
+    borderRadius: 18,
     marginHorizontal: 8,
     marginBottom: 8,
     padding: 12,
@@ -43,8 +43,8 @@ const styles = StyleSheet.create({
     fontWeight: 'bold',
     fontFamily: 'Nunito',
     fontSize: RFValue(12),
-    color: 'black',
     paddingBottom: 4,
+    color: 'rgb(9,9,10)'
   },
   data: {
     fontFamily: 'Nunito',

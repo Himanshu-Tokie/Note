@@ -18,6 +18,7 @@ export const styles = StyleSheet.create({
     fontSize: 20,
     fontFamily: 'Nunito',
     fontWeight: '400',
+    color: 'rgb(9,9,10)'
   },
   textBold: {
     fontWeight: 'bold',

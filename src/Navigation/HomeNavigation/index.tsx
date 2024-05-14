@@ -17,10 +17,6 @@ export default function HomeNavigation() {
   const Tab = createBottomTabNavigator();
 
   function MyTabBar({state, descriptors, navigation}) {
-    // console.log(state);
-    // console.log(descriptors);
-    // console.log(navigation);
-
     const iconSelection = index => {
       switch (index) {
         case 0:
@@ -28,7 +24,19 @@ export default function HomeNavigation() {
         case 1:
           return ICONS.CHECKS;
         case 3:
-          return ICONS.INTEL;
+          return ICONS.BELL;
+        case 4:
+          return ICONS.SETTING;
+      }
+    };
+    const iconHover = index => {
+      switch (index) {
+        case 0:
+          return ICONS.DOC;
+        case 1:
+          return ICONS.CHECKS;
+        case 3:
+          return ICONS.BELL;
         case 4:
           return ICONS.SETTING;
       }
@@ -52,7 +60,7 @@ export default function HomeNavigation() {
               if (state.index == 3) {
                 const note = {
                   timestamp: '',
-                  newReminder:''
+                  newReminder: '',
                 };
                 parentNavigation.navigate(screenConstant.Note, {note});
               } else {
@@ -80,6 +88,7 @@ export default function HomeNavigation() {
               height={24}
               color="none"
               action={onPress}
+              borderColor={''}
             />
           );
         })}
@@ -96,7 +105,11 @@ export default function HomeNavigation() {
           component={Home}
           options={{headerShown: false}}
         />
-        <Tab.Screen name={screenConstant.Extra1} component={Extar1} />
+        <Tab.Screen
+          name={screenConstant.Extra1}
+          component={Extar1}
+          options={{headerShown: false}}
+        />
         <Tab.Screen name={screenConstant.Note} component={Note} />
         <Tab.Screen
           name={screenConstant.Extra2}

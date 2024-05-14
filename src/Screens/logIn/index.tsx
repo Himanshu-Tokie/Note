@@ -1,14 +1,14 @@
 import { default as auth } from '@react-native-firebase/auth';
 import { Formik } from 'formik';
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 import { SafeAreaView, Text, View } from 'react-native';
+import { useDispatch, useSelector } from 'react-redux';
 import * as Yup from 'yup';
 import CustomButton from '../../components/Button/customButton';
 import FormikTemplate from '../../components/FormikTemplate/formikTemplate';
 import { screenConstant } from '../../constants';
-import { styles } from './style';
-import { useDispatch, useSelector } from 'react-redux';
 import { logIn, updateUser } from '../../store/common';
+import { styles } from './style';
 
 const SignupSchema = Yup.object().shape({
   email: Yup.string().email('Invalid email').required('Please enter email'),
@@ -21,23 +21,21 @@ const SignupSchema = Yup.object().shape({
     ),
 });
 
-export default function LogIn({ navigation }) {
+export default function LogIn({navigation}) {
   // const [initializing, setInitializing] = useState(true);
-  const isLogedIn = useSelector(state=>state.common.isLogedIn)
+  const isLogedIn = useSelector(state => state.common.isLogedIn);
   const dispatch = useDispatch();
   const [errorLogin, setErrorLogin] = useState(false);
   function onAuthStateChanged(user) {
     console.log(user, 101);
-    if(!isLogedIn && user){
-      dispatch(logIn(true))
-      dispatch(updateUser({uid:user.uid,
-        providerId:"firebase",
-      }))
+    if (!isLogedIn && user) {
+      dispatch(logIn(true));
+      dispatch(updateUser({uid: user.uid, providerId: 'firebase'}));
     }
-    
+
     // if (initializing) setInitializing(false);
   }
-  console.log(isLogedIn,1234);
+  console.log(isLogedIn, 1234);
 
   // useEffect(() => {
   //   const subscriber = auth().onAuthStateChanged(onAuthStateChanged);
@@ -51,12 +49,9 @@ export default function LogIn({ navigation }) {
         password,
       );
       console.log('login complete');
-      dispatch(logIn(true))
-      dispatch(updateUser({uid:user.uid,
-        providerId:"firebase",
-      }))
-    }
-    catch (error) {
+      dispatch(logIn(true));
+      dispatch(updateUser({uid: user.uid, providerId: 'firebase'}));
+    } catch (error) {
       if (error.code === 'auth/invalid-credential') {
         console.log('User does not exist. Please register.');
         setErrorLogin(true);
@@ -76,10 +71,14 @@ export default function LogIn({ navigation }) {
     return (
       <>
         <SafeAreaView style={styles.container}>
-          {errorLogin && <Text>Invalid Credentials</Text>}
+          {errorLogin && (
+            <View style={styles.errorContainer}>
+              <Text style={styles.error}>Invalid Credentials</Text>
+            </View>
+          )}
           <View style={styles.subContainer}>
             <Formik
-              initialValues={{ email: '', password: '' }}
+              initialValues={{email: '', password: ''}}
               validationSchema={SignupSchema}
               onSubmit={values => {
                 console.log(values, 1);
@@ -102,29 +101,31 @@ export default function LogIn({ navigation }) {
                     onChangeText={handleChange('email')}
                     onBlur={() => setFieldTouched('email')}
                     error={errors.email}
+                    logIn={false}
                   />
                   <FormikTemplate
-                    placeholder=""
+                    placeholder="Password"
                     values={values.password}
                     touched={touched.password}
                     onChangeText={handleChange('password')}
                     onBlur={() => setFieldTouched('password')}
                     error={errors.password}
+                    logIn={false}
                   />
 
                   <Text onPress={forgot} style={styles.colorText}>
                     Forget Password?
                   </Text>
-                  <Text>
+                  <Text style={{color: 'rgb(9,9,10)'}}>
                     By continuing, you agree to our Terms of Service and Privacy
                     Policy.
                   </Text>
-                  <CustomButton
-                    text="Log In"
-                    onPress={handleSubmit}
-                    // disabled={!isValid}
-                    style={[styles.button]}
-                  />
+                    <CustomButton
+                      text="Log In"
+                      onPress={handleSubmit}
+                      // disabled={!isValid}
+                      style={[styles.button]}
+                    />
                 </View>
               )}
             </Formik>
