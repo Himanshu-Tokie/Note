@@ -7,14 +7,17 @@ import ADD from '../assets/svg/add.svg'
 import BACK from '../assets/svg/back.svg'
 import BELL from '../assets/svg/bell.svg'
 import CHECKS from '../assets/svg/checks.svg'
+import CROSS from '../assets/svg/cross-svgrepo-com.svg'
 import DOC from '../assets/svg/doc.svg'
 import EYE from '../assets/svg/eye.svg'
 import INTEL from '../assets/svg/intel.svg'
 import OTHERS from '../assets/svg/others.svg'
 import PERSONAL from '../assets/svg/personal.svg'
 import PIECHART from '../assets/svg/piechart.svg'
+import PLUS2 from '../assets/svg/plus-svgrepo-com.svg'
 import SEARCH from '../assets/svg/search.svg'
 import SETTING from '../assets/svg/setting.svg'
+import TICK from '../assets/svg/tick-svgrepo-com.svg'
 import WORK from '../assets/svg/work.svg'
 const iconStyle = (
   width = 0,
@@ -45,4 +48,10 @@ export const ICONS = {
   BACK: (...params) => <BACK {...iconStyle(...params)} />,
   BOOK: (...params) => <BOOK {...iconStyle(...params)} />,
   EYE: (...params) => <EYE {...iconStyle(...params)} />,
+  PLUS2: (...params) => <PLUS2 {...iconStyle(...params)} />,
+  TICK: (...params) => <TICK {...iconStyle(...params)} />,
+  CROSS
+  : (...params) => <CROSS
+   {...iconStyle(...params)} />,
+
 }
