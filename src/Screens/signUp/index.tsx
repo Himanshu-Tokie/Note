@@ -8,9 +8,11 @@ import FormikTemplate from '../../components/FormikTemplate/formikTemplate';
 import { screenConstant } from '../../constants';
 import { styles } from './style';
 import { SignupSchema, signUpUser } from '../../utils';
+import { useDispatch } from 'react-redux';
 
 // utils
 export default function SignUp({ navigation }) {
+  const dispatch = useDispatch()
   const signUp = async values => {
     try {
       let userCredentials = await auth().createUserWithEmailAndPassword(
@@ -21,7 +23,7 @@ export default function SignUp({ navigation }) {
         displayName: values.firstName + ' ' + values.lastName,
       });
       // console.log(userCredentials,1)
-      signUpUser(userCredentials.user,'firebase')
+      signUpUser(userCredentials.user,'firebase',dispatch,navigation)
     } catch (error) {
       console.error('Error creating account:', error.code, error.message);
     }

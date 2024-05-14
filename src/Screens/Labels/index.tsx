@@ -15,9 +15,6 @@ export default function Label({ navigation, route }) {
   const label = route.params.text;
   const [searchData, setSearchData] = useState([])
   const [notesData, setNotesData] = useState([]);
-  // const searchData = route.params.searchData;
-  // const setNotesData = route.params.setNotesData;
-  // const setSearchData = route.params.setSearchData;
   console.log('label Page');
   const note = {
     uid,

@@ -1,6 +1,6 @@
 import { default as auth } from '@react-native-firebase/auth';
 import firestore from '@react-native-firebase/firestore';
-import React, { useRef, useState } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import {
   KeyboardAvoidingView,
   Platform,
@@ -14,27 +14,24 @@ import Header from '../../components/Header';
 import { styles } from './styles';
 
 const Note = ({route}) => {
+  console.log(route,87);
+  
   const user = auth().currentUser;
   let uid = user?.uid;
   let initialTitle = '';
   let noteId = '';
   let data = '';
   let lable = 'Others';
-  let timeStamp = '';
   const reminder = useRef(false);
   const isNew = useRef(true);
   const noteIdExist = useRef(false);
-  // console.log(route.params.note.timestamp, 1212);
-  // console.log(user);
+  const date = useRef();
   if (route.params != undefined)
     if (route.params?.note != undefined) {
       if (route.params.note.noteId == undefined) {
         lable = route.params.note.label;
-        uid = route.params.note.uid;
-        console.log('No noteID', uid);
       } else {
         data = route.params.note.data;
-        uid = route.params.note.id;
         initialTitle = route.params.note.title;
         noteId = route.params.note.noteId;
         lable = route.params.note.label;
@@ -42,24 +39,25 @@ const Note = ({route}) => {
         noteIdExist.current = true;
       }
       if (route.params.note.timestamp !== undefined) {
-        timeStamp = route.params.note.timestamp;
+        date.current = route.params.note.timestamp;
         reminder.current = true;
         if(route.params.note.newReminder !== undefined)
           isNew.current = true
       }
     }
   const RichText = useRef();
-  // const [article, setArticle] = useState('');
   const articleData = useRef(data);
   const [title, setTitle] = useState(initialTitle);
   const [value, setValue] = useState(data);
   const [label, setLable] = useState(lable);
   const labelRef = useRef(lable);
   const titleRef = useRef('');
-  // console.log(value, 1);
-  // console.log(articleData.current, 2);
-  // console.log(title, 3);
-  // console.log(labelRef, 4);
+  console.log(value, 1);
+  console.log(articleData.current, 2);
+  console.log(title, 3);
+  console.log(labelRef, 4);
+  console.log(date.current,5);
+  
 
   const createReminder = async () => {
     try {
@@ -70,7 +68,7 @@ const Note = ({route}) => {
         .add({
           title: titleRef.current,
           content: articleData.current,
-          timeStamp: timeStamp,
+          timeStamp: date.current,
         })
         .then(() => {
           console.log('new reminder added successfully');
@@ -89,7 +87,7 @@ const Note = ({route}) => {
         .update({
           title: titleRef.current,
           content: articleData.current,
-          timeStamp: timeStamp,
+          timeStamp: date.current,
         })
         .then(() => {
           console.log('reminder updated successfully');
@@ -158,24 +156,28 @@ const Note = ({route}) => {
       }
     } catch {}
   };
-  // useEffect(() => {
-  //   const fetchData = async () => {
-  //     if (!isNew.current) {
-  //       if(reminder.current)
-  //         await updateReminder()
-  //       else
-  //       await updateData();
-  //     } else {
-  //       if(reminder.current)
-  //         await createReminder();
-  //       else
-  //       await createNote();
-  //     }
-  //   };
-  //   return fetchData; // Invoke the function immediately
+  useEffect(() => {
+    const fetchData = async () => {
+      if (!isNew.current) {
+        if(reminder.current)
+          {console.log('reminder updated success');       
+          await updateReminder()}
+        else
+        {console.log('note updated success');  
+        await updateData();}
+      } else {
+        if(reminder.current)
+          {console.log('reminder created success');  
+          await createReminder();}
+        else
+        {await createNote();
+        console.log('note created success'); } 
+      }
+    };
+    return fetchData; // Invoke the function immediately
 
-  //   // Return a cleanup function if needed
-  // }, []);
+    // Return a cleanup function if needed
+  }, []);
 
   const scrollRef = useRef(null);
   const onCursorPosition = scrollY => {
@@ -209,7 +211,7 @@ const Note = ({route}) => {
             placeholder="label"
           value={label}></TextInput> */}
         <RichEditor
-          disabled={true}
+          disabled={false}
           containerStyle={styles.editor}
           ref={RichText}
           initialContentHTML={value}
@@ -222,7 +224,7 @@ const Note = ({route}) => {
           }}
           onCursorPosition={onCursorPosition}
         />
-        {reminder.current && <DateTime></DateTime>}
+        {reminder.current && <DateTime dateRef={date}></DateTime>}
         <RichToolbar
           style={[styles.richBar]}
           editor={RichText}
