@@ -17,7 +17,7 @@ import PIECHART from '../assets/svg/piechart.svg'
 import PLUS2 from '../assets/svg/plus-svgrepo-com.svg'
 import SEARCH from '../assets/svg/search.svg'
 import SETTING from '../assets/svg/setting.svg'
-import TICK from '../assets/svg/tick-svgrepo-com.svg'
+import TICK from '../assets/svg/icons8-tick.svg'
 import WORK from '../assets/svg/work.svg'
 const iconStyle = (
   width = 0,
@@ -50,8 +50,6 @@ export const ICONS = {
   EYE: (...params) => <EYE {...iconStyle(...params)} />,
   PLUS2: (...params) => <PLUS2 {...iconStyle(...params)} />,
   TICK: (...params) => <TICK {...iconStyle(...params)} />,
-  CROSS
-  : (...params) => <CROSS
-   {...iconStyle(...params)} />,
+  CROSS: (...params) => <CROSS {...iconStyle(...params)} />,
 
 }

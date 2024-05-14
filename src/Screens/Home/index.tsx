@@ -30,6 +30,20 @@ export default function Home({navigation}) {
   
   useEffect(() => {
     getLabel();
+    const unsubscribe = firestore()
+            .collection('user')
+            .doc(user.uid)
+            .collection('labels')
+            .onSnapshot(querySnapshot => {
+                const newData = []; // Temporary array to accumulate data  
+                querySnapshot.forEach(doc => {
+                  newData.push({id: doc.id, count: doc.data().count});
+                });
+                setLabel(newData);
+            });
+
+        // Stop listening for updates when no longer required
+        return () => unsubscribe();
   }, []);
   const getLabel = async () => {
     try {

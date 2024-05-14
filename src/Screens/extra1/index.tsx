@@ -1,79 +1,86 @@
 import { default as auth } from '@react-native-firebase/auth';
-import React, { useState } from "react";
-import { SafeAreaView, View } from "react-native";
+import React, { useEffect, useRef, useState } from "react";
+import { Button, FlatList, SafeAreaView, View } from "react-native";
 import EditLables from '../../components/EditLables';
 import Search from '../../components/Header';
 import { styles } from "./style";
+import firestore from '@react-native-firebase/firestore';
+import ListTemplate from '../../components/listTemplate/listTemplate';
+import DialogInput from 'react-native-dialog-input';
 
 export default function Extar1({ route }) {
     const user = auth().currentUser;
-  let uid = user?.uid;
-    const [searchData, setSearchData] = useState([])
+    let uid = user?.uid;
+    // const [searchData, setSearchData] = useState([])
     const [notesData, setNotesData] = useState([]);
     console.log('Label creater Page');
+    // const [newLabel, setNewLabel] = useState('');
+    const newLabel = useRef('');
+    const [show, setShow] = useState(false)
+    useEffect(() => {
+        const fetchData = async () => {
+            try {
+                const data = await firestore()
+                    .collection('user')
+                    .doc(uid)
+                    .collection('labels')
+                    .get();
 
-    // const search = (e) => {
-    //     let text = e.toLowerCase();
-    //     let filteredData = notesData.filter((item) => {
-    //         return item.data.toLowerCase().match(text) || item.title.toLowerCase().match(text)
-    //     })
-    //     console.log(filteredData);
-    //     setSearchData(filteredData);
-    // }
 
-    // useEffect(() => {
-    //     const fetchData = async () => {
-    //         try {
-    //             const data = await firestore()
-    //                 .collection('user')
-    //                 .doc(uid)
-    //                 .collection('reminder')
-    //                 .get();
+                const newData = []; // Temporary array to accumulate data
 
-    //             const newData = []; // Temporary array to accumulate data
+                data.forEach(doc => {
+                    newData.push({ id: doc.id });
+                });
 
-    //             data.forEach(doc => {
-    //                 newData.push({
-    //                     title: doc.data().title,
-    //                     data: doc.data().content,
-    //                     noteId: doc.id,
-    //                     id: uid,
-    //                     timestamp:doc.data().timeStamp
-    //                 });
-    //             });
+                setNotesData(newData);
+            } catch (error) {
+                console.error('Error fetching data:', error);
+            }
+        };
 
-    //             setNotesData(newData);
-    //             setSearchData(newData);
-    //         } catch (error) {
-    //             console.error('Error fetching data:', error);
-    //         }
-    //     };
+        fetchData(); // Fetch initial data
 
-    //     fetchData(); // Fetch initial data
+        // Set up listener for real-time updates
+        const unsubscribe = firestore()
+            .collection('user')
+            .doc(uid)
+            .collection('labels')
+            .onSnapshot(querySnapshot => {
+                const newData = []; // Temporary array to accumulate data  
+                querySnapshot.forEach(doc => {
+                    newData.push({ id: doc.id });
+                });
+                setNotesData(newData);
+            });
 
-    //     // Set up listener for real-time updates
-    //     const unsubscribe = firestore()
-    //         .collection('user')
-    //         .doc(uid)
-    //         .collection('reminder')
-    //         .onSnapshot(querySnapshot => {
-    //             const newData = []; // Temporary array to accumulate data  
-    //             querySnapshot.forEach(doc => {
-    //                 newData.push({
-    //                     title: doc.data().title,
-    //                     data: doc.data().content,
-    //                     noteId: doc.id,
-    //                     id: uid,
-    //                     timestamp:doc.data().timeStamp
-    //                 });
-    //             });
-    //             setNotesData(newData);
-    //             setSearchData(newData);
-    //         });
+        // Stop listening for updates when no longer required
+        return () => unsubscribe();
+    }, [])
+    // console.log(newLabel.current);
+    useEffect(() => {
+        const addNewLabel = async () => {
+            try {
+                if (newLabel.current !== '') {
+                    await firestore()
+                        .collection('user')
+                        .doc(uid)
+                        .collection('labels')
+                        .doc(newLabel.current)
+                        .set({
+                            count: 0
+                        }).then(() => console.log('successfully added label')
+                        ).catch(e => console.log(e)
+                        );
+                }
 
-    //     // Stop listening for updates when no longer required
-    //     return () => unsubscribe();
-    // }, [uid]);
+            } catch (error) {
+                console.error('Error adding new label:', error);
+            }
+        };
+
+        addNewLabel();
+    }, [newLabel.current]);
     return (
         <>
             <SafeAreaView style={styles.container}>
@@ -84,22 +91,28 @@ export default function Extar1({ route }) {
                         headerText={'Edit Labels'}
                     />
                 </View>
-                <EditLables/>
-
+                {/* <EditLables onChangeText={setNewLabel} /> */}
+                <Button title='press' onPress={() => setShow(true)} />
+                <DialogInput isDialogVisible={show}
+                    title={"DialogInput 1"}
+                    message={"Message for DialogInput #1"}
+                    hintInput={"HINT INPUT"}
+                    submitInput={(input) => { newLabel.current = input; setShow(false) }}
+                    closeDialog={() => { setShow(false) }}>
+                </DialogInput>
 
 
 
                 {/* fetch label and show label list */}
-                {/* <View style={styles.subContainer}>
+                <View style={styles.subContainer}>
                     <FlatList
-                        data={searchData}
+                        data={notesData}
                         style={styles.list}
-                        keyExtractor={item => item.noteId}
-                        // numColumns={2}
+                        keyExtractor={item => item.id}
                         renderItem={({ item }) => (
-                            <ListTemplate note={item} nav={route.params.parentNavigation} maxHeight={150} />
+                            <ListTemplate note={item} label={true} />
                         )}></FlatList>
-                </View> */}
+                </View>
             </SafeAreaView>
         </>
     )
