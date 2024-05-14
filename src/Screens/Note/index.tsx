@@ -25,7 +25,8 @@ const Note = ({route}) => {
   const reminder = useRef(false);
   const isNew = useRef(true);
   const noteIdExist = useRef(false);
-  const date = useRef();
+  const [date, setDate] = useState(new Date());
+  const dateRef = useRef(date);
   if (route.params != undefined)
     if (route.params?.note != undefined) {
       if (route.params.note.noteId == undefined) {
@@ -39,24 +40,25 @@ const Note = ({route}) => {
         noteIdExist.current = true;
       }
       if (route.params.note.timestamp !== undefined) {
-        date.current = route.params.note.timestamp;
+        // dateRef.current = route.params.note.timestamp
         reminder.current = true;
         if(route.params.note.newReminder !== undefined)
           isNew.current = true
       }
     }
-  const RichText = useRef();
+    // if(reminder.current)setDate(route.params.note.timestamp);
+  const RichText = useRef(); 
   const articleData = useRef(data);
   const [title, setTitle] = useState(initialTitle);
   const [value, setValue] = useState(data);
   const [label, setLable] = useState(lable);
   const labelRef = useRef(lable);
-  const titleRef = useRef('');
+  const titleRef = useRef(initialTitle);
   console.log(value, 1);
   console.log(articleData.current, 2);
   console.log(title, 3);
   console.log(labelRef, 4);
-  console.log(date.current,5);
+  console.log(dateRef.current,5);
   
 
   const createReminder = async () => {
@@ -87,7 +89,7 @@ const Note = ({route}) => {
         .update({
           title: titleRef.current,
           content: articleData.current,
-          timeStamp: date.current,
+          timeStamp: dateRef.current,
         })
         .then(() => {
           console.log('reminder updated successfully');
@@ -95,6 +97,8 @@ const Note = ({route}) => {
     } catch (e) {
       console.log(e, 'reminder');
     }
+    console.log(dateRef);
+    
   };
   const updateData = async () => {
     try {
@@ -157,6 +161,10 @@ const Note = ({route}) => {
     } catch {}
   };
   useEffect(() => {
+    dateRef.current = date;
+  }, [date]);
+
+  useEffect(()=>{
     const fetchData = async () => {
       if (!isNew.current) {
         if(reminder.current)
@@ -174,10 +182,8 @@ const Note = ({route}) => {
         console.log('note created success'); } 
       }
     };
-    return fetchData; // Invoke the function immediately
-
-    // Return a cleanup function if needed
-  }, []);
+    return fetchData; 
+  },[])
 
   const scrollRef = useRef(null);
   const onCursorPosition = scrollY => {
@@ -224,7 +230,7 @@ const Note = ({route}) => {
           }}
           onCursorPosition={onCursorPosition}
         />
-        {reminder.current && <DateTime dateRef={date}></DateTime>}
+        {reminder.current && <DateTime date={date} setDate={setDate}></DateTime>}
         <RichToolbar
           style={[styles.richBar]}
           editor={RichText}
