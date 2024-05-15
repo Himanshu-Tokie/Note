@@ -17,25 +17,29 @@ export const styles = StyleSheet.create({
       backgroundColor: 'rgb(249, 248, 253)',
     },
     editor: {
-      backgroundColor: 'rgb(249, 248, 253)',
-      borderColor: 'black',
-      borderWidth: 0,
+      // borderColor: 'black',
+      // borderWidth: 1,
+      // flex:1
     },
     rich: {
-      minHeight: 300,
-      // flex: 1,
-      borderRadius:0,
-      borderWidth:0,
-      backgroundColor:'red'
+      // minHeight: 300,
+      flex: 1,
+      // borderRadius:0,
+      // borderWidth:0,
+      // backgroundColor:'red'
     },
     // text under rich 
     richeditor:{
-      color:'black',
-      fontFamily:'Nunito'
+      backgroundColor: 'rgb(249, 248, 253)',
+      // color:'black',
+      // fontFamily:'Nunito'
     },
     richBar: {
-      height: 50,
-      backgroundColor: 'rgb(107,78,255)',
+      // height: 50,
+      // // backgroundColor: 'rgb(107,78,255)',
+      // backgroundColor:'red',
+      // position:'absolute',
+      // bottom:0
     },
     text: {
       fontWeight: 'bold',
@@ -52,7 +56,8 @@ export const styles = StyleSheet.create({
       // paddingLeft:
     },
     subContainer:{
-      marginHorizontal:16
+      marginHorizontal:16,
+      flex:1
     }
   });
   

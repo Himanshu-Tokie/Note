@@ -28,7 +28,7 @@ export default function AuthNavigation() {
                         <Stack.Screen name={screenConstant.Splash1} component={Splash} options={{headerShown: false}}/>
                     <Stack.Screen name={screenConstant.Enter} component={Enter} options={{ headerShown: false }} />
                     <Stack.Screen name={screenConstant.Login} component={LogIn} />
-                    <Stack.Screen name={screenConstant.Home} component={HomeNavigation} options={{ headerShown: false }} />
+                    <Stack.Screen name={screenConstant.HomeNavigation} component={HomeNavigation} options={{ headerShown: false }} />
                     <Stack.Screen name={screenConstant.Note} component={Note} options={{ headerShown: false }} />
                     <Stack.Screen name={screenConstant.SignUp} component={SignUp} />
                     <Stack.Screen name={screenConstant.ForgotPassword} component={ForgotPassword} />

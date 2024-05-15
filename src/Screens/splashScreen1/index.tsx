@@ -17,9 +17,9 @@ export default function Splash() {
     setVisible(true);
     async function fetchAllData() {
       // await AsyncStorage.clear();
-      const Data = await AsyncStorage.getAllKeys();
+      try {const Data = await AsyncStorage.getAllKeys();
       const fetchedData = await AsyncStorage.multiGet(Data).then((fetchedData)=>{
-        console.log(typeof(JSON.parse(fetchedData[0][1])),159);
+        // console.log(typeof(JSON.parse(fetchedData[0][1])),159);
         
         // isLogedIn.current = fetchedData ? fetchedData[1][1] : false;
         setTimeout(() => {
@@ -27,7 +27,7 @@ export default function Splash() {
             if(JSON.parse(fetchedData[0][1])) {
               {console.log(2);}
                                                          
-            navigation.navigate(screenConstant.Home);}
+            navigation.navigate(screenConstant.HomeNavigation);}
             else {
               navigation.navigate(screenConstant.Enter);
             }
@@ -36,7 +36,11 @@ export default function Splash() {
             navigation.navigate(screenConstant.Enter);
           }
         }, 2000);
-      })
+      })}
+      catch (e){
+        console.log(e);
+        navigation.navigate(screenConstant.Enter);
+      }
 
       // fetchedData.forEach(([key, value]) => {
       //   userData[key] = JSON.parse(value);

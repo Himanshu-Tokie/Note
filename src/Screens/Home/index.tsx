@@ -26,6 +26,7 @@ export default function Home({navigation}) {
     navigation.navigate(screenConstant.Note, {uid: user.uid});
   };
   const [label, setLabel] = useState('');
+  console.log(label);
   
   useEffect(() => {
     getLabel();

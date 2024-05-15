@@ -11,5 +11,6 @@ export const screenConstant={
     NewNote:'note',
     Extra1:'extra1',
     Extra2:'extra2',
-    Splash1:'splashScreen1'
+    Splash1:'splashScreen1',
+    HomeNavigation:'homeNavigation'
 }
