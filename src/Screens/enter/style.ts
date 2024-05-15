@@ -30,7 +30,7 @@ export const styles = StyleSheet.create({
     textSave:{
         fontSize:heightPercentageToDP('3%'),
         fontFamily:'Nunito',
-        color:'rgba(9,10,10,100%)'
+        color:'rgb(9,10,10)'
     },
     font:{
         fontWeight:'bold'
@@ -41,17 +41,19 @@ export const styles = StyleSheet.create({
     },
     simpleText:{
         fontSize:heightPercentageToDP('1.8%'),
-        color:'rgb(107,78,255)',
         fontFamily:'Nunito',
+        color:'rgb(9,9,10)',
         paddingTop:heightPercentageToDP('.5%')
     },
     footer:{
         flexDirection:'row'
     },
     colorText:{
-        paddingTop:heightPercentageToDP('1%')
+        color:'rgb(107,78,255)',
+        paddingTop:heightPercentageToDP('1%'),
+        fontWeight:'bold'
     },
     viewText:{
         flexDirection:'row'
-    }
+    },
 })

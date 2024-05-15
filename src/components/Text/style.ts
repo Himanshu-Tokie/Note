@@ -3,11 +3,11 @@ import { StyleSheet } from "react-native";
 export const style = StyleSheet.create({
     container:{
         justifyContent:'center',
-        alignContent:'center'
+        alignContent:'center',
     },
     text:{
         fontSize:20,
-        color:'rgba(9,9,10,100%)',
+        color:'rgb(9,9,10)',
         // fontWeight:'bold'
     }
 })

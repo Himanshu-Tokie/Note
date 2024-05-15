@@ -17,27 +17,29 @@ export default function Splash() {
     setVisible(true);
     async function fetchAllData() {
       // await AsyncStorage.clear();
-      try {const Data = await AsyncStorage.getAllKeys();
-      const fetchedData = await AsyncStorage.multiGet(Data).then((fetchedData)=>{
-        // console.log(typeof(JSON.parse(fetchedData[0][1])),159);
-        
-        // isLogedIn.current = fetchedData ? fetchedData[1][1] : false;
-        setTimeout(() => {
-          if (fetchedData.length) {
-            if(JSON.parse(fetchedData[0][1])) {
-              {console.log(2);}
-                                                         
-            navigation.navigate(screenConstant.HomeNavigation);}
-            else {
-              navigation.navigate(screenConstant.Enter);
-            }
-          } else {
-            console.log(3);
-            navigation.navigate(screenConstant.Enter);
-          }
-        }, 2000);
-      })}
-      catch (e){
+      try {
+        const Data = await AsyncStorage.getAllKeys();
+        const fetchedData = await AsyncStorage.multiGet(Data).then(
+          fetchedData => {
+            setTimeout(() => {
+              if (fetchedData.length) {
+                if (JSON.parse(fetchedData[0][1])) {
+                  {
+                    console.log(2);
+                  }
+
+                  navigation.navigate(screenConstant.HomeNavigation);
+                } else {
+                  navigation.navigate(screenConstant.Enter);
+                }
+              } else {
+                console.log(3);
+                navigation.navigate(screenConstant.Enter);
+              }
+            }, 2000);
+          },
+        );
+      } catch (e) {
         console.log(e);
         navigation.navigate(screenConstant.Enter);
       }
@@ -47,7 +49,6 @@ export default function Splash() {
       // });
     }
     fetchAllData();
-
   }, []);
   return (
     <SafeAreaView style={styles.container}>

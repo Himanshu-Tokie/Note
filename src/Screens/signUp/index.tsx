@@ -104,7 +104,7 @@ export default function SignUp({ navigation }) {
                       onBlur={() => setFieldTouched('number')}
                       error={errors.number}
                     />
-                    <Text style={{color:'rgb(9,9,10)'}}>
+                    <Text style={styles.text}>
                       By continuing, you agree to our Terms of Service and Privacy
                       Policy.
                     </Text>

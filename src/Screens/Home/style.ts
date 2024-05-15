@@ -51,7 +51,7 @@ export const styles = StyleSheet.create({
     justifyContent: 'center',
     // alignContent: 'center',
     alignItems: 'center',
-    width: heightPercentageToDP('42.5%'),
+    width: widthPercentageToDP('89%'),
     height: heightPercentageToDP('19.2%'),
   },
   imageContainer: {

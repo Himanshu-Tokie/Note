@@ -1,58 +1,36 @@
 import { StyleSheet } from "react-native";
+import { heightPercentageToDP, widthPercentageToDP } from "react-native-responsive-screen";
 
 export const styles = StyleSheet.create({
     a: {
       fontWeight: 'bold',
-      color: 'purple',
-    },
-    div: {
-      fontFamily: 'monospace',
-    },
-    p: {
-      fontSize: 30,
+      color: 'rgb(107,78,255)',
     },
     container: {
       flex: 1,
-      // marginTop: 40,
       backgroundColor: 'rgb(249, 248, 253)',
     },
-    editor: {
-      // borderColor: 'black',
-      // borderWidth: 1,
-      // flex:1
-    },
+    editor: {},
     rich: {
-      // minHeight: 300,
       flex: 1,
-      // borderRadius:0,
-      // borderWidth:0,
-      // backgroundColor:'red'
     },
     // text under rich 
     richeditor:{
       backgroundColor: 'rgb(249, 248, 253)',
-      // color:'black',
-      // fontFamily:'Nunito'
+      color:'rgb(42,34,81)',
+      fontFamily:'Nunito',
     },
-    richBar: {
-      // height: 50,
-      // // backgroundColor: 'rgb(107,78,255)',
-      // backgroundColor:'red',
-      // position:'absolute',
-      // bottom:0
-    },
-    text: {
-      fontWeight: 'bold',
-      fontSize: 20,
-    },
+    richBar: {},
     tib: {
       textAlign: 'center',
       color: '#515156',
     },
     title:{
       fontFamily:'Nunito',
-      fontSize:20,
-      paddingVertical:20,
+      fontSize:heightPercentageToDP('2.4%'),
+      paddingVertical:heightPercentageToDP('2.4%'),
+      color:'rgb(42,34,81)',
+      paddingHorizontal:widthPercentageToDP('2%')
       // paddingLeft:
     },
     subContainer:{

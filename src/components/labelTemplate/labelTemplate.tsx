@@ -1,6 +1,7 @@
 import { useNavigation } from '@react-navigation/native';
 import {
   ImageBackground,
+  Platform,
   StyleSheet,
   Text,
   TouchableOpacity,
@@ -43,11 +44,23 @@ const styles = StyleSheet.create({
     paddingHorizontal: widthPercentageToDP('1.1%'),
     paddingTop: heightPercentageToDP('1.1%'),
     paddingBottom: heightPercentageToDP('1.4%'),
-    // shadowColor: 'rgb(153,144,255)',
-    // shadowOffset: {width: -2, height: 4},
-    // shadowOpacity: 0.2,
-    // shadowRadius: 3,
-    // backgroundColor:'rgb(249, 248, 253)'
+    // backgroundColor:'rgb(249, 248, 253)',
+    ...Platform.select({
+      ios: {
+        shadowColor: '#000',
+        shadowOffset: {width: 0, height: 2},
+        shadowOpacity: 0.25,
+        shadowRadius: 3.84,
+      },
+      android: {
+        
+        elevation: 2,
+        shadowColor: '#000',
+        shadowOffset: { width: 0, height: 2 },
+        shadowOpacity: 0.25,
+        shadowRadius: 3.84,
+      },
+    }),
   },
   container: {
     height: heightPercentageToDP('20%'),

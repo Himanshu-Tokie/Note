@@ -1,12 +1,11 @@
 import { default as auth } from '@react-native-firebase/auth';
+import firestore from '@react-native-firebase/firestore';
 import React, { useEffect, useRef, useState } from "react";
 import { Button, FlatList, SafeAreaView, View } from "react-native";
-import EditLables from '../../components/EditLables';
-import Search from '../../components/Header';
-import { styles } from "./style";
-import firestore from '@react-native-firebase/firestore';
-import ListTemplate from '../../components/listTemplate/listTemplate';
 import DialogInput from 'react-native-dialog-input';
+import Search from '../../components/Header';
+import ListTemplate from '../../components/listTemplate/listTemplate';
+import { styles } from "./style";
 
 export default function Extar1({ route }) {
     const user = auth().currentUser;
@@ -87,16 +86,15 @@ export default function Extar1({ route }) {
                 <View>
                     <Search
                         // onChangeText={search}
-                        notesData={notesData}
+                        // notesData={notesData}
                         headerText={'Edit Labels'}
                     />
                 </View>
                 {/* <EditLables onChangeText={setNewLabel} /> */}
                 <Button title='press' onPress={() => setShow(true)} />
                 <DialogInput isDialogVisible={show}
-                    title={"DialogInput 1"}
-                    message={"Message for DialogInput #1"}
-                    hintInput={"HINT INPUT"}
+                    title={"Add Label"}
+                    hintInput={"Label Name"}
                     submitInput={(input) => { newLabel.current = input; setShow(false) }}
                     closeDialog={() => { setShow(false) }}>
                 </DialogInput>

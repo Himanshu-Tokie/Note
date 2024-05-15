@@ -80,9 +80,11 @@ export default function Home({navigation}) {
               <Image
                 source={{
                   uri: photoURL,
-                  height: heightPercentageToDP('6%'),
-                  width: heightPercentageToDP('6%'),
-                }}></Image>
+                  height: heightPercentageToDP('6.6%'),
+                  width: heightPercentageToDP('6.6%'),
+                }}
+                style={{borderRadius:10}}
+                ></Image>
             </View>
           </View>
           <ScrollView>

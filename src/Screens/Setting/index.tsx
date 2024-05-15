@@ -3,22 +3,23 @@ import auth from '@react-native-firebase/auth';
 import { GoogleSignin } from '@react-native-google-signin/google-signin';
 import { SafeAreaView, Text, View } from 'react-native';
 import { useDispatch } from 'react-redux';
+import Search from '../../components/Header';
 import { screenConstant } from '../../constants';
 import { logIn, updateUser } from '../../store/common';
 import { styles } from './style';
+
 export default function Setting({navigation}) {
   const user = auth().currentUser;
   const dispatch = useDispatch();
   const signOut = async () => {
-    try{
-
+    try {
       if (user?.providerData[0].providerId !== 'google.com') {
         await auth()
-        .signOut()
-        .then(() => console.log('User signed out!'));
+          .signOut()
+          .then(() => console.log('User signed out!'));
         dispatch(logIn(false));
         dispatch(updateUser(null));
-        await AsyncStorage.setItem('isLogedIn', JSON.stringify(false))
+        await AsyncStorage.setItem('isLogedIn', JSON.stringify(false));
 
         navigation.navigate(screenConstant.Enter);
       } else {
@@ -27,8 +28,8 @@ export default function Setting({navigation}) {
           dispatch(logIn(false));
           dispatch(updateUser(null));
           console.log('google log out');
-          
-          await AsyncStorage.setItem('isLogedIn', JSON.stringify(false))
+
+          await AsyncStorage.setItem('isLogedIn', JSON.stringify(false));
           navigation.navigate(screenConstant.Enter);
           //   setState({ user: null }); // Remember to remove the user from your app's state as well
         } catch (error) {
@@ -36,16 +37,21 @@ export default function Setting({navigation}) {
         }
       }
       console.log('data removed to storage logout');
-    }
-    catch (e){
+    } catch (e) {
       console.log(e);
-      
     }
-    };
-  
+  };
+
   return (
     <>
       <SafeAreaView style={styles.container}>
+        <View>
+          <Search
+            // onChangeText={search}
+            // notesData={notesData}
+            headerText={'Settings'}
+          />
+        </View>
         <View style={styles.subContainer}>
           <View style={styles.view}>
             <View>

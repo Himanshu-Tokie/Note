@@ -10,6 +10,8 @@ import CHECKS from '../assets/svg/checks.svg'
 import CROSS from '../assets/svg/cross-svgrepo-com.svg'
 import DOC from '../assets/svg/doc.svg'
 import EYE from '../assets/svg/eye.svg'
+import GOOGLE from '../assets/svg/google.svg'
+import TICK from '../assets/svg/icons8-tick.svg'
 import INTEL from '../assets/svg/intel.svg'
 import OTHERS from '../assets/svg/others.svg'
 import PERSONAL from '../assets/svg/personal.svg'
@@ -17,7 +19,6 @@ import PIECHART from '../assets/svg/piechart.svg'
 import PLUS2 from '../assets/svg/plus-svgrepo-com.svg'
 import SEARCH from '../assets/svg/search.svg'
 import SETTING from '../assets/svg/setting.svg'
-import TICK from '../assets/svg/icons8-tick.svg'
 import WORK from '../assets/svg/work.svg'
 const iconStyle = (
   width = 0,
@@ -50,5 +51,6 @@ export const ICONS = {
   EYE: (...params) => <EYE {...iconStyle(...params)} />,
   PLUS2: (...params) => <PLUS2 {...iconStyle(...params)} />,
   TICK: (...params) => <TICK {...iconStyle(...params)} />,
+  GOOGLE: (...params) => <GOOGLE {...iconStyle(...params)} />,
   CROSS: (...params) => <CROSS {...iconStyle(...params)} />,
 }

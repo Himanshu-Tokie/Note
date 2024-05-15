@@ -1,5 +1,6 @@
 // signup
 import { StyleSheet } from "react-native";
+import { heightPercentageToDP } from "react-native-responsive-screen";
 
 export const styles = StyleSheet.create({
     container:{
@@ -8,10 +9,15 @@ export const styles = StyleSheet.create({
     },
 
     subContainer:{
-        paddingTop:60,
+        paddingTop:heightPercentageToDP('3%'),
         alignItems:'center',
+        paddingBottom:heightPercentageToDP('3%')
         // marginHorizontal:0
         // alignContent:'center',
         // justifyContent:'center'
+    },
+    text:{
+        color:'rgb(9,9,10)',
+        fontFamily:'Nunito'
     }
 })

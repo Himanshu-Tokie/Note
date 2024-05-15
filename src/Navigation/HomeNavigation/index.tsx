@@ -99,22 +99,20 @@ export default function HomeNavigation() {
     <>
       <Tab.Navigator
         initialRouteName={screenConstant.Home}
-        tabBar={props => <MyTabBar {...props} />}>
+        tabBar={props => <MyTabBar {...props} />}
+        screenOptions={{headerShown:false}}>
         <Tab.Screen
           name={screenConstant.Home}
           component={Home}
-          options={{headerShown: false}}
         />
         <Tab.Screen
           name={screenConstant.Extra1}
           component={Extar1}
-          options={{headerShown: false}}
         />
         <Tab.Screen name={screenConstant.Note} component={Note} />
         <Tab.Screen
           name={screenConstant.Extra2}
           component={Extar2}
-          options={{headerShown: false}}
           initialParams={{parentNavigation}}
         />
         <Tab.Screen name={screenConstant.Setting} component={Setting} />

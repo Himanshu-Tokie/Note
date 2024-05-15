@@ -1,5 +1,5 @@
 // import React from 'react';
-import { StyleSheet, TouchableOpacity, View } from 'react-native';
+import { Platform, StyleSheet, TouchableOpacity, View } from 'react-native';
 import { ICONS } from '../../constants/Icons';
 
 export default function Plus({onPress}) {
@@ -25,11 +25,16 @@ const styles = StyleSheet.create({
     borderRadius:8,
     // right:2,
     left:-22,shadowColor: 'rgb(153,144,255)',
-    shadowOffset: {width: 0, height: 12},
-    shadowOpacity: 0.2,
-    shadowRadius: 3,
-    // margin: 20,
-    // alignItems: 'center',
-    // justifyContent: 'center',
+    ...Platform.select({
+      ios: {
+        shadowColor: '#000',
+        shadowOffset: {width: 0, height: 2},
+        shadowOpacity: 0.25,
+        shadowRadius: 3.84,
+      },
+      android: {
+        elevation: 10,
+      },
+    }),
   },
 });
