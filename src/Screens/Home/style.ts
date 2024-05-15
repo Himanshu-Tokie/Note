@@ -6,9 +6,11 @@ export const styles = StyleSheet.create({
     backgroundColor: 'rgb(249, 248, 253)',
     flex: 1,
     paddingHorizontal: widthPercentageToDP('4%'),
+    // paddingBottom:100
   },
   subcontainer: {
     paddingTop: heightPercentageToDP('5%'),
+    paddingBottom: heightPercentageToDP('8.5%'),
     // flex:1
   },
   welcome: {

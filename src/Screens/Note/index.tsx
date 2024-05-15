@@ -14,7 +14,7 @@ import Header from '../../components/Header';
 import { styles } from './styles';
 
 const Note = ({route}) => {
-  console.log(route, 87);
+  // console.log(route, 87);
 
   const user = auth().currentUser;
   let uid = user?.uid;
@@ -49,15 +49,16 @@ const Note = ({route}) => {
   const RichText = useRef();
   const articleData = useRef(data);
   const [title, setTitle] = useState(initialTitle);
-  const [value, setValue] = useState(data);
+  // const [value, setValue] = useState(data);
   const [label, setLable] = useState(lable);
   const labelRef = useRef(lable);
   const titleRef = useRef(initialTitle);
-  console.log(value, 1);
-  console.log(articleData.current, 2);
-  console.log(title, 3);
-  console.log(labelRef, 4);
-  console.log(dateRef.current, 5);
+  // console.log(value, 1);
+  // console.log(articleData.current, 22);
+  // console.log(titleRef, 33);
+  // console.log(labelRef, 44);
+  // console.log(dateRef.current, 55);
+  
 
   const createReminder = async () => {
     try {
@@ -68,7 +69,7 @@ const Note = ({route}) => {
         .add({
           title: titleRef.current,
           content: articleData.current,
-          timeStamp: date.current,
+          timeStamp: dateRef.current,
         })
         .then(() => {
           console.log('new reminder added successfully');
@@ -93,7 +94,7 @@ const Note = ({route}) => {
           console.log('reminder updated successfully');
         });
     } catch (e) {
-      console.log(e, 'reminder');
+      console.log(e, 'reminderrrr');
     }
     console.log(dateRef);
   };
@@ -222,7 +223,7 @@ const Note = ({route}) => {
           disabled={false}
           containerStyle={styles.editor}
           ref={RichText}
-          initialContentHTML={value}
+          initialContentHTML={articleData.current}
           style={styles.rich}
           editorStyle={styles.richeditor}
           placeholder={'Start Writing Here'}

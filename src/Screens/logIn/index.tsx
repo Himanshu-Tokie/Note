@@ -55,6 +55,7 @@ export default function LogIn({navigation}) {
       dispatch(updateUser({uid: userCredential.user.uid, providerId: 'firebase'}));
       await AsyncStorage.setItem('isLogedIn', JSON.stringify(true))
             console.log('data added to storage login');
+            
       
     } catch (error) {
       if (error.code === 'auth/invalid-credential') {
@@ -139,5 +140,5 @@ export default function LogIn({navigation}) {
         </SafeAreaView>
       </>
     );
-  } else return navigation.navigate(screenConstant.Home);
+  } else return navigation.navigate(screenConstant.HomeNavigation);
 }
