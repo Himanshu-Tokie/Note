@@ -51,5 +51,4 @@ export const ICONS = {
   PLUS2: (...params) => <PLUS2 {...iconStyle(...params)} />,
   TICK: (...params) => <TICK {...iconStyle(...params)} />,
   CROSS: (...params) => <CROSS {...iconStyle(...params)} />,
-
 }

@@ -1,3 +1,4 @@
+import AsyncStorage from '@react-native-async-storage/async-storage';
 import auth from '@react-native-firebase/auth';
 import {
   GoogleSignin,
@@ -50,6 +51,9 @@ export default function Google() {
         dispatch(updateUser({uid:ans.user.uid,
           providerId:"google.com",
         }))
+        await AsyncStorage.setItem('isLogedIn', JSON.stringify(true))
+        .catch((e)=>console.log(e));
+        console.log('data added to storage google');
         navigation.navigate(screenConstant.Home);
       }
     } 

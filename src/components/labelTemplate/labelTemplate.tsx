@@ -43,10 +43,11 @@ const styles = StyleSheet.create({
     paddingHorizontal: widthPercentageToDP('1.1%'),
     paddingTop: heightPercentageToDP('1.1%'),
     paddingBottom: heightPercentageToDP('1.4%'),
-    shadowColor: 'rgb(153,144,255)',
-    shadowOffset: {width: -2, height: 4},
-    shadowOpacity: 0.2,
-    shadowRadius: 3,
+    // shadowColor: 'rgb(153,144,255)',
+    // shadowOffset: {width: -2, height: 4},
+    // shadowOpacity: 0.2,
+    // shadowRadius: 3,
+    // backgroundColor:'rgb(249, 248, 253)'
   },
   container: {
     height: heightPercentageToDP('20%'),

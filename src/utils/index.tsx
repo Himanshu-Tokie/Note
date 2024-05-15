@@ -1,3 +1,4 @@
+import AsyncStorage from '@react-native-async-storage/async-storage';
 import firestore from '@react-native-firebase/firestore';
 import * as Yup from 'yup';
 import { screenConstant } from '../constants';
@@ -58,7 +59,8 @@ export const signUpUser = async (user, providerId,dispatch,navigation) => {
         providerId: providerId,
       })
     );
-    navigation.navigate(screenConstant.Home);
+    await AsyncStorage.setItem('isLogedIn', JSON.stringify(true))
+        navigation.navigate(screenConstant.Home);
     console.log('User account created & signed in! Google');
   } catch (error) {
     console.error('Error creating initial database:', error.code, error.message);

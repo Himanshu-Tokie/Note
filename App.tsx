@@ -1,10 +1,11 @@
-import { useEffect } from "react";
+import { useEffect } from 'react';
 import 'react-native-gesture-handler';
-import { Provider } from "react-redux";
-import { usePushNotification } from "./src/Hooks/pushNotificationcustomHooks";
-import AuthNavigation from "./src/Navigation/AuthNavigation";
-import { store } from "./src/store";
-export default function App(){
+import { Provider } from 'react-redux';
+import { usePushNotification } from './src/Hooks/pushNotificationcustomHooks';
+import AuthNavigation from './src/Navigation/AuthNavigation';
+import { store } from './src/store';
+
+export default function App() {
   const {
     requestUserPermission,
     getFCMToken,
@@ -30,9 +31,10 @@ export default function App(){
 
     listenToNotifications();
   }, []);
-  return(
-      <Provider store={store}>
+
+  return (
+    <Provider store={store}>
       <AuthNavigation></AuthNavigation>
-      </Provider>
-  )
+    </Provider>
+  );
 }

@@ -1,3 +1,4 @@
+import AsyncStorage from '@react-native-async-storage/async-storage';
 import { default as auth } from '@react-native-firebase/auth';
 import { Formik } from 'formik';
 import { useState } from 'react';
@@ -48,9 +49,13 @@ export default function LogIn({navigation}) {
         email,
         password,
       );
+      
       console.log('login complete');
       dispatch(logIn(true));
-      dispatch(updateUser({uid: user.uid, providerId: 'firebase'}));
+      dispatch(updateUser({uid: userCredential.user.uid, providerId: 'firebase'}));
+      await AsyncStorage.setItem('isLogedIn', JSON.stringify(true))
+            console.log('data added to storage login');
+      
     } catch (error) {
       if (error.code === 'auth/invalid-credential') {
         console.log('User does not exist. Please register.');

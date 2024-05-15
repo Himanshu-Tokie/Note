@@ -11,7 +11,6 @@ import {
 } from 'react-native';
 import { heightPercentageToDP, widthPercentageToDP } from 'react-native-responsive-screen';
 import { ScrollView } from 'react-native-virtualized-view';
-import { useSelector } from 'react-redux';
 import LabelTemplate from '../../components/labelTemplate/labelTemplate';
 import { screenConstant } from '../../constants';
 import { ICONS } from '../../constants/Icons';
@@ -19,14 +18,14 @@ import { images } from '../../constants/Images';
 import { styles } from './style';
 
 export default function Home({navigation}) {
-  const userRedux = useSelector(state=>state.common.user)
+  // const userRedux = useSelector(state=>state.common.user)
   const user = auth().currentUser;
-  const image = 'https://legacy.reactjs.org/logo-og.png';
-  const photoURL = user.photoURL?? image;
+  const image = 'https://legacy.reactjs.org/logo-og.png'; 
+  const photoURL = user?user.photoURL: image;
   const addNote = () => {
     navigation.navigate(screenConstant.Note, {uid: user.uid});
   };
-  const [label, setLabel] = useState();
+  const [label, setLabel] = useState('');
   
   useEffect(() => {
     getLabel();
