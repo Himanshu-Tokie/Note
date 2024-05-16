@@ -13,6 +13,7 @@ import {
 } from 'react-native-responsive-screen';
 import { screenConstant } from '../../constants';
 import { images } from '../../constants/Images';
+import { COLORS } from '../../constants/colors';
 
 export default function LabelTemplate({icon, text, files, note}) {
   const nav = useNavigation();
@@ -31,7 +32,7 @@ export default function LabelTemplate({icon, text, files, note}) {
             <View style={styles.inner}>
               {icon(heightPercentageToDP('6.2%'), heightPercentageToDP('6.2%'))}
               <Text style={styles.text}>{text}</Text>
-              <Text style={{color:'rgb(9,9,10)'}}>{files} Files</Text>
+              <Text style={{color:COLORS.TEXT1}}>{files} Files</Text>
             </View>
           </TouchableOpacity>
         </ImageBackground>
@@ -44,7 +45,7 @@ const styles = StyleSheet.create({
     paddingHorizontal: widthPercentageToDP('1.1%'),
     paddingTop: heightPercentageToDP('1.1%'),
     paddingBottom: heightPercentageToDP('1.4%'),
-    // backgroundColor:'rgb(249, 248, 253)',
+    // backgroundColor:COLORS.BACKGROUND,
     ...Platform.select({
       ios: {
         shadowColor: '#000',
@@ -73,7 +74,7 @@ const styles = StyleSheet.create({
   text: {
     paddingTop: heightPercentageToDP('1.2%'),
     fontWeight: 'bold',
-    color: 'rgb(9,9,10)',
+    color: COLORS.TEXT1,
   },
   inner: {
     paddingLeft: widthPercentageToDP('7%'),

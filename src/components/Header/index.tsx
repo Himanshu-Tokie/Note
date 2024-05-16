@@ -9,6 +9,7 @@ import {
 } from 'react-native';
 import { heightPercentageToDP, widthPercentageToDP } from 'react-native-responsive-screen';
 import { ICONS } from '../../constants/Icons';
+import { COLORS } from '../../constants/colors';
 import Icon from '../Icon';
 
 export default function Header({
@@ -44,7 +45,7 @@ export default function Header({
             <TextInput
               style={styles.text}
               placeholder="Search"
-              placeholderTextColor="rgb(107,78,253)"
+              placeholderTextColor={COLORS.HEADER}
               onChangeText={onChangeText}
               onBlur={() => setSearchData(notesData)}
             />
@@ -72,7 +73,7 @@ const styles = StyleSheet.create({
     fontWeight: 'bold',
     fontSize: heightPercentageToDP('2.2%'),
     marginLeft: 10,
-    color:'rgb(9,9,10)'
+    color:COLORS.TEXT1
   },
   leftHeader: {
     flexDirection: 'row',
@@ -82,7 +83,7 @@ const styles = StyleSheet.create({
   },
   text: {
     fontSize: heightPercentageToDP('2%'),
-    color: 'rgb(107,78,253)',
+    color: COLORS.TEXT4,
     paddingLeft: 0,
     paddingTop: 2,
     fontFamily:'Nunito'

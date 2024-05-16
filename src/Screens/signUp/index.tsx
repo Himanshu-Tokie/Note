@@ -4,6 +4,7 @@ import { KeyboardAvoidingView, Platform, SafeAreaView, ScrollView, Text, View } 
 import { useDispatch } from 'react-redux';
 import CustomButton from '../../components/Button/customButton';
 import FormikTemplate from '../../components/FormikTemplate/formikTemplate';
+import { STRINGS } from '../../constants/strings';
 import { SignupSchema, signUpUser } from '../../utils';
 import { styles } from './style';
 
@@ -57,23 +58,23 @@ export default function SignUp({ navigation }) {
                 }) => (
                   <View>
                     <FormikTemplate
-                      placeholder="First Name"
+                      placeholder={STRINGS.FIRST_NAME}
                       values={values.firstName}
                       touched={touched.firstName}
-                      onChangeText={handleChange('firstName')}
-                      onBlur={() => setFieldTouched('firstName')}
+                      onChangeText={handleChange(STRINGS.FIRST_NAME_SMALL)}
+                      onBlur={() => setFieldTouched(STRINGS.FIRST_NAME_SMALL)}
                       error={errors.firstName}
                     />
                     <FormikTemplate
-                      placeholder="Last Name"
+                      placeholder={STRINGS.LAST_NAME}
                       values={values.lastName}
                       touched={touched.lastName}
-                      onChangeText={handleChange('lastName')}
-                      onBlur={() => setFieldTouched('lastName')}
+                      onChangeText={handleChange(STRINGS.LAST_NAME_SMALL)}
+                      onBlur={() => setFieldTouched(STRINGS.LAST_NAME_SMALL)}
                       error={errors.lastName}
                     />
                     <FormikTemplate
-                      placeholder="Email"
+                      placeholder={STRINGS.EMAIL}
                       values={values.email}
                       touched={touched.email}
                       onChangeText={handleChange('email')}
@@ -84,24 +85,24 @@ export default function SignUp({ navigation }) {
                       placeholder="Password"
                       values={values.password}
                       touched={touched.password}
-                      onChangeText={handleChange('password')}
-                      onBlur={() => setFieldTouched('password')}
+                      onChangeText={handleChange(STRINGS.PASSWORD_SMALL)}
+                      onBlur={() => setFieldTouched(STRINGS.PASSWORD_SMALL)}
                       error={errors.password}
                     />
                     <FormikTemplate
-                      placeholder="Confirm Password"
+                      placeholder={STRINGS.CONFIRM_PASSWORD}
                       values={values.confirmPassword}
                       touched={touched.confirmPassword}
-                      onChangeText={handleChange('confirmPassword')}
-                      onBlur={() => setFieldTouched('confirmPassword')}
+                      onChangeText={handleChange(STRINGS.CONFIRM_PASSWORD_SMALL)}
+                      onBlur={() => setFieldTouched(STRINGS.CONFIRM_PASSWORD_SMALL)}
                       error={errors.confirmPassword}
                     />
                     <FormikTemplate
-                      placeholder="Phone Number"
+                      placeholder={STRINGS.PHONE_NUMBER}
                       values={values.number}
                       touched={touched.number}
-                      onChangeText={handleChange('number')}
-                      onBlur={() => setFieldTouched('number')}
+                      onChangeText={handleChange(STRINGS.PHONE_NUMBER_SMALL)}
+                      onBlur={() => setFieldTouched(STRINGS.PHONE_NUMBER_SMALL)}
                       error={errors.number}
                     />
                     <Text style={styles.text}>
@@ -109,7 +110,7 @@ export default function SignUp({ navigation }) {
                       Policy.
                     </Text>
                     <CustomButton
-                      text="Submit"
+                      text={STRINGS.SUBMIT}
                       onPress={handleSubmit}
                       disabled={!isValid}
                       style={[styles.button]}

@@ -5,6 +5,7 @@ import { Button, FlatList, SafeAreaView, View } from "react-native";
 import DialogInput from 'react-native-dialog-input';
 import Search from '../../components/Header';
 import ListTemplate from '../../components/listTemplate/listTemplate';
+import { STRINGS } from '../../constants/strings';
 import { styles } from "./style";
 
 export default function Extar1({ route }) {
@@ -93,8 +94,8 @@ export default function Extar1({ route }) {
                 {/* <EditLables onChangeText={setNewLabel} /> */}
                 <Button title='press' onPress={() => setShow(true)} />
                 <DialogInput isDialogVisible={show}
-                    title={"Add Label"}
-                    hintInput={"Label Name"}
+                    title={STRINGS.ADD_LABEL}
+                    hintInput={STRINGS.LABEL_NAME}
                     submitInput={(input) => { newLabel.current = input; setShow(false) }}
                     closeDialog={() => { setShow(false) }}>
                 </DialogInput>

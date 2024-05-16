@@ -2,6 +2,7 @@ import AsyncStorage from '@react-native-async-storage/async-storage';
 import firestore from '@react-native-firebase/firestore';
 import * as Yup from 'yup';
 import { screenConstant } from '../constants';
+import { STRINGS } from '../constants/strings';
 import { logIn, updateUser } from '../store/common';
 
 export const signUpUser = async (user, providerId,dispatch,navigation) => {
@@ -79,7 +80,7 @@ export const SignupSchema = Yup.object().shape({
       'Invalid Password',
     ),
   confirmPassword: Yup.string().oneOf(
-    [Yup.ref('password')],
+    [Yup.ref(STRINGS.PASSWORD_SMALL)],
     "Password doesn't match",
   ),
   number: Yup.number().min(10, 'Invalid number').required('Enter Number'),

@@ -1,0 +1,27 @@
+export const STRINGS = {
+    GOOGLE_SIGN_IN: 'Sign in with Google',
+    NOTE_TAKING_APP: {
+        PART1: 'Note-Ta',
+        PART2: 'king App',
+    },
+    LOG_IN: 'Log In',
+    SAVE_SHARE_NOTES:"Save and share notes",
+    CREATE_ACCOUNT:"Create Account",
+    HAVE_ACCOUNT:"Have an account?",
+    ADD_LABEL:"Add Label",
+    LABEL_NAME:"Label Name",
+    RESET_PASSWORD:"Reset Password",
+    FIRST_NAME:"First Name",
+    FIRST_NAME_SMALL:"firstName",
+    LAST_NAME:"Last Name",
+    LAST_NAME_SMALL:"lastName",
+    EMAIL:'Email',
+    EMAIL_SMALL:'email',
+    PASSWORD:'Password',
+    PASSWORD_SMALL:'password',
+    PHONE_NUMBER:"Phone Number",
+    PHONE_NUMBER_SMALL:"number",
+    CONFIRM_PASSWORD:"Confirm Password",
+    CONFIRM_PASSWORD_SMALL:"confirmPassword",
+    SUBMIT:'Submit'
+};

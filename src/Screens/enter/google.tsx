@@ -13,6 +13,8 @@ import {
 import { useDispatch } from 'react-redux';
 import { screenConstant } from '../../constants';
 import { ICONS } from '../../constants/Icons';
+import { COLORS } from '../../constants/colors';
+import { STRINGS } from '../../constants/strings';
 import { logIn, updateUser } from '../../store/common';
 import { signUpUser } from '../../utils';
 
@@ -95,7 +97,7 @@ export default function Google() {
               heightPercentageToDP('2%'),
               'none',
             )}
-            <Text style={styles.text}>Sign in with Google</Text>
+            <Text style={styles.text}>{STRINGS.GOOGLE_SIGN_IN}</Text>
           </View>
         </TouchableOpacity>
       </View>
@@ -129,7 +131,7 @@ const styles = StyleSheet.create({
   text: {
     fontSize: heightPercentageToDP('2%'),
     paddingLeft: widthPercentageToDP('2.5%'),
-    color: '#757575',
+    color: COLORS.GOOGLE,
     fontWeight: 'bold',
   },
 });

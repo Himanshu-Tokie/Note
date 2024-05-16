@@ -3,6 +3,7 @@ import { StyleSheet, Text, TouchableOpacity, View, useWindowDimensions } from 'r
 import RenderHTML from 'react-native-render-html';
 import { RFValue } from 'react-native-responsive-fontsize';
 import { screenConstant } from '../../constants';
+import { COLORS } from '../../constants/colors';
 
 export default function ListTemplate({ note, nav, maxHeight,label }) {
   console.log(note,8989);
@@ -52,12 +53,12 @@ const styles = StyleSheet.create({
     fontFamily: 'Nunito',
     fontSize: RFValue(12),
     paddingBottom: 4,
-    color: 'rgb(9,9,10)'
+    color: COLORS.TEXT1
   },
   data: {
     fontFamily: 'Nunito',
     fontSize: RFValue(10),
-    color: 'rgb(42,34,81)',
+    color: COLORS.NOTETEXT,
   },
   touch: {
     flex: 1,

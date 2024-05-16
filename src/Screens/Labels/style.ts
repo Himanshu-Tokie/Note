@@ -1,8 +1,9 @@
 import { StyleSheet } from "react-native";
+import { COLORS } from "../../constants/colors";
 export const styles = StyleSheet.create({
     container:{
         flex: 1,
-    backgroundColor: 'rgb(249, 248, 253)',
+    backgroundColor: COLORS.BACKGROUND,
     },
     subContainer:{
         // maxWidth:RFPercentage(50),

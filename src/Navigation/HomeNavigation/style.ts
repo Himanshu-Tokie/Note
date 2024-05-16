@@ -1,5 +1,4 @@
 import { StyleSheet } from "react-native";
-import { RFValue } from "react-native-responsive-fontsize";
 import { heightPercentageToDP, widthPercentageToDP } from "react-native-responsive-screen";
 
 export const styles = StyleSheet.create({
@@ -12,8 +11,8 @@ export const styles = StyleSheet.create({
         borderRadius:15,
         paddingVertical:heightPercentageToDP('1.6%'),
         marginTop:heightPercentageToDP('2%'),
-        // position:'absolute',
-        bottom:heightPercentageToDP('4%'),
+        position:'absolute',
+        bottom:heightPercentageToDP('3%'),
         right:0,
         left:0,
       }

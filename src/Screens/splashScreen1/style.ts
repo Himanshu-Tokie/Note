@@ -1,9 +1,10 @@
 import { StyleSheet } from "react-native";
 import { heightPercentageToDP } from "react-native-responsive-screen";
+import { COLORS } from "../../constants/colors";
 
 export const styles = StyleSheet.create({
     container:{
-        backgroundColor:'rgb(238,238,242)',
+        backgroundColor:COLORS.SPLASHSCREEN,
         flex:1,
         justifyContent:'center',
         alignItems:'center'
@@ -21,13 +22,13 @@ export const styles = StyleSheet.create({
     text1:{
         fontFamily:'Nunito', 
         fontWeight:'bold',
-        color:'rgb(107,78,225)',
+        color:COLORS.TEXT2,
         fontSize:heightPercentageToDP('3.2%')       
     },
     text2:{
         fontFamily:'Nunito', 
         fontWeight:'bold',
-        color:'rgb(9,9,10)',
+        color:COLORS.TEXT1,
         fontSize:heightPercentageToDP('3.2%')        
     },
     icon:{

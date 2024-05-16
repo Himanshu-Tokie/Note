@@ -1,11 +1,13 @@
 import { StyleSheet } from 'react-native';
 import { heightPercentageToDP, widthPercentageToDP } from 'react-native-responsive-screen';
+import { COLORS } from '../../constants/colors';
 
 export const styles = StyleSheet.create({
   container: {
-    backgroundColor: 'rgb(249, 248, 253)',
+    backgroundColor: COLORS.BACKGROUND,
     flex: 1,
     paddingHorizontal: widthPercentageToDP('4%'),
+    paddingBottom: heightPercentageToDP('8.5%'),
     // paddingBottom:100
   },
   subcontainer: {
@@ -14,7 +16,7 @@ export const styles = StyleSheet.create({
     // flex:1
   },
   welcome: {
-    color: 'rgb(182,176,217)',
+    color: COLORS.TEXT3,
     fontFamily: 'Nunito',
     paddingBottom: heightPercentageToDP('0.25%'),
     fontWeight:'600'
@@ -23,7 +25,7 @@ export const styles = StyleSheet.create({
     fontWeight: 'bold',
     fontFamily: 'Nunito',
     fontSize: heightPercentageToDP('3%'),
-    color:'rgb(9,9,10)'
+    color:COLORS.TEXT1
   },
   header: {
     paddingHorizontal: heightPercentageToDP('2%'),
@@ -32,12 +34,7 @@ export const styles = StyleSheet.create({
   },
   innerHeader: {
     flexDirection: 'row',
-    // borderRadius:50
   },
-  // icon: {
-  //   justifyContent: 'center',
-  //   paddingRight:5
-  // },
   labels: {
     justifyContent: 'center',
     alignContent: 'center',
@@ -51,23 +48,18 @@ export const styles = StyleSheet.create({
   },
   image: {
     justifyContent: 'center',
-    // alignContent: 'center',
     alignItems: 'center',
-    width: widthPercentageToDP('89%'),
-    height: heightPercentageToDP('19.2%'),
+    width: widthPercentageToDP('91.3%'),
+    height: heightPercentageToDP('19%'),
   },
   imageContainer: {
-    // justifyContent: 'center',
-    // alignContent: 'center',
     paddingHorizontal: widthPercentageToDP('4.1%'),
     paddingTop: heightPercentageToDP('3.5%'),
     paddingBottom:heightPercentageToDP('3%')
-    // paddingTop:45,
-    // paddingBottom:30
   },
   size: {
     fontSize: heightPercentageToDP('1.5%'),
-    color: 'rgb(153, 144, 254)',
+    color: COLORS.HOMESIZE,
     fontWeight: 'bold',
   },
   imageInner: {
@@ -77,23 +69,4 @@ export const styles = StyleSheet.create({
     alignItems: 'center',
     paddingBottom: heightPercentageToDP('3.5%'),
   },
-  // footer:{
-  //   flexDirection:'row',
-  //   paddingHorizontal:16,
-  //   justifyContent:'space-between',
-  //   backgroundColor:'white',
-  //   marginHorizontal:18,
-  //   borderRadius:15,
-  //   paddingVertical:RFValue(10),
-  //   marginTop:15,
-  //   position:'absolute',
-  //   bottom:0,
-  //   right:0,
-  //   left:0
-  // },
-  // footerInner:{
-  //   flexDirection:'row',
-  //   justifyContent:'space-between',
-  //   paddingHorizontal:10
-  // }
 });

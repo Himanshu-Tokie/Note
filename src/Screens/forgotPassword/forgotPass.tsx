@@ -5,6 +5,7 @@ import { Alert, SafeAreaView, View } from 'react-native';
 import * as Yup from 'yup';
 import CustomButton from '../../components/Button/customButton';
 import FormikTemplate from '../../components/FormikTemplate/formikTemplate';
+import { STRINGS } from '../../constants/strings';
 import { styles } from '../logIn/style';
  
 const SignupSchema = Yup.object().shape({
@@ -42,7 +43,7 @@ export default function ResetPassword({navigation}) {
               }) => (
                 <View>
                   <FormikTemplate
-                    placeholder="Email"
+                    placeholder={STRINGS.EMAIL}
                     values={values.email}
                     touched={touched.email}
                     onChangeText={handleChange('email')}
@@ -50,7 +51,7 @@ export default function ResetPassword({navigation}) {
                     error={errors.email}
                   />
                   <CustomButton
-                    text="Reset Password"
+                    text={STRINGS.RESET_PASSWORD}
                     onPress={handleSubmit}
                     disabled={!isValid}
                     style={[styles.button]}

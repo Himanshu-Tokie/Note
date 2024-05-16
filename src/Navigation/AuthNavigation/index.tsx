@@ -9,6 +9,7 @@ import SignUp from "../../Screens/signUp";
 import Splash from "../../Screens/splashScreen1";
 import { screenConstant } from "../../constants/index";
 import HomeNavigation from "../HomeNavigation";
+import { COLORS } from "../../constants/colors";
 
 export default function AuthNavigation() {
     const Stack = createNativeStackNavigator();
@@ -17,7 +18,7 @@ export default function AuthNavigation() {
             <NavigationContainer>
                 <Stack.Navigator initialRouteName={screenConstant.Splash1}
                     screenOptions={{
-                        headerStyle: { backgroundColor: 'rgb(249, 248, 253)' },
+                        headerStyle: { backgroundColor: COLORS.BACKGROUND },
                         headerTintColor: 'rgb(107, 78, 253)',
                         headerTitleStyle: {
                             fontWeight: 'bold',

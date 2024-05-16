@@ -5,11 +5,12 @@ import {
   heightPercentageToDP,
   widthPercentageToDP,
 } from 'react-native-responsive-screen';
+import { COLORS } from '../../constants/colors';
 
 export const styles = StyleSheet.create({
   container: {
     borderRadius: 50,
-    backgroundColor: 'rgb(107,78,255)',
+    backgroundColor: COLORS.BACKGROUND1,
     width: widthPercentageToDP('82%'),
     padding: widthPercentageToDP('4%'),
     ...Platform.select({

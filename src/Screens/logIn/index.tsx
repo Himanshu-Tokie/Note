@@ -10,6 +10,8 @@ import FormikTemplate from '../../components/FormikTemplate/formikTemplate';
 import { screenConstant } from '../../constants';
 import { logIn, updateUser } from '../../store/common';
 import { styles } from './style';
+import { STRINGS } from '../../constants/strings';
+import { COLORS } from '../../constants/colors';
 
 const SignupSchema = Yup.object().shape({
   email: Yup.string().email('Invalid email').required('Please enter email'),
@@ -101,7 +103,7 @@ export default function LogIn({navigation}) {
               }) => (
                 <View>
                   <FormikTemplate
-                    placeholder="Email"
+                    placeholder={STRINGS.EMAIL}
                     values={values.email}
                     touched={touched.email}
                     onChangeText={handleChange('email')}
@@ -113,8 +115,8 @@ export default function LogIn({navigation}) {
                     placeholder="Password"
                     values={values.password}
                     touched={touched.password}
-                    onChangeText={handleChange('password')}
-                    onBlur={() => setFieldTouched('password')}
+                    onChangeText={handleChange(STRINGS.PASSWORD_SMALL)}
+                    onBlur={() => setFieldTouched(STRINGS.PASSWORD_SMALL)}
                     error={errors.password}
                     logIn={false}
                   />
@@ -122,7 +124,7 @@ export default function LogIn({navigation}) {
                   <Text onPress={forgot} style={styles.colorText}>
                     Forget Password?
                   </Text>
-                  <Text style={{color: 'rgb(9,9,10)'}}>
+                  <Text style={{color: COLORS.TEXT1}}>
                     By continuing, you agree to our Terms of Service and Privacy
                     Policy.
                   </Text>

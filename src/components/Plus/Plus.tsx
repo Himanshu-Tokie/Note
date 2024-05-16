@@ -1,6 +1,7 @@
 // import React from 'react';
 import { Platform, StyleSheet, TouchableOpacity, View } from 'react-native';
 import { ICONS } from '../../constants/Icons';
+import { COLORS } from '../../constants/colors';
 
 export default function Plus({onPress}) {
   return (
@@ -18,7 +19,7 @@ const styles = StyleSheet.create({
   container: {
     // height: 150,
     // width: 150,
-    backgroundColor:'rgb(107,78,255)',
+    backgroundColor:COLORS.BACKGROUND1,
     position:'absolute',
     bottom:14,
     padding:5,
