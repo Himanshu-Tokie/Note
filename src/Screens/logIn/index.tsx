@@ -26,7 +26,7 @@ const SignupSchema = Yup.object().shape({
 
 export default function LogIn({navigation}) {
   // const [initializing, setInitializing] = useState(true);
-  const isLogedIn = useSelector(state => state.common.isLogedIn);
+  const isLogedIn = useSelector(state => JSON.parse(state.common[STRINGS.IS_LOGGED_IN]));
   const dispatch = useDispatch();
   const [errorLogin, setErrorLogin] = useState(false);
   function onAuthStateChanged(user) {
@@ -38,7 +38,7 @@ export default function LogIn({navigation}) {
 
     // if (initializing) setInitializing(false);
   }
-  console.log(isLogedIn, 1234);
+  console.log(isLogedIn,typeof(isLogedIn), 1234);
 
   // useEffect(() => {
   //   const subscriber = auth().onAuthStateChanged(onAuthStateChanged);
@@ -141,5 +141,5 @@ export default function LogIn({navigation}) {
         </SafeAreaView>
       </>
     );
-  } else return navigation.navigate(screenConstant.HomeNavigation);
+  } else {return navigation.navigate(screenConstant.HomeNavigation);}
 }

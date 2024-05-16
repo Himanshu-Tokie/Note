@@ -3,10 +3,7 @@ import { createSlice } from "@reduxjs/toolkit";
 const common = createSlice({
     name:'common',
     initialState:{
-        user:{
-            uid:null,
-            providerId:null,
-        },
+        user:null,
         providerId:null,
         isLogedIn:false
     },
@@ -14,9 +11,7 @@ const common = createSlice({
         updateUser:(state,action)=>{
             state.user = action.payload;
         },
-        logIn:(state,action)=>{
-            console.log(action.payload,'login reducer');
-            
+        logIn:(state,action)=>{          
             state.isLogedIn=action.payload;
         },
         provider:(state,action)=>{

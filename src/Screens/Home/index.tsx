@@ -30,25 +30,24 @@ export default function Home({navigation}) {
   const addNote = () => {
     navigation.navigate(screenConstant.Note, {uid: user.uid});
   };
-  const isLogedIn = useSelector(state => state.common.isLogedIn);
+  const isLogedIn = useSelector(state => state.common[STRINGS.IS_LOGGED_IN]);
 
   const [label, setLabel] = useState('');
   console.log(label);
   console.log(isLogedIn, 1234134124);
-  useEffect(() => {
-    const unsubscribe = navigation.addListener('beforeRemove', e => {
-      // Prevent the default action of navigating back
-      if (JSON.parse(isLogedIn)) {
-        console.log(isLogedIn, 1234134124);
-        e.preventDefault();
-      }
-    });
-
-    return unsubscribe;
-  }, [navigation]);
+  // useEffect(() => {
+  //   const unsubscribe = navigation.addListener('beforeRemove', e => {
+  //     if (JSON.parse(isLogedIn)) {
+  //       console.log(isLogedIn, 1234134124);
+  //       e.preventDefault();
+  //     }
+  //   });
+  //   return unsubscribe;
+  // }, [navigation]);
   useEffect(() => {
     getLabel();
-    const unsubscribe = firestore()
+    if(user)
+    {const unsubscribe = firestore()
       .collection(STRINGS.FIREBASE.USER)
       .doc(user.uid)
       .collection(STRINGS.FIREBASE.LABELS)
@@ -61,11 +60,12 @@ export default function Home({navigation}) {
       });
 
     // Stop listening for updates when no longer required
-    return () => unsubscribe();
+    return () => unsubscribe();}
   }, []);
   const getLabel = async () => {
     try {
-      const snapShot = await firestore()
+      if(user)
+      {const snapShot = await firestore()
         .collection(STRINGS.FIREBASE.USER)
         .doc(user.uid)
         .collection(STRINGS.FIREBASE.LABELS)
@@ -75,12 +75,12 @@ export default function Home({navigation}) {
         labelData.push({id: doc.id, count: doc.data().count});
       });
       setLabel(labelData);
-      console.log(label, 70);
+      console.log(label, 70);}
     } catch (error) {
       console.error('Error retrieving notes:', error);
     }
   };
-
+if(user){
   return (
     <>
       <SafeAreaView style={styles.container}>
@@ -88,7 +88,7 @@ export default function Home({navigation}) {
           <View style={styles.header}>
             <View>
               <Text style={styles.welcome}>
-                {'Welcome' + ', ' + user.displayName + '!'}
+                {'Welcome' + ', ' + user?.displayName + '!'}
               </Text>
               <Text style={styles.NoteTaking}>Note-Taking App</Text>
             </View>
@@ -143,5 +143,12 @@ export default function Home({navigation}) {
         </View>
       </SafeAreaView>
     </>
-  );
+  );}
+  else
+  {
+    return(
+      <>
+      </>
+    )
+  }
 }

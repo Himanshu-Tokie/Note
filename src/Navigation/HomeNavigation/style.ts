@@ -9,7 +9,7 @@ export const styles = StyleSheet.create({
         backgroundColor:'white',
         marginHorizontal:widthPercentageToDP('5%'),
         borderRadius:15,
-        paddingVertical:heightPercentageToDP('1.6%'),
+        paddingVertical:heightPercentageToDP('2%'),
         marginTop:heightPercentageToDP('2%'),
         position:'absolute',
         bottom:heightPercentageToDP('3%'),

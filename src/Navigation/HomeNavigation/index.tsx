@@ -72,7 +72,6 @@ export default function HomeNavigation() {
                 target: route.key,
                 canPreventDefault: true,
               });
-
               if (!isFocused && !event.defaultPrevented) {
                 navigation.navigate(route.name, route.params);
               }

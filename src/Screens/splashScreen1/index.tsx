@@ -1,10 +1,10 @@
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { useNavigation } from '@react-navigation/native';
-import React, { useEffect, useRef, useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { ActivityIndicator, SafeAreaView, Text, View } from 'react-native';
 import Fade from 'react-native-fade';
 import { heightPercentageToDP } from 'react-native-responsive-screen';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { screenConstant } from '../../constants';
 import { ICONS } from '../../constants/Icons';
 import { logIn } from '../../store/common';
@@ -13,8 +13,7 @@ import { styles } from './style';
 export default function Splash() {
   const navigation = useNavigation();
   const dispatch = useDispatch()
-  // const isLogedIn = useSelector(state => state.common.isLogedIn);
-  const isLogedIn = useRef('false');
+  const isLogedIn = useSelector(state => state.common.isLogedIn);
   const [visible, setVisible] = useState(false);
   useEffect(() => {
     setVisible(true);
@@ -24,23 +23,23 @@ export default function Splash() {
         const Data = await AsyncStorage.getAllKeys();
         const fetchedData = await AsyncStorage.multiGet(Data).then(
           fetchedData => {
-            dispatch(logIn(true))
+            console.log(fetchedData,789456);           
             setTimeout(() => {
               if (fetchedData.length) {
-                if (JSON.parse(fetchedData[0][1])) {
-                  {
-                    console.log(2);
-                  }
-
+                if (JSON.parse(fetchedData[0][1])){
+                    console.log(fetchedData[0][1],1341341234);
+                    dispatch(logIn(true))
                   navigation.navigate(screenConstant.HomeNavigation);
                 } else {
+                  dispatch(logIn(false))
+                  
                   navigation.navigate(screenConstant.Enter);
                 }
               } else {
                 console.log(3);
                 navigation.navigate(screenConstant.Enter);
               }
-            }, 2000);
+            },100);
           },
         );
       } catch (e) {

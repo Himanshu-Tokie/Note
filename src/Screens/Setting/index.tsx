@@ -21,17 +21,17 @@ export default function Setting({navigation}) {
         dispatch(logIn(false));
         dispatch(updateUser(null));
         await AsyncStorage.setItem(STRINGS.IS_LOGGED_IN, JSON.stringify(false));
-
         navigation.navigate(screenConstant.Enter);
+        // navigation.navigate(screenConstant.Enter);
       } else {
         try {
           await GoogleSignin.signOut().catch(e=>console.log(e));;
           dispatch(logIn(false));
           dispatch(updateUser(null));
           console.log('google log out');
-
           await AsyncStorage.setItem(STRINGS.IS_LOGGED_IN, JSON.stringify(false)).then(()=>console.log('success remove async'));
           navigation.navigate(screenConstant.Enter);
+          // navigation.popToTop();
           //   setState({ user: null }); // Remember to remove the user from your app's state as well
         } catch (error) {
           console.error(error);
