@@ -1,5 +1,5 @@
 import firestore from '@react-native-firebase/firestore';
-import React, { useCallback, useEffect, useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { FlatList, View } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import CustomButton from '../../components/Button/customButton';
@@ -7,7 +7,7 @@ import Search from '../../components/Header';
 import ListTemplate from '../../components/listTemplate/listTemplate';
 import { screenConstant } from '../../constants';
 import { styles } from './style';
-import { useFocusEffect } from '@react-navigation/native';
+import { STRINGS } from '../../constants/strings';
 
 export default function Label({ navigation, route }) {
   console.log(route, 123321123)
@@ -34,9 +34,9 @@ export default function Label({ navigation, route }) {
     const fetchData = async () => {
       try {
         const data = await firestore()
-          .collection('user')
+          .collection(STRINGS.FIREBASE.USER)
           .doc(uid)
-          .collection('notes')
+          .collection(STRINGS.FIREBASE.NOTES)
           .where('label', '==', label)
           .get();
   
@@ -63,9 +63,9 @@ export default function Label({ navigation, route }) {
   
     // Set up listener for real-time updates
     const unsubscribe = firestore()
-      .collection('user')
+      .collection(STRINGS.FIREBASE.USER)
       .doc(uid)
-      .collection('notes')
+      .collection(STRINGS.FIREBASE.NOTES)
       .where('label', '==', label)
       .onSnapshot(querySnapshot => {
         const newData = []; // Temporary array to accumulate data  

@@ -8,10 +8,10 @@ import * as Yup from 'yup';
 import CustomButton from '../../components/Button/customButton';
 import FormikTemplate from '../../components/FormikTemplate/formikTemplate';
 import { screenConstant } from '../../constants';
+import { COLORS } from '../../constants/colors';
+import { STRINGS } from '../../constants/strings';
 import { logIn, updateUser } from '../../store/common';
 import { styles } from './style';
-import { STRINGS } from '../../constants/strings';
-import { COLORS } from '../../constants/colors';
 
 const SignupSchema = Yup.object().shape({
   email: Yup.string().email('Invalid email').required('Please enter email'),
@@ -81,7 +81,7 @@ export default function LogIn({navigation}) {
         <SafeAreaView style={styles.container}>
           {errorLogin && (
             <View style={styles.errorContainer}>
-              <Text style={styles.error}>Invalid Credentials</Text>
+              <Text style={styles.error}>{STRINGS.INVALID_CREDENTIALS}</Text>
             </View>
           )}
           <View style={styles.subContainer}>
@@ -122,11 +122,10 @@ export default function LogIn({navigation}) {
                   />
 
                   <Text onPress={forgot} style={styles.colorText}>
-                    Forget Password?
+                    {STRINGS.FORGOT_PASSWORD}
                   </Text>
                   <Text style={{color: COLORS.TEXT1}}>
-                    By continuing, you agree to our Terms of Service and Privacy
-                    Policy.
+                    {STRINGS.SIGN_UP_CONDITIONS}
                   </Text>
                     <CustomButton
                       text="Log In"

@@ -21,9 +21,9 @@ export default function Extar1({ route }) {
         const fetchData = async () => {
             try {
                 const data = await firestore()
-                    .collection('user')
+                    .collection(STRINGS.FIREBASE.USER)
                     .doc(uid)
-                    .collection('labels')
+                    .collection(STRINGS.FIREBASE.LABELS)
                     .get();
 
 
@@ -43,9 +43,9 @@ export default function Extar1({ route }) {
 
         // Set up listener for real-time updates
         const unsubscribe = firestore()
-            .collection('user')
+            .collection(STRINGS.FIREBASE.USER)
             .doc(uid)
-            .collection('labels')
+            .collection(STRINGS.FIREBASE.LABELS)
             .onSnapshot(querySnapshot => {
                 const newData = []; // Temporary array to accumulate data  
                 querySnapshot.forEach(doc => {
@@ -63,9 +63,9 @@ export default function Extar1({ route }) {
             try {
                 if (newLabel.current !== '') {
                     await firestore()
-                        .collection('user')
+                        .collection(STRINGS.FIREBASE.USER)
                         .doc(uid)
-                        .collection('labels')
+                        .collection(STRINGS.FIREBASE.LABELS)
                         .doc(newLabel.current)
                         .set({
                             count: 0

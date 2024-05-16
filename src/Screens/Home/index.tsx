@@ -16,6 +16,7 @@ import { screenConstant } from '../../constants';
 import { ICONS } from '../../constants/Icons';
 import { images } from '../../constants/Images';
 import { styles } from './style';
+import { STRINGS } from '../../constants/strings';
 
 export default function Home({navigation}) {
   // const userRedux = useSelector(state=>state.common.user)
@@ -31,9 +32,9 @@ export default function Home({navigation}) {
   useEffect(() => {
     getLabel();
     const unsubscribe = firestore()
-            .collection('user')
+            .collection(STRINGS.FIREBASE.USER)
             .doc(user.uid)
-            .collection('labels')
+            .collection(STRINGS.FIREBASE.LABELS)
             .onSnapshot(querySnapshot => {
                 const newData = []; // Temporary array to accumulate data  
                 querySnapshot.forEach(doc => {
@@ -48,9 +49,9 @@ export default function Home({navigation}) {
   const getLabel = async () => {
     try {
       const snapShot = await firestore()
-        .collection('user')
+        .collection(STRINGS.FIREBASE.USER)
         .doc(user.uid)
-        .collection('labels')
+        .collection(STRINGS.FIREBASE.LABELS)
         .get();
       const labelData = [];
       snapShot.forEach(doc => {

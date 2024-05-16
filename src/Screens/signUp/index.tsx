@@ -106,8 +106,7 @@ export default function SignUp({ navigation }) {
                       error={errors.number}
                     />
                     <Text style={styles.text}>
-                      By continuing, you agree to our Terms of Service and Privacy
-                      Policy.
+                      {STRINGS.SIGN_UP_CONDITIONS}
                     </Text>
                     <CustomButton
                       text={STRINGS.SUBMIT}

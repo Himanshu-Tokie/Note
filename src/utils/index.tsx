@@ -10,37 +10,37 @@ export const signUpUser = async (user, providerId,dispatch,navigation) => {
     console.log('new user Alert');
     const notes = [
       {
-        label: 'Personal',
-        title: 'Meeting Notes',
-        content: 'Discussion points: project updates, deadlines, action items',
+        label: STRINGS.TEMP_LABEL_1,
+        title: STRINGS.TEMP_TITLE,
+        content: STRINGS.TEMP_CONTENT
       },
       {
-        label: 'Academic',
-        title: 'Meeting Notes',
-        content: 'Discussion points: project updates, deadlines, action items',
+        label: STRINGS.TEMP_LABEL_2,
+        title: STRINGS.TEMP_TITLE,
+        content: STRINGS.TEMP_CONTENT
       },
       {
-        label: 'Work',
-        title: 'Meeting Notes',
-        content: 'Discussion points: project updates, deadlines, action items',
+        label: STRINGS.TEMP_LABEL_3,
+        title: STRINGS.TEMP_TITLE,
+        content: STRINGS.TEMP_CONTENT
       },
       {
-        label: 'Others',
-        title: 'Meeting Notes',
-        content: 'Discussion points: project updates, deadlines, action items',
+        label: STRINGS.TEMP_LABEL_4,
+        title: STRINGS.TEMP_TITLE,
+        content: STRINGS.TEMP_CONTENT
       },
     ];
-    const label = ['Personal', 'Academic', 'Work', 'Others'];
+    const label = [STRINGS.TEMP_LABEL_1, STRINGS.TEMP_LABEL_2, STRINGS.TEMP_LABEL_3, STRINGS.TEMP_LABEL_4];
     const reminder = [];
 
     const batch = firestore().batch();
-    const collectionRef = firestore().collection('user');
+    const collectionRef = firestore().collection(STRINGS.FIREBASE.USER);
 
     notes.forEach((doc) => {
       const newDocRef = firestore()
-        .collection('user')
+        .collection(STRINGS.FIREBASE.USER)
         .doc(user.uid)
-        .collection('notes')
+        .collection(STRINGS.FIREBASE.NOTES)
         .doc(); // Automatically generates a new document ID
       batch.set(newDocRef, doc);
     });
@@ -48,7 +48,7 @@ export const signUpUser = async (user, providerId,dispatch,navigation) => {
     label.forEach((doc) => {
       const newDocRef = collectionRef
         .doc(user.uid)
-        .collection('labels')
+        .collection(STRINGS.FIREBASE.LABELS)
         .doc(doc); // Automatically generates a new document ID
       batch.set(newDocRef, { count: 1 });
     });

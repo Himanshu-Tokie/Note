@@ -12,6 +12,7 @@ import { RichEditor, RichToolbar, actions } from 'react-native-pell-rich-editor'
 import DateTime from '../../components/DateTime';
 import Header from '../../components/Header';
 import { styles } from './styles';
+import { STRINGS } from '../../constants/strings';
 
 const Note = ({route}) => {
   // console.log(route, 87);
@@ -63,9 +64,9 @@ const Note = ({route}) => {
   const createReminder = async () => {
     try {
       await firestore()
-        .collection('user')
+        .collection(STRINGS.FIREBASE.USER)
         .doc(uid)
-        .collection('reminder')
+        .collection(STRINGS.FIREBASE.REMINDER)
         .add({
           title: titleRef.current,
           content: articleData.current,
@@ -75,15 +76,15 @@ const Note = ({route}) => {
           console.log('new reminder added successfully');
         });
     } catch (e) {
-      console.log(e, 'reminder');
+      console.log(e, STRINGS.FIREBASE.REMINDER);
     }
   };
   const updateReminder = async () => {
     try {
       await firestore()
-        .collection('user')
+        .collection(STRINGS.FIREBASE.USER)
         .doc(uid)
-        .collection('reminder')
+        .collection(STRINGS.FIREBASE.REMINDER)
         .doc(noteId)
         .update({
           title: titleRef.current,
@@ -106,9 +107,9 @@ const Note = ({route}) => {
       console.log(noteId, 123);
 
       await firestore()
-        .collection('user')
+        .collection(STRINGS.FIREBASE.USER)
         .doc(uid)
-        .collection('notes')
+        .collection(STRINGS.FIREBASE.NOTES)
         .doc(noteId)
         .update({
           title: titleRef.current,
@@ -118,9 +119,9 @@ const Note = ({route}) => {
       // const increment = firestore.FieldValue.increment(1);
       //   console.log('note exist');
       //   await firestore()
-      //     .collection('user')
+      //     .collection(STRINGS.FIREBASE.USER)
       //     .doc(uid)
-      //     .collection('labels')
+      //     .collection(STRINGS.FIREBASE.LABELS)
       //     .doc(labelRef.current)
       //     .update({count: increment})
       //     .then(() => console.log('success'))
@@ -132,9 +133,9 @@ const Note = ({route}) => {
   const createNote = async () => {
     try {
       await firestore()
-        .collection('user')
+        .collection(STRINGS.FIREBASE.USER)
         .doc(uid)
-        .collection('notes')
+        .collection(STRINGS.FIREBASE.NOTES)
         .add({
           label: labelRef.current,
           title: titleRef.current,
@@ -147,9 +148,9 @@ const Note = ({route}) => {
         const increment = firestore.FieldValue.increment(1);
         console.log('note exist');
         await firestore()
-          .collection('user')
+          .collection(STRINGS.FIREBASE.USER)
           .doc(uid)
-          .collection('labels')
+          .collection(STRINGS.FIREBASE.LABELS)
           .doc(labelRef.current)
           .update({count: increment})
           .then(() => console.log('success'))
@@ -157,9 +158,9 @@ const Note = ({route}) => {
       } else {
         console.log('note  not exist');
         await firestore()
-          .collection('user')
+          .collection(STRINGS.FIREBASE.USER)
           .doc(uid)
-          .collection('labels')
+          .collection(STRINGS.FIREBASE.LABELS)
           .doc(labelRef.current)
           .set({count: 1})
           .then(() => console.log('success label'))

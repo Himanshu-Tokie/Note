@@ -4,6 +4,7 @@ import React, { useEffect, useState } from 'react';
 import { FlatList, SafeAreaView, View } from 'react-native';
 import Search from '../../components/Header';
 import ListTemplate from '../../components/listTemplate/listTemplate';
+import { STRINGS } from '../../constants/strings';
 import { styles } from './style';
 
 export default function Extar2({route}) {
@@ -29,9 +30,9 @@ export default function Extar2({route}) {
     const fetchData = async () => {
       try {
         const data = await firestore()
-          .collection('user')
+          .collection(STRINGS.FIREBASE.USER)
           .doc(uid)
-          .collection('reminder')
+          .collection(STRINGS.FIREBASE.REMINDER)
           .get();
 
         const newData = []; // Temporary array to accumulate data
@@ -57,9 +58,9 @@ export default function Extar2({route}) {
 
     // Set up listener for real-time updates
     const unsubscribe = firestore()
-      .collection('user')
+      .collection(STRINGS.FIREBASE.USER)
       .doc(uid)
-      .collection('reminder')
+      .collection(STRINGS.FIREBASE.REMINDER)
       .onSnapshot(querySnapshot => {
         const newData = []; // Temporary array to accumulate data
         querySnapshot.forEach(doc => {
