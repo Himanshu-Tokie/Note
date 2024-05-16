@@ -55,7 +55,7 @@ export default function LogIn({navigation}) {
       console.log('login complete');
       dispatch(logIn(true));
       dispatch(updateUser({uid: userCredential.user.uid, providerId: 'firebase'}));
-      await AsyncStorage.setItem('isLogedIn', JSON.stringify(true))
+      await AsyncStorage.setItem(STRINGS.IS_LOGGED_IN, JSON.stringify(true))
             console.log('data added to storage login');
             
       

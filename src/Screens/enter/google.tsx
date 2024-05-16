@@ -53,7 +53,7 @@ export default function Google() {
 
         dispatch(logIn(true));
         dispatch(updateUser({uid: ans.user.uid, providerId: 'google.com'}));
-        await AsyncStorage.setItem('isLogedIn', JSON.stringify(true)).catch(e =>
+        await AsyncStorage.setItem(STRINGS.IS_LOGGED_IN, JSON.stringify(true)).catch(e =>
           console.log(e),
         );
         console.log('data added to storage google');

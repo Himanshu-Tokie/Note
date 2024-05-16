@@ -5,6 +5,7 @@ export const STRINGS = {
     PART2: 'king App',
   },
   LOG_IN: 'Log In',
+  SIGN_OUT: 'Sign Out',
   SAVE_SHARE_NOTES: 'Save and share notes',
   CREATE_ACCOUNT: 'Create Account',
   HAVE_ACCOUNT: 'Have an account?',
@@ -39,5 +40,16 @@ export const STRINGS = {
     NOTES:'notes',
     LABELS:'labels',
     REMINDER:'reminder'
-  }
+  },
+  THEME:'Theme',
+  LIGHT:'Light',
+  DARK:'Dark',
+  UPDATE_IMAGE:'Update Image',
+  VERSION:'Version',
+  IS_LOGGED_IN:'isLogedIn',
+  SETTINGS:'Settings',
+  FIRST_NAME_WARNING:'Please enter your first name',
+  LAST_NAME_WARNING:'Please enter your last name',
+  EMAIL_WARNING:'Please enter email',
+  PASSWORD_WARNING:'Please enter your password'
 };

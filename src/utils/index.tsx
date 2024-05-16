@@ -60,8 +60,8 @@ export const signUpUser = async (user, providerId,dispatch,navigation) => {
         providerId: providerId,
       })
     );
-    await AsyncStorage.setItem('isLogedIn', JSON.stringify(true))
-        navigation.navigate(screenConstant.Home);
+    await AsyncStorage.setItem(STRINGS.IS_LOGGED_IN, JSON.stringify(true))
+        navigation.navigate(screenConstant.HomeNavigation);
     console.log('User account created & signed in! Google');
   } catch (error) {
     console.error('Error creating initial database:', error.code, error.message);
@@ -69,12 +69,12 @@ export const signUpUser = async (user, providerId,dispatch,navigation) => {
 };
 
 export const SignupSchema = Yup.object().shape({
-  firstName: Yup.string().required('Please enter your first name'),
-  lastName: Yup.string().required('Please enter your last name'),
-  email: Yup.string().email('Invalid email').required('Please enter email'),
+  firstName: Yup.string().required(STRINGS.FIRST_NAME_WARNING),
+  lastName: Yup.string().required(STRINGS.LAST_NAME_WARNING),
+  email: Yup.string().email('Invalid email').required(STRINGS.EMAIL_WARNING),
   password: Yup.string()
     .min(8)
-    .required('Please enter your password')
+    .required(STRINGS.PASSWORD_WARNING)
     .matches(
       /^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[#?!@$%^&*-]).{8,}$/,
       'Invalid Password',
@@ -83,5 +83,6 @@ export const SignupSchema = Yup.object().shape({
     [Yup.ref(STRINGS.PASSWORD_SMALL)],
     "Password doesn't match",
   ),
-  number: Yup.number().min(10, 'Invalid number').required('Enter Number'),
-});
+  number: Yup.string()
+  .matches(/^\d{10}$/, 'Number must be exactly 19 digits')
+  .required('Enter Number'),});

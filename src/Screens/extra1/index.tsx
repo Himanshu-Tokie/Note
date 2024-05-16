@@ -25,10 +25,7 @@ export default function Extar1({ route }) {
                     .doc(uid)
                     .collection(STRINGS.FIREBASE.LABELS)
                     .get();
-
-
                 const newData = []; // Temporary array to accumulate data
-
                 data.forEach(doc => {
                     newData.push({ id: doc.id });
                 });
@@ -38,9 +35,7 @@ export default function Extar1({ route }) {
                 console.error('Error fetching data:', error);
             }
         };
-
         fetchData(); // Fetch initial data
-
         // Set up listener for real-time updates
         const unsubscribe = firestore()
             .collection(STRINGS.FIREBASE.USER)
@@ -92,7 +87,7 @@ export default function Extar1({ route }) {
                     />
                 </View>
                 {/* <EditLables onChangeText={setNewLabel} /> */}
-                <Button title='press' onPress={() => setShow(true)} />
+                <Button title='Add Label' onPress={() => setShow(true)} />
                 <DialogInput isDialogVisible={show}
                     title={STRINGS.ADD_LABEL}
                     hintInput={STRINGS.LABEL_NAME}

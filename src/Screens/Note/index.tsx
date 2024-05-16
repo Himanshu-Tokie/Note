@@ -11,8 +11,8 @@ import {
 import { RichEditor, RichToolbar, actions } from 'react-native-pell-rich-editor';
 import DateTime from '../../components/DateTime';
 import Header from '../../components/Header';
-import { styles } from './styles';
 import { STRINGS } from '../../constants/strings';
+import { styles } from './styles';
 
 const Note = ({route}) => {
   // console.log(route, 87);
@@ -132,7 +132,8 @@ const Note = ({route}) => {
   };
   const createNote = async () => {
     try {
-      await firestore()
+      if(titleRef.current!='' || articleData.current!='')
+      {await firestore()
         .collection(STRINGS.FIREBASE.USER)
         .doc(uid)
         .collection(STRINGS.FIREBASE.NOTES)
@@ -165,7 +166,7 @@ const Note = ({route}) => {
           .set({count: 1})
           .then(() => console.log('success label'))
           .catch(e => console.log(e));
-      }
+      }}
     } catch (e){console.log(e);
     }
   };
@@ -177,16 +178,16 @@ const Note = ({route}) => {
     const fetchData = async () => {
       if (!isNew.current) {
         if (reminder.current) {
-          console.log('reminder updated success');
           await updateReminder();
+          console.log('reminder updated success');
         } else {
-          console.log('note updated success');
           await updateData();
+          console.log('note updated success');
         }
       } else {
         if (reminder.current) {
-          console.log('reminder created success');
           await createReminder();
+          console.log('reminder created success');
         } else {
           await createNote();
           console.log('note created success');

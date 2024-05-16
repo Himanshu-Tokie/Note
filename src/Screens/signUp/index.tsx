@@ -112,7 +112,6 @@ export default function SignUp({ navigation }) {
                       text={STRINGS.SUBMIT}
                       onPress={handleSubmit}
                       disabled={!isValid}
-                      style={[styles.button]}
                     />
                   </View>
                 )}

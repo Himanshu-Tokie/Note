@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { Text, View } from 'react-native';
 import { heightPercentageToDP, widthPercentageToDP } from 'react-native-responsive-screen';
 import { SafeAreaView } from 'react-native-safe-area-context';
@@ -12,6 +12,14 @@ import { styles } from './style';
 
 
 export default function Enter({ navigation }) {
+  useEffect(() => {
+    const unsubscribe = navigation.addListener('beforeRemove', (e) => {
+      // Prevent the default action of navigating back
+      e.preventDefault();
+    });
+
+    return unsubscribe;
+  }, [navigation]);
   const onPress = () => {
     navigation.navigate(screenConstant.SignUp);
   };

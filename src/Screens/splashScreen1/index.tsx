@@ -4,12 +4,15 @@ import React, { useEffect, useRef, useState } from 'react';
 import { ActivityIndicator, SafeAreaView, Text, View } from 'react-native';
 import Fade from 'react-native-fade';
 import { heightPercentageToDP } from 'react-native-responsive-screen';
+import { useDispatch } from 'react-redux';
 import { screenConstant } from '../../constants';
 import { ICONS } from '../../constants/Icons';
+import { logIn } from '../../store/common';
 import { styles } from './style';
 
 export default function Splash() {
   const navigation = useNavigation();
+  const dispatch = useDispatch()
   // const isLogedIn = useSelector(state => state.common.isLogedIn);
   const isLogedIn = useRef('false');
   const [visible, setVisible] = useState(false);
@@ -21,6 +24,7 @@ export default function Splash() {
         const Data = await AsyncStorage.getAllKeys();
         const fetchedData = await AsyncStorage.multiGet(Data).then(
           fetchedData => {
+            dispatch(logIn(true))
             setTimeout(() => {
               if (fetchedData.length) {
                 if (JSON.parse(fetchedData[0][1])) {

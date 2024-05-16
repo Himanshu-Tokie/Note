@@ -7,44 +7,61 @@ import {
   ImageBackground,
   SafeAreaView,
   Text,
-  View
+  View,
 } from 'react-native';
-import { heightPercentageToDP, widthPercentageToDP } from 'react-native-responsive-screen';
+import {
+  heightPercentageToDP,
+  widthPercentageToDP,
+} from 'react-native-responsive-screen';
 import { ScrollView } from 'react-native-virtualized-view';
+import { useSelector } from 'react-redux';
 import LabelTemplate from '../../components/labelTemplate/labelTemplate';
 import { screenConstant } from '../../constants';
 import { ICONS } from '../../constants/Icons';
 import { images } from '../../constants/Images';
-import { styles } from './style';
 import { STRINGS } from '../../constants/strings';
+import { styles } from './style';
 
 export default function Home({navigation}) {
   // const userRedux = useSelector(state=>state.common.user)
   const user = auth().currentUser;
-  const image = 'https://legacy.reactjs.org/logo-og.png'; 
-  const photoURL = user?user.photoURL: image;
+  const image = 'https://legacy.reactjs.org/logo-og.png';
+  const photoURL = user ? user.photoURL : image;
   const addNote = () => {
     navigation.navigate(screenConstant.Note, {uid: user.uid});
   };
+  const isLogedIn = useSelector(state => state.common.isLogedIn);
+
   const [label, setLabel] = useState('');
   console.log(label);
-  
+  console.log(isLogedIn, 1234134124);
+  useEffect(() => {
+    const unsubscribe = navigation.addListener('beforeRemove', e => {
+      // Prevent the default action of navigating back
+      if (JSON.parse(isLogedIn)) {
+        console.log(isLogedIn, 1234134124);
+        e.preventDefault();
+      }
+    });
+
+    return unsubscribe;
+  }, [navigation]);
   useEffect(() => {
     getLabel();
     const unsubscribe = firestore()
-            .collection(STRINGS.FIREBASE.USER)
-            .doc(user.uid)
-            .collection(STRINGS.FIREBASE.LABELS)
-            .onSnapshot(querySnapshot => {
-                const newData = []; // Temporary array to accumulate data  
-                querySnapshot.forEach(doc => {
-                  newData.push({id: doc.id, count: doc.data().count});
-                });
-                setLabel(newData);
-            });
+      .collection(STRINGS.FIREBASE.USER)
+      .doc(user.uid)
+      .collection(STRINGS.FIREBASE.LABELS)
+      .onSnapshot(querySnapshot => {
+        const newData = []; // Temporary array to accumulate data
+        querySnapshot.forEach(doc => {
+          newData.push({id: doc.id, count: doc.data().count});
+        });
+        setLabel(newData);
+      });
 
-        // Stop listening for updates when no longer required
-        return () => unsubscribe();
+    // Stop listening for updates when no longer required
+    return () => unsubscribe();
   }, []);
   const getLabel = async () => {
     try {
@@ -63,7 +80,6 @@ export default function Home({navigation}) {
       console.error('Error retrieving notes:', error);
     }
   };
-
 
   return (
     <>
@@ -84,47 +100,48 @@ export default function Home({navigation}) {
                   height: heightPercentageToDP('6.6%'),
                   width: heightPercentageToDP('6.6%'),
                 }}
-                style={{borderRadius:10}}
-                ></Image>
+                style={{borderRadius: 10}}></Image>
             </View>
           </View>
           <ScrollView>
-
-          <View style={styles.imageContainer}>
-            <ImageBackground
-              source={images.HOME}
-              // resizeMode="cover"
-              style={styles.image}>
-              <View style={styles.imageInner}>
-                {ICONS.PIECHART(heightPercentageToDP('8.2%'), heightPercentageToDP('8.2%'), 'none')}
-                <View style={{paddingLeft:widthPercentageToDP('7%')}}>
-                  <Text style={styles.text}>Available Space</Text>
-                  <Text style={styles.size}>20 .254 GB of 25 GB Used</Text>
+            <View style={styles.imageContainer}>
+              <ImageBackground
+                source={images.HOME}
+                // resizeMode="cover"
+                style={styles.image}>
+                <View style={styles.imageInner}>
+                  {ICONS.PIECHART(
+                    heightPercentageToDP('8.2%'),
+                    heightPercentageToDP('8.2%'),
+                    'none',
+                  )}
+                  <View style={{paddingLeft: widthPercentageToDP('7%')}}>
+                    <Text style={styles.text}>Available Space</Text>
+                    <Text style={styles.size}>20 .254 GB of 25 GB Used</Text>
+                  </View>
                 </View>
-              </View>
-            </ImageBackground>
-          </View>
-          {label && (
-            <View style={styles.labels}>
-              <FlatList
-                data={label}
-                numColumns={2}
-                // numColumns={2}
-                renderItem={({item}) => (
-                  <LabelTemplate
-                  icon={ICONS.OTHERS}
-                  text={item.id}
-                  files={item.count}
-                  note={user.uid}
-                  />
-                )}
-                />
+              </ImageBackground>
             </View>
-          )}
+            {label && (
+              <View style={styles.labels}>
+                <FlatList
+                  data={label}
+                  numColumns={2}
+                  // numColumns={2}
+                  renderItem={({item}) => (
+                    <LabelTemplate
+                      icon={ICONS.OTHERS}
+                      text={item.id}
+                      files={item.count}
+                      note={user.uid}
+                    />
+                  )}
+                />
+              </View>
+            )}
           </ScrollView>
         </View>
       </SafeAreaView>
     </>
   );
 }
-

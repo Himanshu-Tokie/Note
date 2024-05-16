@@ -5,6 +5,7 @@ import { SafeAreaView, Text, View } from 'react-native';
 import { useDispatch } from 'react-redux';
 import Search from '../../components/Header';
 import { screenConstant } from '../../constants';
+import { STRINGS } from '../../constants/strings';
 import { logIn, updateUser } from '../../store/common';
 import { styles } from './style';
 
@@ -16,20 +17,20 @@ export default function Setting({navigation}) {
       if (user?.providerData[0].providerId !== 'google.com') {
         await auth()
           .signOut()
-          .then(() => console.log('User signed out!'));
+          .then(() => console.log('User signed out!')).catch(e=>console.log(e));
         dispatch(logIn(false));
         dispatch(updateUser(null));
-        await AsyncStorage.setItem('isLogedIn', JSON.stringify(false));
+        await AsyncStorage.setItem(STRINGS.IS_LOGGED_IN, JSON.stringify(false));
 
         navigation.navigate(screenConstant.Enter);
       } else {
         try {
-          await GoogleSignin.signOut();
+          await GoogleSignin.signOut().catch(e=>console.log(e));;
           dispatch(logIn(false));
           dispatch(updateUser(null));
           console.log('google log out');
 
-          await AsyncStorage.setItem('isLogedIn', JSON.stringify(false));
+          await AsyncStorage.setItem(STRINGS.IS_LOGGED_IN, JSON.stringify(false)).then(()=>console.log('success remove async'));
           navigation.navigate(screenConstant.Enter);
           //   setState({ user: null }); // Remember to remove the user from your app's state as well
         } catch (error) {
@@ -49,33 +50,33 @@ export default function Setting({navigation}) {
           <Search
             // onChangeText={search}
             // notesData={notesData}
-            headerText={'Settings'}
+            headerText={STRINGS.SETTINGS}
           />
         </View>
         <View style={styles.subContainer}>
           <View style={styles.view}>
             <View>
-              <Text style={styles.text}>Theme</Text>
+              <Text style={styles.text}>{STRINGS.THEME}</Text>
             </View>
             <View>
-              <Text style={styles.text}>Light</Text>
+              <Text style={styles.text}>{STRINGS.LIGHT}</Text>
             </View>
           </View>
           <View style={styles.view}>
-            <Text style={styles.text}>Reset Password</Text>
+            <Text style={styles.text}>{STRINGS.RESET_PASSWORD}</Text>
           </View>
           {user?.providerData[0].providerId !== 'google.com' && (
             <View style={styles.view}>
-              <Text style={styles.text}>Update Image</Text>
+              <Text style={styles.text}>{STRINGS.UPDATE_IMAGE}</Text>
             </View>
           )}
           <View style={styles.view}>
-            <Text style={styles.text}>Version</Text>
+            <Text style={styles.text}>{STRINGS.VERSION}</Text>
             <Text style={styles.text}>1.0</Text>
           </View>
           <View style={styles.view}>
             <Text onPress={signOut} style={[styles.text, styles.textBold]}>
-              Sign Out
+              {STRINGS.SIGN_OUT}
             </Text>
           </View>
         </View>
