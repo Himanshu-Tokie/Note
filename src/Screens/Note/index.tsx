@@ -115,16 +115,16 @@ const Note = ({route}) => {
           content: articleData.current,
         });
       console.log('success updated');
-      const increment = firestore.FieldValue.increment(1);
-        console.log('note exist');
-        await firestore()
-          .collection('user')
-          .doc(uid)
-          .collection('labels')
-          .doc(labelRef.current)
-          .update({count: increment})
-          .then(() => console.log('success'))
-          .catch(e => console.log(e));
+      // const increment = firestore.FieldValue.increment(1);
+      //   console.log('note exist');
+      //   await firestore()
+      //     .collection('user')
+      //     .doc(uid)
+      //     .collection('labels')
+      //     .doc(labelRef.current)
+      //     .update({count: increment})
+      //     .then(() => console.log('success'))
+      //     .catch(e => console.log(e));
     } catch (e) {
       console.log(e);
     }
