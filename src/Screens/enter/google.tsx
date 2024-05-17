@@ -52,7 +52,7 @@ export default function Google() {
         console.log('your are not welcome');
 
         dispatch(logIn(true));
-        dispatch(updateUser({uid: ans.user.uid, providerId: 'google.com'}));
+        dispatch(updateUser(ans.user.uid));
         await AsyncStorage.setItem(STRINGS.IS_LOGGED_IN, JSON.stringify(true)).catch(e =>
           console.log(e),
         );
