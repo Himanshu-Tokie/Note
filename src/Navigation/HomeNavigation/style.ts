@@ -1,13 +1,11 @@
 import { StyleSheet } from "react-native";
 import { heightPercentageToDP, widthPercentageToDP } from "react-native-responsive-screen";
-import { COLORS } from "../../constants/colors";
 
 export const styles = StyleSheet.create({
     footer:{
         flexDirection:'row',
         paddingHorizontal:widthPercentageToDP('4%'),
         justifyContent:'space-between',
-        backgroundColor:COLORS.FOOTER,
         marginHorizontal:widthPercentageToDP('5%'),
         borderRadius:15,
         paddingVertical:heightPercentageToDP('2%'),

@@ -7,7 +7,7 @@ import {
   ImageBackground,
   SafeAreaView,
   Text,
-  View,
+  View
 } from 'react-native';
 import {
   heightPercentageToDP,
@@ -19,14 +19,19 @@ import LabelTemplate from '../../components/labelTemplate/labelTemplate';
 import { screenConstant } from '../../constants';
 import { ICONS } from '../../constants/Icons';
 import { images } from '../../constants/Images';
+import { COLORS, DARK_COLORS } from '../../constants/colors';
 import { STRINGS } from '../../constants/strings';
 import { styles } from './style';
 
 export default function Home({navigation}) {
   // const userRedux = useSelector(state=>state.common.user)
   const user = auth().currentUser;
-  const image = 'https://legacy.reactjs.org/logo-og.png';
-  const photoURL = user ? user.photoURL : image;
+  const colorScheme = useSelector((state) => state.theme.theme);
+  // const colorScheme = 'dark'
+  console.log(user?.photoURL,1919191);
+  
+  const defaultImage = 'https://github.com/Himanshu-Tokie/Note/blob/744e180b4a9128b4ecfb2d959f815fbba8871aa1/src/assets/Images/defaultUser.png';
+  const photoURL = user?.photoURL ? { uri: user.photoURL } : { uri: defaultImage };
   const addNote = () => {
     navigation.navigate(screenConstant.Note, {uid: user.uid});
   };
@@ -101,30 +106,31 @@ export default function Home({navigation}) {
 if(user){
   return (
     <>
-      <SafeAreaView style={styles.container}>
+      <SafeAreaView style={[styles.container,{backgroundColor: colorScheme==='light'? COLORS.BACKGROUND : DARK_COLORS.BACKGROUND,}]}>
         <View style={styles.subcontainer}>
           <View style={styles.header}>
             <View>
-              <Text style={styles.welcome}>
+              <Text style={[styles.welcome,{color: colorScheme==='light'? COLORS.TEXT3:DARK_COLORS.TEXT3}]}>
                 {'Welcome' + ', ' + user?.displayName + '!'}
               </Text>
-              <Text style={styles.NoteTaking}>Note-Taking App</Text>
+              <Text style={[styles.NoteTaking,{color:colorScheme==='light'? COLORS.TEXT1:DARK_COLORS.TEXT1}]}>{STRINGS.NOTE}</Text>
             </View>
             <View style={styles.innerHeader}>
               {/* <View style={styles.icon}>{ICONS.BELL(heightPercentageToDP('2.5%'), heightPercentageToDP('2.5%'), 'white')}</View> */}
               <Image
-                source={{
-                  uri: photoURL,
-                  height: heightPercentageToDP('6.6%'),
-                  width: heightPercentageToDP('6.6%'),
-                }}
-                style={{borderRadius: 10}}></Image>
+              source={photoURL}
+              style={{
+                borderRadius: 10,
+                height: heightPercentageToDP('6.6%'),
+                width: heightPercentageToDP('6.6%'),
+              }}
+            />
             </View>
           </View>
           <ScrollView>
             <View style={styles.imageContainer}>
               <ImageBackground
-                source={images.HOME}
+                source={colorScheme==='light'? images.HOME: images.HOME_DARK}
                 // resizeMode="cover"
                 style={styles.image}>
                 <View style={styles.imageInner}>
@@ -134,8 +140,8 @@ if(user){
                     'none',
                   )}
                   <View style={{paddingLeft: widthPercentageToDP('7%')}}>
-                    <Text style={styles.text}>Available Space</Text>
-                    <Text style={styles.size}>20 .254 GB of 25 GB Used</Text>
+                    <Text style={[styles.text,{color: colorScheme==='light'? COLORS.TEXT3:DARK_COLORS.TEXT3}]}>{STRINGS.AVAILABLE_SPACE}</Text>
+                    <Text style={[styles.size,{color: colorScheme==='light'? COLORS.HOMESIZE:DARK_COLORS.HOMESIZE}]}>{STRINGS.STORAGE}</Text>
                   </View>
                 </View>
               </ImageBackground>
@@ -144,11 +150,12 @@ if(user){
               <View style={styles.labels}>
                 <FlatList
                   data={label}
+                  showsVerticalScrollIndicator={false}
                   numColumns={2}
                   // numColumns={2}
                   renderItem={({item}) => (
                     <LabelTemplate
-                      icon={ICONS.OTHERS}
+                      icon={colorScheme==='light'? ICONS.OTHERS: ICONS.INTEL_BLACK}
                       text={item.id}
                       files={item.count}
                       note={user.uid}

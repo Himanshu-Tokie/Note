@@ -2,10 +2,12 @@ import firestore from '@react-native-firebase/firestore';
 import React, { useEffect, useState } from 'react';
 import { FlatList, View } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
+import { useSelector } from 'react-redux';
 import CustomButton from '../../components/Button/customButton';
 import Search from '../../components/Header';
 import ListTemplate from '../../components/listTemplate/listTemplate';
 import { screenConstant } from '../../constants';
+import { COLORS, DARK_COLORS } from '../../constants/colors';
 import { STRINGS } from '../../constants/strings';
 import { styles } from './style';
 
@@ -92,9 +94,10 @@ export default function Label({ navigation, route }) {
   const addNewNote = () => {
     navigation.navigate(screenConstant.Note, { note });
   };
+  const colorScheme = useSelector((state) => state.theme.theme);
   return (
     <>
-      <SafeAreaView style={styles.container}>
+      <SafeAreaView style={[styles.container,{backgroundColor: colorScheme==='light'? COLORS.BACKGROUND : DARK_COLORS.BACKGROUND,}]}>
         <View>
           <Search
             onChangeText={search}
@@ -106,6 +109,7 @@ export default function Label({ navigation, route }) {
         <View style={styles.subContainer}>
           <FlatList
             data={searchData}
+            showsVerticalScrollIndicator={false}
             style={styles.list}
             keyExtractor={item => item.noteId}
             numColumns={2}

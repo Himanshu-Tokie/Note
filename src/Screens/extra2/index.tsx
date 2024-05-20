@@ -2,14 +2,17 @@ import { default as auth } from '@react-native-firebase/auth';
 import firestore from '@react-native-firebase/firestore';
 import React, { useEffect, useState } from 'react';
 import { FlatList, SafeAreaView, View } from 'react-native';
+import { useSelector } from 'react-redux';
 import Search from '../../components/Header';
 import ListTemplate from '../../components/listTemplate/listTemplate';
+import { COLORS, DARK_COLORS } from '../../constants/colors';
 import { STRINGS } from '../../constants/strings';
 import { styles } from './style';
 
 export default function Extar2({route}) {
   const user = auth().currentUser;
   let uid = user?.uid;
+  const colorScheme = useSelector((state) => state.theme.theme);
   const [searchData, setSearchData] = useState([]);
   const [notesData, setNotesData] = useState([]);
   console.log('reminder Page');
@@ -81,7 +84,7 @@ export default function Extar2({route}) {
   }, [uid]);
   return (
     <>
-      <SafeAreaView style={styles.container}>
+      <SafeAreaView style={[styles.container,{backgroundColor: colorScheme==='light'? COLORS.BACKGROUND : DARK_COLORS.BACKGROUND,}]}>
         <View>
           <Search
             onChangeText={search}
@@ -96,6 +99,7 @@ export default function Extar2({route}) {
             style={styles.list}
             keyExtractor={item => item.noteId}
             // numColumns={2}
+            showsVerticalScrollIndicator={false}
             renderItem={({item}) => (
               <ListTemplate
                 note={item}

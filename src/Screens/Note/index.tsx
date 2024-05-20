@@ -13,6 +13,7 @@ import {
 } from 'react-native';
 import { RichEditor, RichToolbar, actions } from 'react-native-pell-rich-editor';
 import { heightPercentageToDP } from 'react-native-responsive-screen';
+import { useSelector } from 'react-redux';
 import DateTime from '../../components/DateTime';
 import Header from '../../components/Header';
 import { STRINGS } from '../../constants/strings';
@@ -120,16 +121,6 @@ const Note = ({route}) => {
           content: articleData.current,
         });
       console.log('success updated');
-      // const increment = firestore.FieldValue.increment(1);
-      //   console.log('note exist');
-      //   await firestore()
-      //     .collection(STRINGS.FIREBASE.USER)
-      //     .doc(uid)
-      //     .collection(STRINGS.FIREBASE.LABELS)
-      //     .doc(labelRef.current)
-      //     .update({count: increment})
-      //     .then(() => console.log('success'))
-      //     .catch(e => console.log(e));
     } catch (e) {
       console.log(e);
     }
@@ -149,14 +140,6 @@ const Note = ({route}) => {
         });
         // console.log('asdfafasdfasg');
   }
-  // function stripHtml(html) {
-  //   // Create a new DOM parser
-  //   const parser = new DOMParser();
-  //   // Parse the HTML string into a document
-  //   const doc = parser.parseFromString(html, 'text/html');
-  //   // Extract and return the text content of the document
-  //   return doc.body.textContent || "";
-  // }
   const createNote = async () => {
     try {
       const regex = /^[\s\r\n]*$/;
@@ -179,50 +162,6 @@ const Note = ({route}) => {
         await firestore().collection(STRINGS.FIREBASE.USER).doc(uid).collection(STRINGS.FIREBASE.LABELS).doc(labelRef.current).set({count:updatedcount},{ merge: true },).
         then(()=>console.log('hurray')).catch(()=>console.log('hurray error00'))
         console.log(updatedcount,98765);
-
-        
-        // const collectionRef = firestore().collection('users').doc(uid);
-        // const doc = await collectionRef.get();
-        // console.log("will i get the doc")
-        // if (doc.exists) {
-        //   const userData = doc.data();
-        //   // console.log(userData, "USERDATA")
-        //   const updatedCollections = userData.collections.map(collection => {
-        //     // console.log(collection, "COLLECTTT")
-        //     if (collection.text === label) {
-        //       return {
-        //         ...collection,
-        //         number: collection.number + 1,
-        //       };
-        //     }
-        //     return collection;
-        //   });
-        //   await collectionRef.set(
-        //     { collections: updatedCollections },
-        //     { merge: true },
-        //   );
-      // if (!noteIdExist.current) {
-      //   const increment = firestore.FieldValue.increment(1);
-      //   console.log('note exist');
-      //   await firestore()
-      //     .collection(STRINGS.FIREBASE.USER)
-      //     .doc(uid)
-      //     .collection(STRINGS.FIREBASE.LABELS)
-      //     .doc(labelRef.current)
-      //     .update({count: increment})
-      //     .then(() => console.log('success'))
-      //     .catch(e => console.log(e));
-      // } else {
-      //   console.log('note  not exist');
-      //   await firestore()
-      //     .collection(STRINGS.FIREBASE.USER)
-      //     .doc(uid)
-      //     .collection(STRINGS.FIREBASE.LABELS)
-      //     .doc(labelRef.current)
-      //     .set({count: 1})
-      //     .then(() => console.log('success label'))
-      //     .catch(e => console.log(e));
-      // }}
     }} catch (e){console.log(e);
     }
   };
@@ -275,8 +214,9 @@ const Note = ({route}) => {
     };
   }, []);
   const headerHeight = useHeaderHeight();
+  const colorScheme = useSelector((state) => state.theme.theme);;
   return (
-    <SafeAreaView style={styles.container}>
+    <SafeAreaView style={[styles.container]}>
       <KeyboardAvoidingView
         behavior={Platform.OS === 'ios' ? 'padding' : 'height'}
         keyboardVerticalOffset={Platform.OS === 'ios' ? 0 : heightPercentageToDP('5.9%')}

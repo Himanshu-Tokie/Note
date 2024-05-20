@@ -7,52 +7,63 @@ import { heightPercentageToDP } from 'react-native-responsive-screen';
 import { useDispatch, useSelector } from 'react-redux';
 import { screenConstant } from '../../constants';
 import { ICONS } from '../../constants/Icons';
+import { STRINGS } from '../../constants/strings';
 import { logIn } from '../../store/common';
 import { styles } from './style';
 
 export default function Splash() {
   const navigation = useNavigation();
-  const dispatch = useDispatch()
+  const dispatch = useDispatch();
   const isLogedIn = useSelector(state => state.common.isLogedIn);
   const [visible, setVisible] = useState(false);
+
   useEffect(() => {
     setVisible(true);
+
     async function fetchAllData() {
       // await AsyncStorage.clear();
       try {
-        const Data = await AsyncStorage.getAllKeys();
-        const fetchedData = await AsyncStorage.multiGet(Data).then(
-          fetchedData => {
-            console.log(fetchedData,789456);           
-            setTimeout(() => {
-              if (fetchedData.length) {
-                if (JSON.parse(fetchedData[0][1])){
-                    console.log(fetchedData[0][1],1341341234);
-                    dispatch(logIn(true))
+        const keys = await AsyncStorage.getAllKeys();
+        const fetchedData = await AsyncStorage.multiGet(keys);
+
+        console.log(fetchedData, 789456);
+
+        setTimeout(() => {
+          if (fetchedData.length) {
+            const isLoggedInData = fetchedData.find(([key]) => key === STRINGS.IS_LOGGED_IN);
+            if (isLoggedInData && isLoggedInData[1]) {
+              try {
+                const isLoggedIn = JSON.parse(isLoggedInData[1]);
+                if (isLoggedIn) {
+                  console.log(isLoggedIn, 1341341234);
+                  dispatch(logIn(true));
                   navigation.navigate(screenConstant.HomeNavigation);
                 } else {
-                  dispatch(logIn(false))
-                  
+                  dispatch(logIn(false));
                   navigation.navigate(screenConstant.Enter);
                 }
-              } else {
-                console.log(3);
+              } catch (e) {
+                console.error('Error parsing isLoggedInData:', e);
+                dispatch(logIn(false));
                 navigation.navigate(screenConstant.Enter);
               }
-            },100);
-          },
-        );
+            } else {
+              navigation.navigate(screenConstant.Enter);
+            }
+          } else {
+            console.log(3);
+            navigation.navigate(screenConstant.Enter);
+          }
+        }, 100);
       } catch (e) {
         console.log(e);
         navigation.navigate(screenConstant.Enter);
       }
-
-      // fetchedData.forEach(([key, value]) => {
-      //   userData[key] = JSON.parse(value);
-      // });
     }
+
     fetchAllData();
-  }, []);
+  }, [dispatch, navigation]);
+
   return (
     <SafeAreaView style={styles.container}>
       <View style={styles.view}>

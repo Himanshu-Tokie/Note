@@ -85,4 +85,4 @@ export const SignupSchema = Yup.object().shape({
   ),
   number: Yup.string()
   .matches(/^\d{10}$/, 'Number must be exactly 10 digits')
-  .required('Enter Number'),});
+  .required('Enter Number')});

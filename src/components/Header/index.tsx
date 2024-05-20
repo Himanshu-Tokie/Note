@@ -12,8 +12,9 @@ import {
   heightPercentageToDP,
   widthPercentageToDP,
 } from 'react-native-responsive-screen';
+import { useSelector } from 'react-redux';
 import { ICONS } from '../../constants/Icons';
-import { COLORS } from '../../constants/colors';
+import { COLORS, DARK_COLORS } from '../../constants/colors';
 import Icon from '../Icon';
 
 export default function Header({
@@ -25,7 +26,7 @@ export default function Header({
   const navigation = useNavigation();
   const [isFocussed, setIsFocused] = useState(false);
   // console.log(isFocussed);
-
+  const theme = useSelector((state) => state.theme.theme);
   return (
     <>
       <View style={styles.container}>
@@ -38,7 +39,7 @@ export default function Header({
         </Pressable>
         {!isFocussed && (
           <View>
-            <Text style={styles.headerText}>{headerText}</Text>
+            <Text style={[styles.headerText,{color:theme === 'light'? COLORS.TEXT4:DARK_COLORS.TEXT4}]}>{headerText}</Text>
           </View>
         )}
         <View
@@ -55,7 +56,7 @@ export default function Header({
                 />
               )}
               <TextInput
-                style={styles.text}
+                style={[styles.text]}
                 placeholder="Search"
                 placeholderTextColor={COLORS.HEADER}
                 onChangeText={onChangeText}

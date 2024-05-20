@@ -15,17 +15,17 @@ export const COLORS = {
 }
 
 export const DARK_COLORS = {
-    BACKGROUND:'#131417', //exchange
+    BACKGROUND:'#292B30', //
     BACKGROUND1:'rgb(107,78,255)',
     TEXT1:'white',
     TEXT2:'rgb(107,78,225)',
-    TEXT3:'rgb(182,176,217)',
-    TEXT4:'rgb(107,78,253)',
+    TEXT3:'rgb(255,255,255)',//
+    TEXT4:'#FFFFFF',
     SPLASHSCREEN:'rgb(238,238,242)',
-    HOMESIZE: 'rgb(153, 144, 254)',
+    HOMESIZE: '#FFFFFF',//
     HEADER:"rgb(107,78,253)",
     NOTETEXT:'rgb(42,34,81)',
     GOOGLE:'#757575',
     SAVE:'white',
-    FOOTER:'#1D1F24'
+    FOOTER:'#191A1D'
 }

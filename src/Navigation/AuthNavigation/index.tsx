@@ -1,5 +1,7 @@
 import { NavigationContainer } from "@react-navigation/native";
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
+import { useEffect } from "react";
+import { useDispatch } from "react-redux";
 import Label from "../../Screens/Labels";
 import Note from "../../Screens/Note";
 import Enter from "../../Screens/enter";
@@ -9,10 +11,15 @@ import SignUp from "../../Screens/signUp";
 import Splash from "../../Screens/splashScreen1";
 import { COLORS } from "../../constants/colors";
 import { screenConstant } from "../../constants/index";
+import { loadThemeFromStorage } from "../../store/theme";
 import HomeNavigation from "../HomeNavigation";
 
 export default function AuthNavigation() {
     const Stack = createNativeStackNavigator();
+    const dispatch = useDispatch()
+    useEffect(() => {
+        dispatch(loadThemeFromStorage());
+      }, [dispatch]);
     return (
         <>
             <NavigationContainer>

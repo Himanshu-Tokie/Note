@@ -3,8 +3,9 @@ import { StyleSheet, Text, TouchableOpacity, View, useWindowDimensions } from 'r
 import RenderHTML from 'react-native-render-html';
 import { RFValue } from 'react-native-responsive-fontsize';
 import { heightPercentageToDP, widthPercentageToDP } from 'react-native-responsive-screen';
+import { useSelector } from 'react-redux';
 import { screenConstant } from '../../constants';
-import { COLORS } from '../../constants/colors';
+import { COLORS, DARK_COLORS } from '../../constants/colors';
 
 export default function ListTemplate({ note, nav, maxHeight,label }) {
   // console.log(note,8989);
@@ -12,6 +13,7 @@ export default function ListTemplate({ note, nav, maxHeight,label }) {
     html: note.data
     };
     const {width: contentWidth} = useWindowDimensions();
+    const colorScheme = useSelector((state) => state.theme.theme);
   return (
     <>
     {!label &&
@@ -21,14 +23,14 @@ export default function ListTemplate({ note, nav, maxHeight,label }) {
       }
       style={[styles.touch, { maxHeight }]}>
       <View style={styles.container}>
-        <Text style={styles.title}>{note.title}</Text>
+        <Text style={[styles.title]}>{note.title}</Text>
         <RenderHTML source={source}
         contentWidth={contentWidth}/>
       </View>
     </TouchableOpacity>}
     {label &&
-    <View style={styles.container}>
-    <Text style={styles.title}>{note.id}</Text>
+    <View style={[styles.container,{backgroundColor:colorScheme==='light'?COLORS.FOOTER:DARK_COLORS.FOOTER}]}>
+    <Text style={[styles.title,{color:colorScheme==='light'?COLORS.TEXT1:DARK_COLORS.TEXT1}]}>{note.id}</Text>
   </View>
     }
         </>
@@ -56,7 +58,6 @@ const styles = StyleSheet.create({
     fontFamily: 'Nunito',
     fontSize: RFValue(12),
     paddingBottom: 4,
-    color: COLORS.TEXT1
   },
   data: {
     fontFamily: 'Nunito',

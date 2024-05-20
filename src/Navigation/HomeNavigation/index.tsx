@@ -1,6 +1,7 @@
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import { useNavigation } from '@react-navigation/native';
 import { View } from 'react-native';
+import { useSelector } from 'react-redux';
 import Home from '../../Screens/Home';
 import Note from '../../Screens/Note';
 import Setting from '../../Screens/Setting';
@@ -10,12 +11,13 @@ import Icon from '../../components/Icon';
 import Plus from '../../components/Plus/Plus';
 import { screenConstant } from '../../constants';
 import { ICONS } from '../../constants/Icons';
+import { COLORS, DARK_COLORS } from '../../constants/colors';
 import { styles } from './style';
 
 export default function HomeNavigation() {
   const parentNavigation = useNavigation();
   const Tab = createBottomTabNavigator();
-
+  const colorScheme = useSelector((state) => state.theme.theme);
   function MyTabBar({ state, descriptors, navigation }) {
     const iconSelection = index => {
       switch (index) {
@@ -27,6 +29,18 @@ export default function HomeNavigation() {
           return ICONS.BELL;
         case 4:
           return ICONS.SETTING;
+      }
+    };
+    const iconSelectionDark = index => {
+      switch (index) {
+        case 0:
+          return ICONS.DOC_DARK;
+        case 1:
+          return ICONS.CHECKS_DARK;
+        case 3:
+          return ICONS.BELL_DARK;
+        case 4:
+          return ICONS.SETTINGS_DARK;
       }
     };
     const iconHover = index => {
@@ -41,8 +55,20 @@ export default function HomeNavigation() {
           return ICONS.SETTING_BLACK;
       }
     };
+    const iconHoverDark = index => {
+      switch (index) {
+        case 0:
+          return ICONS.DOC_BLACK_DARK;
+        case 1:
+          return ICONS.CHECKS_BLACK_DARK;
+        case 3:
+          return ICONS.BELL_BLACK_DARK;
+        case 4:
+          return ICONS.SETTINGS_BLACK_DARK;
+      }
+    };
     return (
-      <View style={styles.footer}>
+      <View style={[styles.footer,{backgroundColor: colorScheme==='light'? COLORS.FOOTER:DARK_COLORS.FOOTER}]}>
         {state.routes.map((route, index) => {
           const { options } = descriptors[route.key];
           const label =
@@ -82,7 +108,7 @@ export default function HomeNavigation() {
           }
           return (
             <Icon
-              icon={!isFocused?iconSelection(index):iconHover(index)}
+              icon={!isFocused?(colorScheme === 'light'?iconSelection(index):iconSelectionDark(index)):(colorScheme === 'light'?iconHover(index):iconHoverDark(index))}
               width={24}
               height={24}
               color="none"

@@ -1,10 +1,8 @@
 import { Platform, StyleSheet } from 'react-native';
 import { heightPercentageToDP, widthPercentageToDP } from 'react-native-responsive-screen';
-import { COLORS } from '../../constants/colors';
 
 export const styles = StyleSheet.create({
   container: {
-    backgroundColor: COLORS.BACKGROUND,
     flex: 1,
     paddingHorizontal: widthPercentageToDP('4%'),
     paddingBottom: heightPercentageToDP('8.5%'),
@@ -16,7 +14,6 @@ export const styles = StyleSheet.create({
     // flex:1
   },
   welcome: {
-    color: COLORS.TEXT3,
     fontFamily: 'Nunito',
     paddingBottom: heightPercentageToDP('0.25%'),
     fontWeight:'600'
@@ -25,7 +22,6 @@ export const styles = StyleSheet.create({
     fontWeight: 'bold',
     fontFamily: 'Nunito',
     fontSize: heightPercentageToDP('3%'),
-    color:COLORS.TEXT1
   },
   header: {
     paddingHorizontal: Platform.OS == 'ios'? heightPercentageToDP('2%'):heightPercentageToDP('0%'),
@@ -42,7 +38,6 @@ export const styles = StyleSheet.create({
   },
   text: {
     fontFamily: 'Nunito',
-    color: 'white',
     fontSize: heightPercentageToDP('2.4%'),
     fontWeight: '800',
   },
@@ -59,7 +54,6 @@ export const styles = StyleSheet.create({
   },
   size: {
     fontSize: heightPercentageToDP('1.5%'),
-    color: COLORS.HOMESIZE,
     fontWeight: 'bold',
   },
   imageInner: {

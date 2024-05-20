@@ -1,38 +1,39 @@
 import { useNavigation } from '@react-navigation/native';
 import {
-    ImageBackground,
-    Platform,
-    StyleSheet,
-    Text,
-    TouchableOpacity,
-    View,
+  ImageBackground,
+  Platform,
+  StyleSheet,
+  Text,
+  TouchableOpacity,
+  View
 } from 'react-native';
 import {
-    heightPercentageToDP,
-    widthPercentageToDP,
+  heightPercentageToDP,
+  widthPercentageToDP,
 } from 'react-native-responsive-screen';
+import { useSelector } from 'react-redux';
 import { screenConstant } from '../../constants';
 import { images } from '../../constants/Images';
-import { COLORS } from '../../constants/colors';
+import { COLORS, DARK_COLORS } from '../../constants/colors';
 
 export default function LabelTemplate({icon, text, files, note}) {
   const nav = useNavigation();
   function navigationHandler() {
     nav.navigate(screenConstant.Label, {text, note});
   }
-
+  const colorScheme = useSelector((state) => state.theme.theme);;
   return (
     <>
       <View style={styles.sub}>
         <ImageBackground
-          source={images.LABEL}
+          source={colorScheme==='light'? images.LABEL:images.DARK_LABEL}
           resizeMode="cover"
           style={styles.container}>
           <TouchableOpacity onPress={navigationHandler}>
             <View style={styles.inner}>
               {icon(heightPercentageToDP('6.2%'), heightPercentageToDP('6.2%'))}
-              <Text style={styles.text}>{text}</Text>
-              <Text style={{color:COLORS.TEXT1}}>{files} Files</Text>
+              <Text style={[styles.text,{color:colorScheme==='light'?COLORS.TEXT1:DARK_COLORS.TEXT1}]}>{text}</Text>
+              <Text style={{color:colorScheme==='light'?COLORS.TEXT1:DARK_COLORS.TEXT1}}>{files} Files</Text>
             </View>
           </TouchableOpacity>
         </ImageBackground>
@@ -74,7 +75,6 @@ const styles = StyleSheet.create({
   text: {
     paddingTop: heightPercentageToDP('1.2%'),
     fontWeight: 'bold',
-    color: COLORS.TEXT1,
   },
   inner: {
     paddingLeft: widthPercentageToDP('7%'),

@@ -2,14 +2,17 @@ import { default as auth } from '@react-native-firebase/auth';
 import firestore from '@react-native-firebase/firestore';
 import React, { useEffect, useState } from 'react';
 import { Button, FlatList, SafeAreaView, View } from 'react-native';
+import { useSelector } from 'react-redux';
 import AddLabel from '../../components/AddLabel/addLabel';
 import Search from '../../components/Header';
 import ListTemplate from '../../components/listTemplate/listTemplate';
+import { COLORS, DARK_COLORS } from '../../constants/colors';
 import { STRINGS } from '../../constants/strings';
 import { styles } from './style';
 
 export default function Extar1({route}) {
   const user = auth().currentUser;
+  const colorScheme = useSelector((state) => state.theme.theme);
   let uid = user?.uid;
   // const [searchData, setSearchData] = useState([])
   const [notesData, setNotesData] = useState([]);
@@ -35,7 +38,8 @@ export default function Extar1({route}) {
         console.error('Error fetching data:', error);
       }
     };
-    fetchData(); // Fetch initial data
+    fetchData(); 
+    // Fetch initial data
     // Set up listener for real-time updates
     const unsubscribe = firestore()
       .collection(STRINGS.FIREBASE.USER)
@@ -56,7 +60,7 @@ export default function Extar1({route}) {
   useEffect(() => {
     const addNewLabel = async () => {
       try {
-        if (newLabel.current !== '') {
+        if (newLabel !== '') {
           await firestore()
             .collection(STRINGS.FIREBASE.USER)
             .doc(uid)
@@ -77,7 +81,7 @@ export default function Extar1({route}) {
   }, [newLabel]);
   return (
     <>
-      <SafeAreaView style={styles.container}>
+      <SafeAreaView style={[styles.container,{backgroundColor: colorScheme==='light'? COLORS.BACKGROUND : DARK_COLORS.BACKGROUND,}]}>
         <View style={styles.subContainer}>
           <View>
             <Search
@@ -98,6 +102,7 @@ export default function Extar1({route}) {
               data={notesData}
               style={styles.list}
               keyExtractor={item => item.id}
+              showsVerticalScrollIndicator={false}
               renderItem={({item}) => (
                 <ListTemplate note={item} label={true} />
               )}></FlatList>

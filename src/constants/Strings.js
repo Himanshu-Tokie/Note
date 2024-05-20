@@ -51,5 +51,8 @@ export const STRINGS = {
   FIRST_NAME_WARNING:'Please enter your first name',
   LAST_NAME_WARNING:'Please enter your last name',
   EMAIL_WARNING:'Please enter email',
-  PASSWORD_WARNING:'Please enter your password'
+  PASSWORD_WARNING:'Please enter your password',
+  AVAILABLE_SPACE:'Available Space',
+  STORAGE:'20 .254 GB of 25 GB Used',
+  NOTE:'Note-Taking App'
 };
