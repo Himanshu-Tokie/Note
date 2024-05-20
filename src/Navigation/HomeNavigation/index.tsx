@@ -16,7 +16,7 @@ export default function HomeNavigation() {
   const parentNavigation = useNavigation();
   const Tab = createBottomTabNavigator();
 
-  function MyTabBar({state, descriptors, navigation}) {
+  function MyTabBar({ state, descriptors, navigation }) {
     const iconSelection = index => {
       switch (index) {
         case 0:
@@ -32,25 +32,25 @@ export default function HomeNavigation() {
     const iconHover = index => {
       switch (index) {
         case 0:
-          return ICONS.DOC;
+          return ICONS.DOC_BLACK;
         case 1:
-          return ICONS.CHECKS;
+          return ICONS.CHECKS_BLACK;
         case 3:
-          return ICONS.BELL;
+          return ICONS.BELL_BLACK;
         case 4:
-          return ICONS.SETTING;
+          return ICONS.SETTING_BLACK;
       }
     };
     return (
       <View style={styles.footer}>
         {state.routes.map((route, index) => {
-          const {options} = descriptors[route.key];
+          const { options } = descriptors[route.key];
           const label =
             options.tabBarLabel !== undefined
               ? options.tabBarLabel
               : options.title !== undefined
-              ? options.title
-              : route.name;
+                ? options.title
+                : route.name;
 
           const isFocused = state.index === index;
 
@@ -62,7 +62,7 @@ export default function HomeNavigation() {
                   timestamp: '',
                   newReminder: '',
                 };
-                parentNavigation.navigate(screenConstant.Note, {note});
+                parentNavigation.navigate(screenConstant.Note, { note });
               } else {
                 parentNavigation.navigate(screenConstant.Note);
               } // Use the parent navigation to navigate to the "Note" screen
@@ -82,7 +82,7 @@ export default function HomeNavigation() {
           }
           return (
             <Icon
-              icon={iconSelection(index)}
+              icon={!isFocused?iconSelection(index):iconHover(index)}
               width={24}
               height={24}
               color="none"
@@ -99,7 +99,7 @@ export default function HomeNavigation() {
       <Tab.Navigator
         initialRouteName={screenConstant.Home}
         tabBar={props => <MyTabBar {...props} />}
-        screenOptions={{headerShown:false}}>
+        screenOptions={{ headerShown: false }}>
         <Tab.Screen
           name={screenConstant.Home}
           component={Home}
@@ -112,7 +112,7 @@ export default function HomeNavigation() {
         <Tab.Screen
           name={screenConstant.Extra2}
           component={Extar2}
-          initialParams={{parentNavigation}}
+          initialParams={{ parentNavigation }}
         />
         <Tab.Screen name={screenConstant.Setting} component={Setting} />
       </Tab.Navigator>

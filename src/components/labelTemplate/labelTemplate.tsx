@@ -45,7 +45,7 @@ const styles = StyleSheet.create({
     paddingHorizontal: widthPercentageToDP('1.1%'),
     paddingTop: heightPercentageToDP('1.1%'),
     paddingBottom: heightPercentageToDP('1.4%'),
-    // backgroundColor:COLORS.BACKGROUND,
+    // backgroundColor:DARK_COLORS.BACKGROUND,
     ...Platform.select({
       ios: {
         shadowColor: '#000',
