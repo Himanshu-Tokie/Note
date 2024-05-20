@@ -42,7 +42,7 @@ export default function FormikTemplate({
           secureTextEntry={secureTextEntry}
           style={{flex:1}}
         />
-        {(placeholder === 'Password' || placeholder === 'Confirm Password') && (
+        {(placeholder === 'Password' || placeholder === 'Confirm Password') && ( 
           <TouchableOpacity onPress={onPress}>{ICONS.EYE(heightPercentageToDP('2.2'), heightPercentageToDP('2.2'), 'none')}</TouchableOpacity>
         )}
       </View>

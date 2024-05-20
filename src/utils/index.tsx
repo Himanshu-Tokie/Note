@@ -69,8 +69,8 @@ export const signUpUser = async (user, providerId,dispatch,navigation) => {
 };
 
 export const SignupSchema = Yup.object().shape({
-  firstName: Yup.string().required(STRINGS.FIRST_NAME_WARNING),
-  lastName: Yup.string().required(STRINGS.LAST_NAME_WARNING),
+  firstName: Yup.string().required(STRINGS.FIRST_NAME_WARNING).matches(/^[A-Za-z]+$/,'Invalid first name'),
+  lastName: Yup.string().required(STRINGS.LAST_NAME_WARNING).matches(/^[A-Za-z]+$/,'Invalid last name'),
   email: Yup.string().email('Invalid email').required(STRINGS.EMAIL_WARNING),
   password: Yup.string()
     .min(8)
@@ -84,5 +84,5 @@ export const SignupSchema = Yup.object().shape({
     "Password doesn't match",
   ),
   number: Yup.string()
-  .matches(/^\d{10}$/, 'Number must be exactly 19 digits')
+  .matches(/^\d{10}$/, 'Number must be exactly 10 digits')
   .required('Enter Number'),});
