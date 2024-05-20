@@ -6,7 +6,7 @@ import { screenConstant } from '../../constants';
 import { COLORS } from '../../constants/colors';
 
 export default function ListTemplate({ note, nav, maxHeight,label }) {
-  console.log(note,8989);
+  // console.log(note,8989);
   const source = {
     html: note.data
     };

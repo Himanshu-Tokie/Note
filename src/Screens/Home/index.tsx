@@ -33,7 +33,7 @@ export default function Home({navigation}) {
   const isLogedIn = useSelector(state => state.common[STRINGS.IS_LOGGED_IN]);
 
   const [label, setLabel] = useState('');
-  console.log(label);
+  // console.log(label);
   console.log(isLogedIn, 1234134124);
   // useEffect(() => {
   //   const unsubscribe = navigation.addListener('beforeRemove', e => {
@@ -60,12 +60,28 @@ export default function Home({navigation}) {
       });
 
     // Stop listening for updates when no longer required
-    return () => unsubscribe();}
+    return () => {
+      console.log('home unsubcribe');
+     unsubscribe();
+    }}
   }, []);
+  const getAllData = async()=>{
+    try{
+      await firestore().collection(STRINGS.FIREBASE.USER).doc(user.uid).get().then(()=>{console.log('all data fetched successfully');
+      });
+    }
+    catch (e){
+      console.log(e);
+      
+    }
+  }
   const getLabel = async () => {
     try {
       if(user)
-      {const snapShot = await firestore()
+      {
+        getAllData();
+        
+        const snapShot = await firestore()
         .collection(STRINGS.FIREBASE.USER)
         .doc(user.uid)
         .collection(STRINGS.FIREBASE.LABELS)
@@ -75,8 +91,10 @@ export default function Home({navigation}) {
         labelData.push({id: doc.id, count: doc.data().count});
       });
       setLabel(labelData);
-      console.log(label, 70);}
-    } catch (error) {
+      // console.log(label, 70);}
+    }
+    
+  } catch (error) {
       console.error('Error retrieving notes:', error);
     }
   };

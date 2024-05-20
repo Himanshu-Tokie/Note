@@ -1,14 +1,18 @@
 import { default as auth } from '@react-native-firebase/auth';
 import firestore from '@react-native-firebase/firestore';
+import { useHeaderHeight } from "@react-navigation/elements";
+import * as htmlparser2 from "htmlparser2";
 import React, { useEffect, useRef, useState } from 'react';
 import {
+  Keyboard,
   KeyboardAvoidingView,
   Platform,
   SafeAreaView,
   TextInput,
-  View,
+  View
 } from 'react-native';
 import { RichEditor, RichToolbar, actions } from 'react-native-pell-rich-editor';
+import { heightPercentageToDP } from 'react-native-responsive-screen';
 import DateTime from '../../components/DateTime';
 import Header from '../../components/Header';
 import { STRINGS } from '../../constants/strings';
@@ -97,7 +101,7 @@ const Note = ({route}) => {
     } catch (e) {
       console.log(e, 'reminderrrr');
     }
-    console.log(dateRef);
+    // console.log(dateRef);
   };
   const updateData = async () => {
     try {
@@ -130,10 +134,8 @@ const Note = ({route}) => {
       console.log(e);
     }
   };
-  const createNote = async () => {
-    try {
-      if(titleRef.current!='' || articleData.current!='')
-      {await firestore()
+  const createN = async()=>{
+    await firestore()
         .collection(STRINGS.FIREBASE.USER)
         .doc(uid)
         .collection(STRINGS.FIREBASE.NOTES)
@@ -145,29 +147,83 @@ const Note = ({route}) => {
         .then(() => {
           console.log('new note added successfully');
         });
-      if (!noteIdExist.current) {
-        const increment = firestore.FieldValue.increment(1);
-        console.log('note exist');
-        await firestore()
-          .collection(STRINGS.FIREBASE.USER)
-          .doc(uid)
-          .collection(STRINGS.FIREBASE.LABELS)
-          .doc(labelRef.current)
-          .update({count: increment})
-          .then(() => console.log('success'))
-          .catch(e => console.log(e));
-      } else {
-        console.log('note  not exist');
-        await firestore()
-          .collection(STRINGS.FIREBASE.USER)
-          .doc(uid)
-          .collection(STRINGS.FIREBASE.LABELS)
-          .doc(labelRef.current)
-          .set({count: 1})
-          .then(() => console.log('success label'))
-          .catch(e => console.log(e));
-      }}
-    } catch (e){console.log(e);
+        // console.log('asdfafasdfasg');
+  }
+  // function stripHtml(html) {
+  //   // Create a new DOM parser
+  //   const parser = new DOMParser();
+  //   // Parse the HTML string into a document
+  //   const doc = parser.parseFromString(html, 'text/html');
+  //   // Extract and return the text content of the document
+  //   return doc.body.textContent || "";
+  // }
+  const createNote = async () => {
+    try {
+      const regex = /^[\s\r\n]*$/;
+      const dom = htmlparser2.parseDocument(articleData.current);
+      console.log(dom,44444444);
+      
+      // stripHtml(articleData.current)
+      console.log(!regex.test(articleData.current),34534534578678);
+      console.log(!regex.test(titleRef.current),'title');
+      console.log(articleData);
+      if( (!regex.test(articleData.current)) || !regex.test(titleRef.current) )
+      {
+        createN();
+        console.log('asdfafasdfasg');
+        const count = await firestore().collection(STRINGS.FIREBASE.USER).doc(uid).collection(STRINGS.FIREBASE.LABELS).doc(labelRef.current).get();
+        console.log(count,123423435);
+        
+        let updatedcount = count.data();
+        updatedcount=updatedcount['count']+1
+        await firestore().collection(STRINGS.FIREBASE.USER).doc(uid).collection(STRINGS.FIREBASE.LABELS).doc(labelRef.current).set({count:updatedcount},{ merge: true },).
+        then(()=>console.log('hurray')).catch(()=>console.log('hurray error00'))
+        console.log(updatedcount,98765);
+
+        
+        // const collectionRef = firestore().collection('users').doc(uid);
+        // const doc = await collectionRef.get();
+        // console.log("will i get the doc")
+        // if (doc.exists) {
+        //   const userData = doc.data();
+        //   // console.log(userData, "USERDATA")
+        //   const updatedCollections = userData.collections.map(collection => {
+        //     // console.log(collection, "COLLECTTT")
+        //     if (collection.text === label) {
+        //       return {
+        //         ...collection,
+        //         number: collection.number + 1,
+        //       };
+        //     }
+        //     return collection;
+        //   });
+        //   await collectionRef.set(
+        //     { collections: updatedCollections },
+        //     { merge: true },
+        //   );
+      // if (!noteIdExist.current) {
+      //   const increment = firestore.FieldValue.increment(1);
+      //   console.log('note exist');
+      //   await firestore()
+      //     .collection(STRINGS.FIREBASE.USER)
+      //     .doc(uid)
+      //     .collection(STRINGS.FIREBASE.LABELS)
+      //     .doc(labelRef.current)
+      //     .update({count: increment})
+      //     .then(() => console.log('success'))
+      //     .catch(e => console.log(e));
+      // } else {
+      //   console.log('note  not exist');
+      //   await firestore()
+      //     .collection(STRINGS.FIREBASE.USER)
+      //     .doc(uid)
+      //     .collection(STRINGS.FIREBASE.LABELS)
+      //     .doc(labelRef.current)
+      //     .set({count: 1})
+      //     .then(() => console.log('success label'))
+      //     .catch(e => console.log(e));
+      // }}
+    }} catch (e){console.log(e);
     }
   };
   useEffect(() => {
@@ -203,16 +259,33 @@ const Note = ({route}) => {
       scrollRef.current.scrollTo({y: scrollY - 30, animated: true});
     }
   };
+  const [keyboardOffset, setKeyboardOffset] = useState(0);
 
+  useEffect(() => {
+    const showSubscription = Keyboard.addListener("keyboardDidShow", (event) => {
+      setKeyboardOffset(event.endCoordinates.height);
+    });
+    const hideSubscription = Keyboard.addListener("keyboardDidHide", () => {
+      setKeyboardOffset(0);
+    });
+
+    return () => {
+      showSubscription.remove();
+      hideSubscription.remove();
+    };
+  }, []);
+  const headerHeight = useHeaderHeight();
   return (
     <SafeAreaView style={styles.container}>
+      <KeyboardAvoidingView
+        behavior={Platform.OS === 'ios' ? 'padding' : 'height'}
+        keyboardVerticalOffset={Platform.OS === 'ios' ? 0 : heightPercentageToDP('5.9%')}
+        // keyboardVerticalOffset={Platform.OS === 'ios' ? 0 : keyboardOffset}
+        style={styles.subContainer}>
       <View>
         <Header headerText={label} />
       </View>
       {/* <ScrollView style={styles.container} ref={scrollRef}> */}
-      <KeyboardAvoidingView
-        behavior={Platform.OS === 'ios' ? 'padding' : 'height'}
-        style={styles.subContainer}>
         <TextInput
           onChangeText={text => {
             titleRef.current = text;
@@ -260,10 +333,12 @@ const Note = ({route}) => {
             actions.heading1,
           ]}
         />
-      </KeyboardAvoidingView>
       {/* </ScrollView> */}
+      </KeyboardAvoidingView>
     </SafeAreaView>
   );
 };
 
 export default Note;
+
+

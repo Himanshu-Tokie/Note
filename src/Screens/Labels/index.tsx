@@ -6,11 +6,11 @@ import CustomButton from '../../components/Button/customButton';
 import Search from '../../components/Header';
 import ListTemplate from '../../components/listTemplate/listTemplate';
 import { screenConstant } from '../../constants';
-import { styles } from './style';
 import { STRINGS } from '../../constants/strings';
+import { styles } from './style';
 
 export default function Label({ navigation, route }) {
-  console.log(route, 123321123)
+  // console.log(route, 123321123)
   const uid = route.params.note;
   const label = route.params.text;
   const [searchData, setSearchData] = useState([])
@@ -26,7 +26,7 @@ export default function Label({ navigation, route }) {
     let filteredData = notesData.filter((item) => {
       return item.data.toLowerCase().match(text) || item.title.toLowerCase().match(text)
     })
-    console.log(filteredData);
+    // console.log(filteredData);
     setSearchData(filteredData);
   }
 

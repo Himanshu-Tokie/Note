@@ -9,7 +9,7 @@ export const styles = StyleSheet.create({
         // maxWidth:RFPercentage(50),
         // width:"50%",
         // width:100
-        paddingTop:28
+        paddingTop:28,
     },
     list:{
         

@@ -1,4 +1,5 @@
 import { useNavigation } from '@react-navigation/native';
+import { useState } from 'react';
 import {
   Pressable,
   StyleSheet,
@@ -19,6 +20,9 @@ export default function Header({
   headerText,
 }) {
   const navigation = useNavigation();
+  const [isFocussed,setIsFocused] = useState(false)
+  // console.log(isFocussed);
+  
   return (
     <>
       <View style={styles.container}>
@@ -29,12 +33,15 @@ export default function Header({
             <Text style={styles.text}>Back</Text>
           </View>
         </Pressable>
-        <View>
+        { !isFocussed &&
+          <View>
           <Text style={styles.headerText}>{headerText}</Text>
-        </View>
-        <View style={styles.rightHeader}>
+        </View>}
+        <View style={[styles.rightHeader, isFocussed && styles.rightHeaderFocused]} >         
         {setSearchData &&
           <TouchableOpacity style={styles.searchContainer}>
+            { 
+!isFocussed &&
             <Icon
               icon={ICONS.SEARCH}
               height={23}
@@ -42,12 +49,21 @@ export default function Header({
               color="none"
               style={styles.iconContainer}
             />
+            }
             <TextInput
               style={styles.text}
               placeholder="Search"
               placeholderTextColor={COLORS.HEADER}
               onChangeText={onChangeText}
-              onBlur={() => setSearchData(notesData)}
+              onFocus={() => {
+                setIsFocused(true);
+                console.log('focus');
+              }}
+              onBlur={() => {
+                setIsFocused(false);
+                setSearchData(notesData);
+                console.log('blur');
+              }}
             />
           </TouchableOpacity>}
         </View>
@@ -67,19 +83,27 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     // justifyContent:'space-between',
     marginHorizontal:  widthPercentageToDP('2%'),
+    // flex:1
+  },
+  rightHeaderFocused:{
+    flex:1,
+    marginLeft:widthPercentageToDP('2%')
   },
   headerText: {
     fontFamily: 'Nunito',
     fontWeight: 'bold',
     fontSize: heightPercentageToDP('2.2%'),
     marginLeft: 10,
-    color:COLORS.TEXT1
+    color:COLORS.TEXT1,
+    // marginHorizontal:60
   },
   leftHeader: {
     flexDirection: 'row',
   },
   rightHeader: {
     width: widthPercentageToDP('25%'),
+    // flex:()
+    // flex:1,
   },
   text: {
     fontSize: heightPercentageToDP('2%'),

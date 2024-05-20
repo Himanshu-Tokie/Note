@@ -37,7 +37,7 @@ export const styles = StyleSheet.create({
       // paddingLeft:
     },
     subContainer:{
-      marginHorizontal:16,
+      // marginHorizontal:16,
       flex:1
     }
   });
