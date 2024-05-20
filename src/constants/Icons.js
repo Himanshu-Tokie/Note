@@ -20,6 +20,11 @@ import PLUS2 from '../assets/svg/plus-svgrepo-com.svg'
 import SEARCH from '../assets/svg/search.svg'
 import SETTING from '../assets/svg/setting.svg'
 import WORK from '../assets/svg/work.svg'
+import DOC_BLACK from '../assets/svg/doc_Black.svg'
+import CHECKS_BLACK from '../assets/svg/check_black.svg'
+import BELL_BLACK from '../assets/svg/bell_black.svg'
+import SETTING_BLACK from '../assets/svg/setting_black.svg'
+
 const iconStyle = (
   width = 0,
   height = 0,
@@ -53,4 +58,8 @@ export const ICONS = {
   TICK: (...params) => <TICK {...iconStyle(...params)} />,
   GOOGLE: (...params) => <GOOGLE {...iconStyle(...params)} />,
   CROSS: (...params) => <CROSS {...iconStyle(...params)} />,
+  DOC_BLACK: (...params) => <DOC_BLACK {...iconStyle(...params)} />,
+  CHECKS_BLACK: (...params) => <CHECKS_BLACK {...iconStyle(...params)} />,
+  BELL_BLACK: (...params) => <BELL_BLACK {...iconStyle(...params)} />,
+  SETTING_BLACK: (...params) => <SETTING_BLACK {...iconStyle(...params)} />,
 }

@@ -1,10 +1,10 @@
-import { StyleSheet } from 'react-native';
+import { Platform, StyleSheet } from 'react-native';
 import { heightPercentageToDP, widthPercentageToDP } from 'react-native-responsive-screen';
-import { COLORS } from '../../constants/colors';
+import { COLORS, DARK_COLORS } from '../../constants/colors';
 
 export const styles = StyleSheet.create({
   container: {
-    backgroundColor: COLORS.BACKGROUND,
+    backgroundColor: DARK_COLORS.BACKGROUND,
     flex: 1,
     paddingHorizontal: widthPercentageToDP('4%'),
     paddingBottom: heightPercentageToDP('8.5%'),
@@ -28,7 +28,7 @@ export const styles = StyleSheet.create({
     color:COLORS.TEXT1
   },
   header: {
-    paddingHorizontal: heightPercentageToDP('2%'),
+    paddingHorizontal: Platform.OS == 'ios'? heightPercentageToDP('2%'):heightPercentageToDP('0%'),
     flexDirection: 'row',
     justifyContent: 'space-between',
   },
@@ -53,7 +53,7 @@ export const styles = StyleSheet.create({
     height: heightPercentageToDP('19%'),
   },
   imageContainer: {
-    paddingHorizontal: widthPercentageToDP('4.1%'),
+    paddingHorizontal: Platform.OS == 'ios'? widthPercentageToDP('4.1%'):widthPercentageToDP('0%'),
     paddingTop: heightPercentageToDP('3.5%'),
     paddingBottom:heightPercentageToDP('3%')
   },

@@ -1,9 +1,9 @@
 import { StyleSheet } from "react-native";
-import { COLORS } from "../../constants/colors";
+import { COLORS, DARK_COLORS } from "../../constants/colors";
 export const styles = StyleSheet.create({
     container:{
         flex: 1,
-    backgroundColor: COLORS.BACKGROUND,
+    backgroundColor: DARK_COLORS.BACKGROUND,
     },
     subContainer:{
         paddingTop:28
