@@ -8,7 +8,10 @@ import {
   TouchableOpacity,
   View,
 } from 'react-native';
-import { heightPercentageToDP, widthPercentageToDP } from 'react-native-responsive-screen';
+import {
+  heightPercentageToDP,
+  widthPercentageToDP,
+} from 'react-native-responsive-screen';
 import { ICONS } from '../../constants/Icons';
 import { COLORS } from '../../constants/colors';
 import Icon from '../Icon';
@@ -20,9 +23,9 @@ export default function Header({
   headerText,
 }) {
   const navigation = useNavigation();
-  const [isFocussed,setIsFocused] = useState(false)
+  const [isFocussed, setIsFocused] = useState(false);
   // console.log(isFocussed);
-  
+
   return (
     <>
       <View style={styles.container}>
@@ -33,39 +36,41 @@ export default function Header({
             <Text style={styles.text}>Back</Text>
           </View>
         </Pressable>
-        { !isFocussed &&
+        {!isFocussed && (
           <View>
-          <Text style={styles.headerText}>{headerText}</Text>
-        </View>}
-        <View style={[styles.rightHeader, isFocussed && styles.rightHeaderFocused]} >         
-        {setSearchData &&
-          <TouchableOpacity style={styles.searchContainer}>
-            { 
-!isFocussed &&
-            <Icon
-              icon={ICONS.SEARCH}
-              height={23}
-              width={23}
-              color="none"
-              style={styles.iconContainer}
-            />
-            }
-            <TextInput
-              style={styles.text}
-              placeholder="Search"
-              placeholderTextColor={COLORS.HEADER}
-              onChangeText={onChangeText}
-              onFocus={() => {
-                setIsFocused(true);
-                console.log('focus');
-              }}
-              onBlur={() => {
-                setIsFocused(false);
-                setSearchData(notesData);
-                console.log('blur');
-              }}
-            />
-          </TouchableOpacity>}
+            <Text style={styles.headerText}>{headerText}</Text>
+          </View>
+        )}
+        <View
+          style={[styles.rightHeader, isFocussed && styles.rightHeaderFocused]}>
+          {setSearchData && (
+            <TouchableOpacity style={styles.searchContainer}>
+              {!isFocussed && (
+                <Icon
+                  icon={ICONS.SEARCH}
+                  height={23}
+                  width={23}
+                  color="none"
+                  style={styles.iconContainer}
+                />
+              )}
+              <TextInput
+                style={styles.text}
+                placeholder="Search"
+                placeholderTextColor={COLORS.HEADER}
+                onChangeText={onChangeText}
+                onFocus={() => {
+                  setIsFocused(true);
+                  console.log('focus');
+                }}
+                onBlur={() => {
+                  setIsFocused(false);
+                  setSearchData(notesData);
+                  console.log('blur');
+                }}
+              />
+            </TouchableOpacity>
+          )}
         </View>
       </View>
     </>
@@ -82,19 +87,19 @@ const styles = StyleSheet.create({
   searchContainer: {
     flexDirection: 'row',
     // justifyContent:'space-between',
-    marginHorizontal:  widthPercentageToDP('2%'),
+    marginHorizontal: widthPercentageToDP('2%'),
     // flex:1
   },
-  rightHeaderFocused:{
-    flex:1,
-    marginLeft:widthPercentageToDP('2%')
+  rightHeaderFocused: {
+    flex: 1,
+    marginLeft: widthPercentageToDP('2%'),
   },
   headerText: {
     fontFamily: 'Nunito',
     fontWeight: 'bold',
     fontSize: heightPercentageToDP('2.2%'),
     marginLeft: 10,
-    color:COLORS.TEXT1,
+    color: COLORS.TEXT1,
     // marginHorizontal:60
   },
   leftHeader: {
@@ -110,7 +115,7 @@ const styles = StyleSheet.create({
     color: COLORS.TEXT4,
     paddingLeft: 0,
     paddingTop: 2,
-    fontFamily:'Nunito'
+    fontFamily: 'Nunito',
   },
   iconContainer: {
     paddingRight: 5,

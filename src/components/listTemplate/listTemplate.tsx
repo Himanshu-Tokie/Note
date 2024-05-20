@@ -2,6 +2,7 @@ import React from 'react';
 import { StyleSheet, Text, TouchableOpacity, View, useWindowDimensions } from 'react-native';
 import RenderHTML from 'react-native-render-html';
 import { RFValue } from 'react-native-responsive-fontsize';
+import { heightPercentageToDP, widthPercentageToDP } from 'react-native-responsive-screen';
 import { screenConstant } from '../../constants';
 import { COLORS } from '../../constants/colors';
 
@@ -38,7 +39,7 @@ const styles = StyleSheet.create({
   container: {
     backgroundColor: 'white',
     borderRadius: 18,
-    marginHorizontal: 8,
+    marginHorizontal: widthPercentageToDP('2%'),
     marginBottom: 8,
     padding: 12,
     alignContent: 'center',
@@ -47,6 +48,8 @@ const styles = StyleSheet.create({
     shadowOffset: { width: -2, height: 4 },
     shadowOpacity: 0.2,
     shadowRadius: 3,
+    maxHeight:heightPercentageToDP('10%'),
+    overflow:'hidden'
   },
   title: {
     fontWeight: 'bold',
@@ -59,6 +62,7 @@ const styles = StyleSheet.create({
     fontFamily: 'Nunito',
     fontSize: RFValue(10),
     color: COLORS.NOTETEXT,
+    overflow:'hidden'
   },
   touch: {
     flex: 1,

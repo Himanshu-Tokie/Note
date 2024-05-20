@@ -1,12 +1,16 @@
 import { StyleSheet } from "react-native";
+import { heightPercentageToDP, widthPercentageToDP } from "react-native-responsive-screen";
 import { COLORS } from "../../constants/colors";
 export const styles = StyleSheet.create({
     container:{
         flex: 1,
     backgroundColor: COLORS.BACKGROUND,
     },
+    labelContainer:{
+        paddingTop:heightPercentageToDP('2%')
+    },
     subContainer:{
-        paddingTop:28
+        marginBottom:heightPercentageToDP('28%')
     },
     list:{
         
@@ -17,7 +21,7 @@ export const styles = StyleSheet.create({
         left:'25%'
     },
     customButton:{
-        width:200
+        width:widthPercentageToDP('90%')
     }
 })
 
