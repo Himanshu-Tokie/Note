@@ -1,15 +1,15 @@
 import { useNavigation } from '@react-navigation/native';
 import {
-  ImageBackground,
-  Platform,
-  StyleSheet,
-  Text,
-  TouchableOpacity,
-  View,
+    ImageBackground,
+    Platform,
+    StyleSheet,
+    Text,
+    TouchableOpacity,
+    View,
 } from 'react-native';
 import {
-  heightPercentageToDP,
-  widthPercentageToDP,
+    heightPercentageToDP,
+    widthPercentageToDP,
 } from 'react-native-responsive-screen';
 import { screenConstant } from '../../constants';
 import { images } from '../../constants/Images';
@@ -45,7 +45,7 @@ const styles = StyleSheet.create({
     paddingHorizontal: widthPercentageToDP('1.1%'),
     paddingTop: heightPercentageToDP('1.1%'),
     paddingBottom: heightPercentageToDP('1.4%'),
-    // backgroundColor:DARK_COLORS.BACKGROUND,
+    // backgroundColor:COLORS.BACKGROUND,
     ...Platform.select({
       ios: {
         shadowColor: '#000',
