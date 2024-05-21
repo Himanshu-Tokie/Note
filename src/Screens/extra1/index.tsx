@@ -1,9 +1,8 @@
 import { default as auth } from '@react-native-firebase/auth';
 import firestore from '@react-native-firebase/firestore';
 import React, { useEffect, useState } from 'react';
-import { Button, FlatList, SafeAreaView, View } from 'react-native';
+import { FlatList, SafeAreaView, View } from 'react-native';
 import { useSelector } from 'react-redux';
-import AddLabel from '../../components/AddLabel/addLabel';
 import Search from '../../components/Header';
 import ListTemplate from '../../components/listTemplate/listTemplate';
 import { COLORS, DARK_COLORS } from '../../constants/colors';
@@ -17,9 +16,7 @@ export default function Extar1({route}) {
   // const [searchData, setSearchData] = useState([])
   const [notesData, setNotesData] = useState([]);
   console.log('Label creater Page');
-  const [newLabel, setNewLabel] = useState('');
   // const newLabel = useRef('');
-  const [show, setShow] = useState(false);
   useEffect(() => {
     const fetchData = async () => {
       try {
@@ -57,28 +54,6 @@ export default function Extar1({route}) {
     return () => unsubscribe();
   }, []);
   // console.log(newLabel.current);
-  useEffect(() => {
-    const addNewLabel = async () => {
-      try {
-        if (newLabel !== '') {
-          await firestore()
-            .collection(STRINGS.FIREBASE.USER)
-            .doc(uid)
-            .collection(STRINGS.FIREBASE.LABELS)
-            .doc(newLabel)
-            .set({
-              count: 0,
-            })
-            .then(() => console.log('successfully added label'))
-            .catch(e => console.log(e));
-        }
-      } catch (error) {
-        console.error('Error adding new label:', error);
-      }
-    };
-
-    addNewLabel();
-  }, [newLabel]);
   return (
     <>
       <SafeAreaView style={[styles.container,{backgroundColor: colorScheme==='light'? COLORS.BACKGROUND : DARK_COLORS.BACKGROUND,}]}>
@@ -91,11 +66,7 @@ export default function Extar1({route}) {
             />
           </View>
           {/* <EditLables onChangeText={setNewLabel} /> */}
-          <Button title="Add Label" onPress={() => setShow(true)} />
-          <AddLabel
-            setNewlabel={setNewLabel}
-            setShow={setShow}
-            show={show}></AddLabel>
+          
           {/* fetch label and show label list */}
           <View style={styles.labelContainer}>
             <FlatList
