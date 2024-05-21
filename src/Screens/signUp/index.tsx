@@ -1,9 +1,10 @@
 import { default as auth } from '@react-native-firebase/auth';
 import { Formik } from 'formik';
 import { KeyboardAvoidingView, Platform, SafeAreaView, ScrollView, Text, View } from 'react-native';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import CustomButton from '../../components/Button/customButton';
 import FormikTemplate from '../../components/FormikTemplate/formikTemplate';
+import { COLORS, DARK_COLORS } from '../../constants/colors';
 import { STRINGS } from '../../constants/strings';
 import { SignupSchema, signUpUser } from '../../utils';
 import { styles } from './style';
@@ -26,10 +27,11 @@ export default function SignUp({ navigation }) {
       console.error('Error creating account:', error.code, error.message);
     }
   };
+  const colorScheme = useSelector((state) => state.theme.theme);
 
   return (
     <>
-      <SafeAreaView style={styles.container}>
+      <SafeAreaView style={[styles.container,{backgroundColor:colorScheme==='light'?COLORS.BACKGROUND:DARK_COLORS.BACKGROUND}]}>
         <KeyboardAvoidingView
           behavior={Platform.OS === 'ios' ? 'padding' : 'height'}
         >
@@ -105,7 +107,7 @@ export default function SignUp({ navigation }) {
                       onBlur={() => setFieldTouched(STRINGS.PHONE_NUMBER_SMALL)}
                       error={errors.number}
                     />
-                    <Text style={styles.text}>
+                    <Text style={[styles.text,{color:colorScheme==='light'?COLORS.FOOTER:DARK_COLORS.TEXT1}]}>
                       {STRINGS.SIGN_UP_CONDITIONS}
                     </Text>
                     <CustomButton

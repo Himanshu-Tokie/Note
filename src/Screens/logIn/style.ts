@@ -14,6 +14,8 @@ export const styles = StyleSheet.create({
 
   colorText: {
     color: COLORS.BACKGROUND1,
+    fontWeight:'bold',
+    paddingBottom:heightPercentageToDP('1%')
   },
   button:{
     alignContent:'center',

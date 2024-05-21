@@ -8,7 +8,7 @@ import * as Yup from 'yup';
 import CustomButton from '../../components/Button/customButton';
 import FormikTemplate from '../../components/FormikTemplate/formikTemplate';
 import { screenConstant } from '../../constants';
-import { COLORS } from '../../constants/colors';
+import { COLORS, DARK_COLORS } from '../../constants/colors';
 import { STRINGS } from '../../constants/strings';
 import { logIn, updateUser } from '../../store/common';
 import { styles } from './style';
@@ -73,12 +73,13 @@ export default function LogIn({navigation}) {
   const forgot = () => {
     navigation.navigate(screenConstant.ForgotPassword);
   };
+  const colorScheme = useSelector((state) => state.theme.theme);
 
   // if (initializing) return null;
   if (!isLogedIn) {
     return (
       <>
-        <SafeAreaView style={styles.container}>
+        <SafeAreaView style={[styles.container,{backgroundColor:colorScheme==='light'?COLORS.BACKGROUND:DARK_COLORS.BACKGROUND}]}>
           {errorLogin && (
             <View style={styles.errorContainer}>
               <Text style={styles.error}>{STRINGS.INVALID_CREDENTIALS}</Text>
@@ -124,7 +125,7 @@ export default function LogIn({navigation}) {
                   <Text onPress={forgot} style={styles.colorText}>
                     {STRINGS.FORGOT_PASSWORD}
                   </Text>
-                  <Text style={{color: COLORS.TEXT1}}>
+                  <Text style={{color:colorScheme==='light'?COLORS.FOOTER:DARK_COLORS.TEXT1}}>
                     {STRINGS.SIGN_UP_CONDITIONS}
                   </Text>
                     <CustomButton

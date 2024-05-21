@@ -128,7 +128,9 @@ if(user){
             />
             </View>
           </View>
-          <ScrollView>
+          <ScrollView
+          showsVerticalScrollIndicator={false}
+          >
             <View style={styles.imageContainer}>
               <ImageBackground
                 source={colorScheme==='light'? images.HOME: images.HOME_DARK}

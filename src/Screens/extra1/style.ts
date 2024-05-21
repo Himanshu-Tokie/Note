@@ -1,27 +1,27 @@
-import { StyleSheet } from "react-native";
-import { heightPercentageToDP, widthPercentageToDP } from "react-native-responsive-screen";
-import { COLORS } from "../../constants/colors";
+import { StyleSheet } from 'react-native';
+import {
+    heightPercentageToDP,
+    widthPercentageToDP,
+} from 'react-native-responsive-screen';
+import { COLORS } from '../../constants/colors';
 export const styles = StyleSheet.create({
-    container:{
-        flex: 1,
+  container: {
+    flex: 1,
     backgroundColor: COLORS.BACKGROUND,
-    },
-    labelContainer:{
-        paddingTop:heightPercentageToDP('2%')
-    },
-    subContainer:{
-        marginBottom:heightPercentageToDP('28%')
-    },
-    list:{
-        
-    },
-    addNotes:{
-        position:'absolute',
-        bottom:40,
-        left:'25%'
-    },
-    customButton:{
-        width:widthPercentageToDP('90%')
-    }
-})
-
+  },
+  labelContainer: {
+    paddingTop: heightPercentageToDP('2%'),
+  },
+  subContainer: {
+    marginBottom: heightPercentageToDP('19%'),
+  },
+  list: {},
+  addNotes: {
+    position: 'absolute',
+    bottom: 40,
+    left: '25%',
+  },
+  customButton: {
+    width: widthPercentageToDP('90%'),
+  },
+});

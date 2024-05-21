@@ -1,5 +1,7 @@
+import { default as auth } from '@react-native-firebase/auth';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import { useNavigation } from '@react-navigation/native';
+import { useState } from 'react';
 import { View } from 'react-native';
 import { useSelector } from 'react-redux';
 import Home from '../../Screens/Home';
@@ -7,6 +9,7 @@ import Note from '../../Screens/Note';
 import Setting from '../../Screens/Setting';
 import Extar1 from '../../Screens/extra1';
 import Extar2 from '../../Screens/extra2';
+import AddLabel from '../../components/AddLabel/addLabel';
 import Icon from '../../components/Icon';
 import Plus from '../../components/Plus/Plus';
 import { screenConstant } from '../../constants';
@@ -18,6 +21,9 @@ export default function HomeNavigation() {
   const parentNavigation = useNavigation();
   const Tab = createBottomTabNavigator();
   const colorScheme = useSelector((state) => state.theme.theme);
+  const [show, setShow] = useState(false)
+  const user = auth().currentUser;
+  let uid = user?.uid;
   function MyTabBar({ state, descriptors, navigation }) {
     const iconSelection = index => {
       switch (index) {
@@ -89,7 +95,15 @@ export default function HomeNavigation() {
                   newReminder: '',
                 };
                 parentNavigation.navigate(screenConstant.Note, { note });
-              } else {
+              } 
+              else if(state.index == 1){
+                // console.log('add label',234423);
+                setShow(true)
+                console.log(uid);
+                
+                // return (<AddLabel uid={uid} setShow={setShow} show={show}/>)
+              }
+              else {
                 parentNavigation.navigate(screenConstant.Note);
               } // Use the parent navigation to navigate to the "Note" screen
             } else {
@@ -142,6 +156,7 @@ export default function HomeNavigation() {
         />
         <Tab.Screen name={screenConstant.Setting} component={Setting} />
       </Tab.Navigator>
+      {show && <AddLabel uid={uid} setShow={setShow} show={show} />}
     </>
   );
 }
