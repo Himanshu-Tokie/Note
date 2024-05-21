@@ -26,6 +26,7 @@ import INTEL_BLACK from '../assets/svg/intel_dark.svg'
 import OTHERS from '../assets/svg/others.svg'
 import PERSONAL from '../assets/svg/personal.svg'
 import PIECHART from '../assets/svg/piechart.svg'
+import PIECHART_BLACK from '../assets/svg/piechartBlack.svg'
 import PLUS2 from '../assets/svg/plus-svgrepo-com.svg'
 import SEARCH from '../assets/svg/search.svg'
 import SETTING from '../assets/svg/setting.svg'
@@ -79,5 +80,6 @@ export const ICONS = {
   DOC_DARK: (...params) => <DOC_DARK {...iconStyle(...params)} />,
   CHECKS_DARK: (...params) => <CHECKS_DARK {...iconStyle(...params)} />,
   DOC_BLACK_DARK: (...params) => <DOC_BLACK_DARK {...iconStyle(...params)} />,
+  PIECHART_BLACK: (...params) => <PIECHART_BLACK {...iconStyle(...params)} />,
 
 }

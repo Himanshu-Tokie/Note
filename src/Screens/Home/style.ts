@@ -40,6 +40,7 @@ export const styles = StyleSheet.create({
     fontFamily: 'Nunito',
     fontSize: heightPercentageToDP('2.4%'),
     fontWeight: '800',
+    color:'#FFFFFF'
   },
   image: {
     justifyContent: 'center',

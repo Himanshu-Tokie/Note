@@ -2,7 +2,7 @@ import AsyncStorage from '@react-native-async-storage/async-storage';
 import auth from '@react-native-firebase/auth';
 import { GoogleSignin } from '@react-native-google-signin/google-signin';
 import React from 'react';
-import { SafeAreaView, Text, View } from 'react-native';
+import { SafeAreaView, Text, TouchableOpacity, View } from 'react-native';
 import { useDispatch, useSelector } from 'react-redux';
 import ToggleSwitch from 'toggle-switch-react-native';
 import Search from '../../components/Header';
@@ -13,10 +13,10 @@ import { logIn, updateUser } from '../../store/common';
 import { toggleTheme } from '../../store/theme';
 import { styles } from './style';
 
-export default function Setting({ navigation }) {
+export default function Setting({navigation}) {
   const user = auth().currentUser;
   const dispatch = useDispatch();
-  const theme = useSelector((state) => state.theme.theme);
+  const theme = useSelector(state => state.theme.theme);
 
   const signOut = async () => {
     try {
@@ -24,14 +24,14 @@ export default function Setting({ navigation }) {
         await auth()
           .signOut()
           .then(() => console.log('User signed out!'))
-          .catch((e) => console.log(e));
+          .catch(e => console.log(e));
         dispatch(logIn(false));
         dispatch(updateUser(null));
         await AsyncStorage.setItem(STRINGS.IS_LOGGED_IN, JSON.stringify(false));
         navigation.navigate(screenConstant.Enter);
       } else {
         try {
-          await GoogleSignin.signOut().catch((e) => console.log(e));
+          await GoogleSignin.signOut().catch(e => console.log(e));
           dispatch(logIn(false));
           dispatch(updateUser(null));
           console.log('google log out');
@@ -49,35 +49,121 @@ export default function Setting({ navigation }) {
       console.log(e);
     }
   };
-  const colorScheme = useSelector((state) => state.theme.theme);
+  const colorScheme = useSelector(state => state.theme.theme);
   return (
     <>
-      <SafeAreaView style={[styles.container,{backgroundColor: colorScheme==='light'? COLORS.BACKGROUND : DARK_COLORS.BACKGROUND,}]}>
+      <SafeAreaView
+        style={[
+          styles.container,
+          {
+            backgroundColor:
+              colorScheme === 'light'
+                ? COLORS.BACKGROUND
+                : DARK_COLORS.BACKGROUND,
+          },
+        ]}>
         <View>
           <Search headerText={STRINGS.SETTINGS} />
         </View>
         <View style={styles.subContainer}>
-          <View style={styles.view}>
-            <View>
-              <Text style={styles.text}>{STRINGS.THEME}</Text>
+          <View
+            style={[
+              styles.box1,
+              {
+                backgroundColor:
+                  colorScheme === 'light'
+                    ? COLORS.SETTING_BOX
+                    : DARK_COLORS.SETTING_BOX,
+              },
+            ]}>
+            <View style={styles.view}>
+              <View>
+                <Text
+                  style={[
+                    styles.text,
+                    {
+                      color:
+                        colorScheme === 'light'
+                          ? COLORS.TEXT1
+                          : DARK_COLORS.TEXT1,
+                    },
+                  ]}>
+                  Profile
+                </Text>
+              </View>
             </View>
-            <View>
-              <ToggleSwitch
-                isOn={theme === 'dark'}
-                onColor="green"
-                offColor="red"
-                labelStyle={{ color: 'black', fontWeight: '900' }}
-                size="large"
-                onToggle={() => dispatch(toggleTheme())}
-              />
+            <View style={styles.view}>
+              <View>
+                <Text
+                  style={[
+                    styles.text,
+                    {
+                      color:
+                        colorScheme === 'light'
+                          ? COLORS.TEXT1
+                          : DARK_COLORS.TEXT1,
+                    },
+                  ]}>
+                  {STRINGS.THEME}
+                </Text>
+              </View>
+              <View>
+                <ToggleSwitch
+                  isOn={theme === 'dark'}
+                  onColor="black"
+                  offColor="white"
+                  labelStyle={{color: 'black', fontWeight: '900'}}
+                  size="medium"
+                  onToggle={() => dispatch(toggleTheme())}
+                />
+              </View>
+            </View>
+            <View style={styles.view}>
+              <View>
+                <Text
+                  style={[
+                    styles.text,
+                    {
+                      color:
+                        colorScheme === 'light'
+                          ? COLORS.TEXT1
+                          : DARK_COLORS.TEXT1,
+                    },
+                  ]}>
+                  Change Password
+                </Text>
+              </View>
             </View>
           </View>
           {/* Other settings items */}
-          <View style={styles.view}>
-            <Text onPress={signOut} style={[styles.text, styles.textBold]}>
-              {STRINGS.SIGN_OUT}
-            </Text>
-          </View>
+          <TouchableOpacity onPress={signOut}>
+            <View
+              style={[
+                styles.box1,
+                styles.box2,
+                {
+                  backgroundColor:
+                    colorScheme === 'light'
+                      ? COLORS.SETTING_BOX
+                      : DARK_COLORS.SETTING_BOX,
+                },
+              ]}>
+              <Text
+                style={[
+                  styles.text,
+                  {
+                    color:
+                      colorScheme === 'light'
+                        ? COLORS.TEXT1
+                        : DARK_COLORS.TEXT1,
+                  },
+                  styles.textBold,
+                ]}>
+                {STRINGS.SIGN_OUT}
+              </Text>
+              {/* </View> */}
+            </View>
+          </TouchableOpacity>
         </View>
       </SafeAreaView>
     </>

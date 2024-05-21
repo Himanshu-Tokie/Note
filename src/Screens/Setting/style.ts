@@ -1,4 +1,5 @@
 import { StyleSheet } from 'react-native';
+import { heightPercentageToDP, widthPercentageToDP } from 'react-native-responsive-screen';
 import { COLORS } from '../../constants/colors';
 
 export const styles = StyleSheet.create({
@@ -7,8 +8,8 @@ export const styles = StyleSheet.create({
     flex: 1,
   },
   subContainer: {
-    paddingHorizontal: 20,
-    paddingTop: 20,
+    paddingHorizontal: widthPercentageToDP('5%'),
+    paddingTop: heightPercentageToDP('2.5%'),
   },
   view: {
     flexDirection: 'row',
@@ -16,13 +17,20 @@ export const styles = StyleSheet.create({
     paddingVertical: 15,
   },
   text: {
-    fontSize: 20,
+    fontSize: heightPercentageToDP('1.9%'),
     fontFamily: 'Nunito',
-    fontWeight: '400',
-    color: COLORS.TEXT1
+    fontWeight: '500',
   },
   textBold: {
     fontWeight: 'bold',
-    paddingTop: 40,
+    paddingVertical: heightPercentageToDP('0.6%')
   },
+  box1:{
+    padding:heightPercentageToDP('1.6'),
+    borderRadius:16,
+    // borderWidth:1
+  },
+  box2:{
+    marginTop:heightPercentageToDP('8%')
+  }
 });

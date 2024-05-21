@@ -1,4 +1,5 @@
 import { StyleSheet } from "react-native";
+import { heightPercentageToDP } from "react-native-responsive-screen";
 import { COLORS } from "../../constants/colors";
 
 export const styles = StyleSheet.create({
@@ -22,6 +23,18 @@ export const styles = StyleSheet.create({
     },
     customButton:{
         width:200
+    },
+    noReminder:{
+        flex:1,
+        alignContent:'center',
+        justifyContent:'center',
+        paddingBottom:heightPercentageToDP('10%')
+    },
+    noReminderText:{
+        textAlign:'center',
+        fontFamily:'Nunito',
+        fontSize:heightPercentageToDP('2.5'),
+        fontWeight:'bold'
     }
 })
 

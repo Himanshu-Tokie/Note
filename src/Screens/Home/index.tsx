@@ -2,6 +2,7 @@ import { default as auth } from '@react-native-firebase/auth';
 import firestore from '@react-native-firebase/firestore';
 import { useEffect, useState } from 'react';
 import {
+  ActivityIndicator,
   FlatList,
   Image,
   ImageBackground,
@@ -134,18 +135,31 @@ if(user){
                 // resizeMode="cover"
                 style={styles.image}>
                 <View style={styles.imageInner}>
-                  {ICONS.PIECHART(
+                  {colorScheme==='light'?
+                  ICONS.PIECHART(
+                    heightPercentageToDP('8.2%'),
+                    heightPercentageToDP('8.2%'),
+                    'none',
+                  ):
+                  
+                  ICONS.PIECHART_BLACK(
                     heightPercentageToDP('8.2%'),
                     heightPercentageToDP('8.2%'),
                     'none',
                   )}
                   <View style={{paddingLeft: widthPercentageToDP('7%')}}>
-                    <Text style={[styles.text,{color: colorScheme==='light'? COLORS.TEXT3:DARK_COLORS.TEXT3}]}>{STRINGS.AVAILABLE_SPACE}</Text>
+                    <Text style={[styles.text]}>{STRINGS.AVAILABLE_SPACE}</Text>
                     <Text style={[styles.size,{color: colorScheme==='light'? COLORS.HOMESIZE:DARK_COLORS.HOMESIZE}]}>{STRINGS.STORAGE}</Text>
                   </View>
                 </View>
               </ImageBackground>
             </View>
+            {
+              !label &&
+              (
+                <ActivityIndicator size='large'/>
+              )
+            } 
             {label && (
               <View style={styles.labels}>
                 <FlatList

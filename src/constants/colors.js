@@ -11,7 +11,8 @@ export const COLORS = {
     NOTETEXT:'rgb(42,34,81)',
     GOOGLE:'#757575',
     SAVE:'rgb(9,10,10)',
-    FOOTER:'#FFFFFF'
+    FOOTER:'#FFFFFF',
+    SETTING_BOX:'rgb(231,227,242)'
 }
 
 export const DARK_COLORS = {
@@ -27,5 +28,6 @@ export const DARK_COLORS = {
     NOTETEXT:'rgb(42,34,81)',
     GOOGLE:'#757575',
     SAVE:'white',
-    FOOTER:'#191A1D'
+    FOOTER:'#191A1D',
+    SETTING_BOX:'rgb(73,72,85)'
 }

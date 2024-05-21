@@ -1,7 +1,7 @@
 import { default as auth } from '@react-native-firebase/auth';
 import firestore from '@react-native-firebase/firestore';
 import React, { useEffect, useState } from 'react';
-import { FlatList, SafeAreaView, View } from 'react-native';
+import { FlatList, SafeAreaView, Text, View } from 'react-native';
 import { useSelector } from 'react-redux';
 import Search from '../../components/Header';
 import ListTemplate from '../../components/listTemplate/listTemplate';
@@ -12,7 +12,7 @@ import { styles } from './style';
 export default function Extar2({route}) {
   const user = auth().currentUser;
   let uid = user?.uid;
-  const colorScheme = useSelector((state) => state.theme.theme);
+  const colorScheme = useSelector(state => state.theme.theme);
   const [searchData, setSearchData] = useState([]);
   const [notesData, setNotesData] = useState([]);
   console.log('reminder Page');
@@ -82,9 +82,20 @@ export default function Extar2({route}) {
     // Stop listening for updates when no longer required
     return () => unsubscribe();
   }, [uid]);
+  // console.log(searchData,19191);
+
   return (
     <>
-      <SafeAreaView style={[styles.container,{backgroundColor: colorScheme==='light'? COLORS.BACKGROUND : DARK_COLORS.BACKGROUND,}]}>
+      <SafeAreaView
+        style={[
+          styles.container,
+          {
+            backgroundColor:
+              colorScheme === 'light'
+                ? COLORS.BACKGROUND
+                : DARK_COLORS.BACKGROUND,
+          },
+        ]}>
         <View>
           <Search
             onChangeText={search}
@@ -93,21 +104,27 @@ export default function Extar2({route}) {
             headerText={'Reminder'}
           />
         </View>
-        <View style={styles.subContainer}>
-          <FlatList
-            data={searchData}
-            style={styles.list}
-            keyExtractor={item => item.noteId}
-            // numColumns={2}
-            showsVerticalScrollIndicator={false}
-            renderItem={({item}) => (
-              <ListTemplate
-                note={item}
-                nav={route.params.parentNavigation}
-                maxHeight={150}
-              />
-            )}></FlatList>
-        </View>
+        {searchData.length ? (
+          <View style={styles.subContainer}>
+            <FlatList
+              data={searchData}
+              style={styles.list}
+              keyExtractor={item => item.noteId}
+              // numColumns={2}
+              showsVerticalScrollIndicator={false}
+              renderItem={({item}) => (
+                <ListTemplate
+                  note={item}
+                  nav={route.params.parentNavigation}
+                  maxHeight={150}
+                />
+              )}></FlatList>
+          </View>
+        ) : (
+          <View style={styles.noReminder}>
+            <Text style={[styles.noReminderText,{color:colorScheme==='light'?COLORS.TEXT2:DARK_COLORS.TEXT1}]}>Add Reminder</Text>
+          </View>
+        )}
       </SafeAreaView>
     </>
   );

@@ -22,10 +22,12 @@ export default function ListTemplate({ note, nav, maxHeight,label }) {
         nav.navigate(screenConstant.Note, { note })
       }
       style={[styles.touch, { maxHeight }]}>
-      <View style={styles.container}>
-        <Text style={[styles.title]}>{note.title}</Text>
+      <View style={[styles.container,{backgroundColor:colorScheme==='light'?COLORS.FOOTER:DARK_COLORS.FOOTER}]}>
+        <Text style={[styles.title,{color:colorScheme==='light'?COLORS.TEXT1:DARK_COLORS.TEXT1}]}>{note.title}</Text>
         <RenderHTML source={source}
-        contentWidth={contentWidth}/>
+        contentWidth={contentWidth}
+        defaultTextProps={{style:{color:colorScheme==='light'?COLORS.TEXT1:DARK_COLORS.TEXT1}}}
+        />
       </View>
     </TouchableOpacity>}
     {label &&
