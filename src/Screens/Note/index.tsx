@@ -152,7 +152,7 @@ const Note = ({route}) => {
   const createNote = async () => {
     try {
      if(labelRef.current === null){
-      labelRef.current = 'Others'
+      labelRef.current = label
      } 
       const regex = /^[\s\r\n]*$/;
       const dom = htmlparser2.parseDocument(articleData.current);
