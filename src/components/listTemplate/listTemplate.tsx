@@ -1,6 +1,5 @@
 import React from 'react';
 import { StyleSheet, Text, TouchableOpacity, View, useWindowDimensions } from 'react-native';
-import RenderHTML from 'react-native-render-html';
 import { RFValue } from 'react-native-responsive-fontsize';
 import { heightPercentageToDP, widthPercentageToDP } from 'react-native-responsive-screen';
 import { useSelector } from 'react-redux';
@@ -24,10 +23,10 @@ export default function ListTemplate({ note, nav, maxHeight,label }) {
       style={[styles.touch, { maxHeight }]}>
       <View style={[styles.container,{backgroundColor:colorScheme==='light'?COLORS.FOOTER:DARK_COLORS.FOOTER}]}>
         <Text style={[styles.title,{color:colorScheme==='light'?COLORS.TEXT1:DARK_COLORS.TEXT1}]}>{note.title}</Text>
-        <RenderHTML source={source}
+        {/* <RenderHTML source={source}
         contentWidth={contentWidth}
         defaultTextProps={{style:{color:colorScheme==='light'?COLORS.TEXT1:DARK_COLORS.TEXT1}}}
-        />
+        /> */}
       </View>
     </TouchableOpacity>}
     {label &&
@@ -48,11 +47,11 @@ const styles = StyleSheet.create({
     padding: 12,
     alignContent: 'center',
     justifyContent: 'center',
-    shadowColor: 'rgb(153,144,255)',
-    shadowOffset: { width: -2, height: 4 },
-    shadowOpacity: 0.2,
-    shadowRadius: 3,
-    maxHeight:heightPercentageToDP('10%'),
+    // shadowColor: 'rgb(153,144,255)',
+    // shadowOffset: { width: -2, height: 4 },
+    // shadowOpacity: 0.2,
+    // shadowRadius: 3,
+    maxHeight:heightPercentageToDP('15%'),
     overflow:'hidden'
   },
   title: {
