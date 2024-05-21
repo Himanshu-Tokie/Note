@@ -31,8 +31,8 @@ export default function Home({navigation}) {
   // const colorScheme = 'dark'
   // console.log(user?.photoURL,1919191);
   
-  const defaultImage = 'https://github.com/Himanshu-Tokie/Note/blob/744e180b4a9128b4ecfb2d959f815fbba8871aa1/src/assets/Images/defaultUser.png';
-  const photoURL = user?.photoURL ? { uri: user.photoURL } : { uri: defaultImage };
+  const defaultImage = images.DEFAULTUSER
+  const photoURL = user?.photoURL ? {uri:{ uri: user.photoURL }} : { uri: defaultImage };
   const addNote = () => {
     navigation.navigate(screenConstant.Note, {uid: user.uid});
   };
@@ -119,7 +119,7 @@ if(user){
             <View style={styles.innerHeader}>
               {/* <View style={styles.icon}>{ICONS.BELL(heightPercentageToDP('2.5%'), heightPercentageToDP('2.5%'), 'white')}</View> */}
               <Image
-              source={photoURL}
+              source={photoURL.uri}
               style={{
                 borderRadius: 10,
                 height: heightPercentageToDP('6.6%'),

@@ -56,7 +56,7 @@ export default function Header({
                 />
               )}
               <TextInput
-                style={[styles.text]}
+                style={[styles.text,{paddingTop:0}]}
                 placeholder="Search"
                 placeholderTextColor={COLORS.HEADER}
                 onChangeText={onChangeText}
@@ -114,7 +114,6 @@ const styles = StyleSheet.create({
   text: {
     fontSize: heightPercentageToDP('2%'),
     color: COLORS.TEXT4,
-    paddingLeft: 0,
     paddingTop: 2,
     fontFamily: 'Nunito',
   },

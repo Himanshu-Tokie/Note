@@ -153,6 +153,7 @@ export default function HomeNavigation() {
           if (index == 2) {
             return <Plus onPress={onPress}></Plus>;
           }
+          else
           return (
             <Icon
               icon={
