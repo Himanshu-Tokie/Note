@@ -34,19 +34,19 @@ export default function Enter({ navigation }) {
       <View style={styles.subContainer}>
         <View style={styles.viewText}>
             <Text style={[styles.text1,styles.font]}>{STRINGS.NOTE_TAKING_APP.PART1}</Text>
-            <Text style={[styles.text2,styles.font,{color:colorScheme==='light'?COLORS.FOOTER:DARK_COLORS.TEXT1}]}>{STRINGS.NOTE_TAKING_APP.PART2}</Text>
+            <Text style={[styles.text2,styles.font,{color:colorScheme==='light'?COLORS.TEXT1:DARK_COLORS.TEXT1}]}>{STRINGS.NOTE_TAKING_APP.PART2}</Text>
           </View>
         <View style={styles.svg}>
           {ICONS.DAIRY(widthPercentageToDP('60'),heightPercentageToDP('25'),)}
         </View>
         <CustomText
           text={STRINGS.SAVE_SHARE_NOTES}
-          styles={[styles.textSave, styles.font,{color:colorScheme==='light'?COLORS.FOOTER:DARK_COLORS.TEXT1}]}
+          styles={[styles.textSave, styles.font,{color:colorScheme==='light'?COLORS.TEXT1:DARK_COLORS.TEXT1}]}
         />
         <CustomButton text={STRINGS.CREATE_ACCOUNT} onPress={onPress}/>
         <Google></Google>
         <View style={styles.footer}>
-          <CustomText text={STRINGS.HAVE_ACCOUNT} styles={[styles.simpleText,{color:colorScheme==='light'?COLORS.FOOTER:DARK_COLORS.TEXT1}]} />
+          <CustomText text={STRINGS.HAVE_ACCOUNT} styles={[styles.simpleText,{color:colorScheme==='light'?COLORS.TEXT1:DARK_COLORS.TEXT1}]} />
           <Text onPress={logIn} style={[styles.simpleText, styles.colorText]}>
             {STRINGS.LOG_IN}
           </Text>

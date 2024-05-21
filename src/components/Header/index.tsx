@@ -34,7 +34,7 @@ export default function Header({
           <View style={styles.leftHeader}>
             {ICONS.BACK(23, 23, 'none')}
             {/* <Icon icon={ICONS.BACK} height={23} width={23} color='none' /> */}
-            <Text style={styles.text}>Back</Text>
+            <Text style={[styles.text]}>Back</Text>
           </View>
         </Pressable>
         {!isFocussed && (

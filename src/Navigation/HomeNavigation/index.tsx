@@ -1,7 +1,8 @@
 import { default as auth } from '@react-native-firebase/auth';
+import firestore from '@react-native-firebase/firestore';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import { useNavigation } from '@react-navigation/native';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { View } from 'react-native';
 import { useSelector } from 'react-redux';
 import Home from '../../Screens/Home';
@@ -15,16 +16,43 @@ import Plus from '../../components/Plus/Plus';
 import { screenConstant } from '../../constants';
 import { ICONS } from '../../constants/Icons';
 import { COLORS, DARK_COLORS } from '../../constants/colors';
+import { STRINGS } from '../../constants/strings';
 import { styles } from './style';
 
 export default function HomeNavigation() {
   const parentNavigation = useNavigation();
   const Tab = createBottomTabNavigator();
-  const colorScheme = useSelector((state) => state.theme.theme);
-  const [show, setShow] = useState(false)
+  const colorScheme = useSelector(state => state.theme.theme);
+  const [show, setShow] = useState(false);
+  const [labelData, setLabelData] = useState([]);
   const user = auth().currentUser;
   let uid = user?.uid;
-  function MyTabBar({ state, descriptors, navigation }) {
+  useEffect(() => {
+    const fetchLabelData = async () => {
+      try {
+        await firestore()
+          .collection(STRINGS.FIREBASE.USER)
+          .doc(uid)
+          .collection(STRINGS.FIREBASE.LABELS)
+          .get()
+          .then(labelData => setLabelData(labelData));
+      } catch (e) {
+        console.log(e, 12);
+      }
+    };
+    fetchLabelData();
+    const unsubscribe = firestore()
+    .collection(STRINGS.FIREBASE.USER)
+    .doc(uid)
+    .collection(STRINGS.FIREBASE.LABELS)
+    .onSnapshot(querySnapshot => {
+      setLabelData(querySnapshot)
+    });
+  
+  // Stop listening for updates when no longer required
+  return () => unsubscribe();
+  }, [uid]);
+  function MyTabBar({state, descriptors, navigation}) {
     const iconSelection = index => {
       switch (index) {
         case 0:
@@ -74,15 +102,22 @@ export default function HomeNavigation() {
       }
     };
     return (
-      <View style={[styles.footer,{backgroundColor: colorScheme==='light'? COLORS.FOOTER:DARK_COLORS.FOOTER}]}>
+      <View
+        style={[
+          styles.footer,
+          {
+            backgroundColor:
+              colorScheme === 'light' ? COLORS.FOOTER : DARK_COLORS.FOOTER,
+          },
+        ]}>
         {state.routes.map((route, index) => {
-          const { options } = descriptors[route.key];
+          const {options} = descriptors[route.key];
           const label =
             options.tabBarLabel !== undefined
               ? options.tabBarLabel
               : options.title !== undefined
-                ? options.title
-                : route.name;
+              ? options.title
+              : route.name;
 
           const isFocused = state.index === index;
 
@@ -94,17 +129,15 @@ export default function HomeNavigation() {
                   timestamp: '',
                   newReminder: '',
                 };
-                parentNavigation.navigate(screenConstant.Note, { note });
-              } 
-              else if(state.index == 1){
+                parentNavigation.navigate(screenConstant.Note, {note});
+              } else if (state.index == 1) {
                 // console.log('add label',234423);
-                setShow(true)
+                setShow(true);
                 console.log(uid);
-                
+
                 // return (<AddLabel uid={uid} setShow={setShow} show={show}/>)
-              }
-              else {
-                parentNavigation.navigate(screenConstant.Note);
+              } else {
+                parentNavigation.navigate(screenConstant.Note, {labelData});
               } // Use the parent navigation to navigate to the "Note" screen
             } else {
               const event = navigation.emit({
@@ -122,7 +155,15 @@ export default function HomeNavigation() {
           }
           return (
             <Icon
-              icon={!isFocused?(colorScheme === 'light'?iconSelection(index):iconSelectionDark(index)):(colorScheme === 'light'?iconHover(index):iconHoverDark(index))}
+              icon={
+                !isFocused
+                  ? colorScheme === 'light'
+                    ? iconSelection(index)
+                    : iconSelectionDark(index)
+                  : colorScheme === 'light'
+                  ? iconHover(index)
+                  : iconHoverDark(index)
+              }
               width={24}
               height={24}
               color="none"
@@ -139,20 +180,14 @@ export default function HomeNavigation() {
       <Tab.Navigator
         initialRouteName={screenConstant.Home}
         tabBar={props => <MyTabBar {...props} />}
-        screenOptions={{ headerShown: false }}>
-        <Tab.Screen
-          name={screenConstant.Home}
-          component={Home}
-        />
-        <Tab.Screen
-          name={screenConstant.Extra1}
-          component={Extar1}
-        />
+        screenOptions={{headerShown: false}}>
+        <Tab.Screen name={screenConstant.Home} component={Home} />
+        <Tab.Screen name={screenConstant.Extra1} component={Extar1} />
         <Tab.Screen name={screenConstant.Note} component={Note} />
         <Tab.Screen
           name={screenConstant.Extra2}
           component={Extar2}
-          initialParams={{ parentNavigation }}
+          initialParams={{parentNavigation}}
         />
         <Tab.Screen name={screenConstant.Setting} component={Setting} />
       </Tab.Navigator>

@@ -18,11 +18,16 @@ export const styles = StyleSheet.create({
     },
     // text under rich 
     richeditor:{
-      backgroundColor: COLORS.BACKGROUND,
-      color:COLORS.NOTETEXT,
+      // color:COLORS.NOTETEXT,
       fontFamily:'Nunito',
+      // backgroundColor: COLORS.BACKGROUND,
     },
-    richBar: {},
+    richBar: {
+      backgroundColor:COLORS.BACKGROUND1
+      // alignItems:'center',
+      // alignContent:'center',
+      // justifyContent:'center'
+    },
     // NOT
     tib: {
       textAlign: 'center',
@@ -32,7 +37,6 @@ export const styles = StyleSheet.create({
       fontFamily:'Nunito',
       fontSize:heightPercentageToDP('2.4%'),
       paddingVertical:heightPercentageToDP('2.4%'),
-      color:COLORS.NOTETEXT,
       paddingHorizontal:widthPercentageToDP('2%')
       // paddingLeft:
     },

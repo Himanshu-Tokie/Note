@@ -78,7 +78,7 @@ export default function Splash() {
           </View>
           <View style={styles.viewText}>
             <Text style={styles.text1}>Note-Ta</Text>
-            <Text style={[styles.text2,{color:colorScheme==='light'?COLORS.FOOTER:DARK_COLORS.TEXT1}]}>king App</Text>
+            <Text style={[styles.text2,{color:colorScheme==='light'?COLORS.TEXT1:DARK_COLORS.TEXT1}]}>king App</Text>
           </View>
         </Fade>
         <ActivityIndicator style={styles.indicator} size={'large'} />

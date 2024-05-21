@@ -29,7 +29,7 @@ export default function Home({navigation}) {
   const user = auth().currentUser;
   const colorScheme = useSelector((state) => state.theme.theme);
   // const colorScheme = 'dark'
-  console.log(user?.photoURL,1919191);
+  // console.log(user?.photoURL,1919191);
   
   const defaultImage = 'https://github.com/Himanshu-Tokie/Note/blob/744e180b4a9128b4ecfb2d959f815fbba8871aa1/src/assets/Images/defaultUser.png';
   const photoURL = user?.photoURL ? { uri: user.photoURL } : { uri: defaultImage };
@@ -40,7 +40,7 @@ export default function Home({navigation}) {
 
   const [label, setLabel] = useState('');
   // console.log(label);
-  console.log(isLogedIn, 1234134124);
+  // console.log(isLogedIn, 1234134124);
   // useEffect(() => {
   //   const unsubscribe = navigation.addListener('beforeRemove', e => {
   //     if (JSON.parse(isLogedIn)) {
@@ -77,7 +77,7 @@ export default function Home({navigation}) {
       });
     }
     catch (e){
-      console.log(e);
+      console.log(e,91);
       
     }
   }

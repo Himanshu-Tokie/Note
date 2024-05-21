@@ -25,7 +25,7 @@ export const DARK_COLORS = {
     SPLASHSCREEN:'rgb(238,238,242)',
     HOMESIZE: '#FFFFFF',//
     HEADER:"rgb(107,78,253)",
-    NOTETEXT:'rgb(42,34,81)',
+    NOTETEXT:'white',
     GOOGLE:'#757575',
     SAVE:'white',
     FOOTER:'#191A1D',
