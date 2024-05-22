@@ -27,6 +27,7 @@ export const styles = StyleSheet.create({
     paddingHorizontal: Platform.OS == 'ios'? heightPercentageToDP('2%'):heightPercentageToDP('0%'),
     flexDirection: 'row',
     justifyContent: 'space-between',
+    paddingBottom:heightPercentageToDP('1.5%')
   },
   innerHeader: {
     flexDirection: 'row',

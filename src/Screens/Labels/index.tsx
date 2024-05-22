@@ -1,11 +1,11 @@
 import firestore from '@react-native-firebase/firestore';
 import React, { useEffect, useState } from 'react';
-import { FlatList, View } from 'react-native';
+import { View } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { useSelector } from 'react-redux';
 import CustomButton from '../../components/Button/customButton';
 import Search from '../../components/Header';
-import ListTemplate from '../../components/listTemplate/listTemplate';
+import StaggedLabel from '../../components/Staggered/staggeredView';
 import { screenConstant } from '../../constants';
 import { COLORS, DARK_COLORS } from '../../constants/colors';
 import { STRINGS } from '../../constants/strings';
@@ -106,17 +106,7 @@ export default function Label({ navigation, route }) {
             headerText={label}
           />
         </View>
-        <View style={styles.subContainer}>
-          <FlatList
-            data={searchData}
-            showsVerticalScrollIndicator={false}
-            style={styles.list}
-            keyExtractor={item => item.noteId}
-            numColumns={2}
-            renderItem={({ item }) => (
-              <ListTemplate note={item} nav={navigation} maxHeight={150} />
-            )}></FlatList>
-        </View>
+        <StaggedLabel data={searchData}/>
         <View style={styles.addNotes}>
           <CustomButton
             text="+  Add New Notes"
