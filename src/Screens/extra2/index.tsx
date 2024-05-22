@@ -18,6 +18,7 @@ export default function Extar2({route}) {
   console.log('reminder Page');
 
   const search = e => {
+    
     let text = e.toLowerCase();
     let filteredData = notesData.filter(item => {
       return (

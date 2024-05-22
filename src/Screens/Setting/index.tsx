@@ -111,6 +111,7 @@ export default function Setting({navigation}) {
                 <ToggleSwitch
                   isOn={theme === 'dark'}
                   onColor="black"
+                  circleColor={COLORS.BACKGROUND1}
                   offColor="white"
                   labelStyle={{color: 'black', fontWeight: '900'}}
                   size="medium"

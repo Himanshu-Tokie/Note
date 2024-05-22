@@ -26,6 +26,7 @@ export default function Header({
   const navigation = useNavigation();
   const [isFocussed, setIsFocused] = useState(false);
   // console.log(isFocussed);
+  const [value,setValue] = useState('')
   const theme = useSelector((state) => state.theme.theme);
   return (
     <>
@@ -58,8 +59,9 @@ export default function Header({
               <TextInput
                 style={[styles.text,{paddingTop:0}]}
                 placeholder="Search"
+                value={value}
                 placeholderTextColor={COLORS.HEADER}
-                onChangeText={onChangeText}
+                onChangeText={text=>{onChangeText(text);setValue(text)}}
                 onFocus={() => {
                   setIsFocused(true);
                   console.log('focus');
@@ -68,6 +70,7 @@ export default function Header({
                   setIsFocused(false);
                   setSearchData(notesData);
                   console.log('blur');
+                  setValue('')
                 }}
               />
             </TouchableOpacity>
