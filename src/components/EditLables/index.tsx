@@ -1,8 +1,8 @@
 import React from "react";
-import { StyleSheet, TextInput, TouchableOpacity, View } from "react-native";
+import { TextInput, TouchableOpacity, View } from "react-native";
 import { ICONS } from "../../constants/Icons";
 import Icon from "../Icon";
-import { heightPercentageToDP, widthPercentageToDP } from "react-native-responsive-screen";
+import { styles } from "./style";
 
 export default function EditLables({onChangeText}) {
     return (
@@ -26,24 +26,3 @@ export default function EditLables({onChangeText}) {
     )
 }
 
-const styles = StyleSheet.create({
-    container: {
-        flexDirection: 'row',
-        alignContent: 'space-between',
-        marginTop:heightPercentageToDP('1.5%'),
-        borderTopWidth:1.5,
-        borderBottomWidth:1.5,
-        borderColor:'#B6B0D9'
-    },
-    text: {
-        // borderWth: 1,
-        flex: 1,
-        paddingHorizontal: widthPercentageToDP('2%'),
-        justifyContent: 'center',
-        alignContent: 'center',
-        paddingVertical: heightPercentageToDP('2%'),
-    },
-    icon: {
-        padding: heightPercentageToDP('1.5%')
-    }
-})

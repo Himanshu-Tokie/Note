@@ -1,11 +1,11 @@
 // signup
 import { StyleSheet } from "react-native";
 import { heightPercentageToDP } from "react-native-responsive-screen";
-import { COLORS } from "../../constants/colors";
+import { LIGHT_THEME_COLOR } from "../../constants/colors";
 
 export const styles = StyleSheet.create({
     container:{
-        backgroundColor:COLORS.BACKGROUND,
+        backgroundColor:LIGHT_THEME_COLOR.BACKGROUND,
         flex:1,
     },
 
@@ -18,7 +18,7 @@ export const styles = StyleSheet.create({
         // justifyContent:'center'
     },
     text:{
-        color:COLORS.TEXT1,
+        color:LIGHT_THEME_COLOR.TEXT1,
         fontFamily:'Nunito'
     }
 })

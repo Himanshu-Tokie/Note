@@ -2,6 +2,7 @@ import { useMemo, useState } from 'react';
 import { Text, TextInput, TouchableOpacity, View } from 'react-native';
 import { heightPercentageToDP } from 'react-native-responsive-screen';
 import { ICONS } from '../../constants/Icons';
+import { STRINGS } from '../../constants/strings';
 import { styles } from './style';
 
 export default function FormikTemplate({
@@ -18,7 +19,7 @@ export default function FormikTemplate({
   useMemo(()=>{
 
     if (
-      (placeholder === 'Password' || placeholder === 'Confirm Password') &&
+      (placeholder === STRINGS.PASSWORD || placeholder === STRINGS.CONFIRM_PASSWORD) &&
       show
     ) {
       setSecureTextEntry(true);
@@ -42,7 +43,7 @@ export default function FormikTemplate({
           secureTextEntry={secureTextEntry}
           style={{flex:1}}
         />
-        {(placeholder === 'Password' || placeholder === 'Confirm Password') && ( 
+        {(placeholder === STRINGS.PASSWORD || placeholder === STRINGS.CONFIRM_PASSWORD) && ( 
           <TouchableOpacity onPress={onPress}>{ICONS.EYE(heightPercentageToDP('2.2'), heightPercentageToDP('2.2'), 'none')}</TouchableOpacity>
         )}
       </View>

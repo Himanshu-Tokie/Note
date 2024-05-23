@@ -1,6 +1,5 @@
 import auth from '@react-native-firebase/auth';
 import { Formik } from 'formik';
-import { useState } from 'react';
 import { Alert, SafeAreaView, View } from 'react-native';
 import * as Yup from 'yup';
 import CustomButton from '../../components/Button/customButton';
@@ -20,8 +19,8 @@ function reset(email){
       })
 }
 export default function ResetPassword({navigation}) {
-  const [user, setUser] = useState();
-  const [errorLogin, setErrorLogin] = useState(false);
+  // const [user, setUser] = useState();
+  // const [errorLogin, setErrorLogin] = useState(false);
 
     return (
         <SafeAreaView style={styles.container}>

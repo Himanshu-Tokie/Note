@@ -2,21 +2,20 @@ import { default as auth } from '@react-native-firebase/auth';
 import firestore from '@react-native-firebase/firestore';
 import React, { useEffect, useState } from 'react';
 import { FlatList, SafeAreaView, Text, View } from 'react-native';
-import { useSelector } from 'react-redux';
+import withTheme from '../../components/HOC';
 import Search from '../../components/Header';
 import ListTemplate from '../../components/listTemplate/listTemplate';
-import { COLORS, DARK_COLORS } from '../../constants/colors';
 import { STRINGS } from '../../constants/strings';
 import { styles } from './style';
 
-export default function Extar2({route}) {
+ function Extar2({theme,route}) {
   const user = auth().currentUser;
   let uid = user?.uid;
-  const colorScheme = useSelector(state => state.theme.theme);
+  const THEME = theme
   const [searchData, setSearchData] = useState([]);
   const [notesData, setNotesData] = useState([]);
   console.log('reminder Page');
-
+  
   const search = e => {
     
     let text = e.toLowerCase();
@@ -92,9 +91,7 @@ export default function Extar2({route}) {
           styles.container,
           {
             backgroundColor:
-              colorScheme === 'light'
-                ? COLORS.BACKGROUND
-                : DARK_COLORS.BACKGROUND,
+              THEME.BACKGROUND,
           },
         ]}>
         <View>
@@ -123,10 +120,12 @@ export default function Extar2({route}) {
           </View>
         ) : (
           <View style={styles.noReminder}>
-            <Text style={[styles.noReminderText,{color:colorScheme==='light'?COLORS.TEXT2:DARK_COLORS.TEXT1}]}>Add Reminder</Text>
+            <Text style={[styles.noReminderText,{color:THEME.TEXT1}]}>Add Reminder</Text>
           </View>
         )}
       </SafeAreaView>
     </>
   );
 }
+
+export default withTheme(Extar2)

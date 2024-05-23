@@ -5,18 +5,17 @@ import {
   statusCodes,
 } from '@react-native-google-signin/google-signin';
 import { useNavigation } from '@react-navigation/native';
-import { Platform, StyleSheet, Text, TouchableOpacity, View } from 'react-native';
+import { Text, TouchableOpacity, View } from 'react-native';
 import {
-  heightPercentageToDP,
-  widthPercentageToDP,
+  heightPercentageToDP
 } from 'react-native-responsive-screen';
 import { useDispatch } from 'react-redux';
 import { screenConstant } from '../../constants';
 import { ICONS } from '../../constants/Icons';
-import { COLORS } from '../../constants/colors';
 import { STRINGS } from '../../constants/strings';
 import { logIn, updateUser } from '../../store/common';
 import { signUpUser } from '../../utils';
+import { styles } from './style';
 
 function isErrorWithCode(error) {
   return error.code !== undefined;
@@ -104,34 +103,4 @@ export default function Google() {
     </>
   );
 }
-const styles = StyleSheet.create({
-  google: {
-    paddingTop: heightPercentageToDP('1%'),
-  },
-  googleContainer: {
-    flexDirection: 'row',
-    borderRadius: 50,
-    backgroundColor: 'white',
-    width: widthPercentageToDP('82%'),
-    padding: widthPercentageToDP('4%'),
-    alignContent: 'center',
-    justifyContent: 'center',
-    ...Platform.select({
-      ios: {
-        shadowColor: '#000',
-        shadowOffset: {width: 0, height: 2},
-        shadowOpacity: 0.25,
-        shadowRadius: 3.84,
-      },
-      android: {
-        elevation: 3,
-      },
-    }),
-  },
-  text: {
-    fontSize: heightPercentageToDP('2%'),
-    paddingLeft: widthPercentageToDP('2.5%'),
-    color: COLORS.GOOGLE,
-    fontWeight: 'bold',
-  },
-});
+

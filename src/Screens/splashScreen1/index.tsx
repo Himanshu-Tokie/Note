@@ -5,19 +5,19 @@ import { ActivityIndicator, SafeAreaView, Text, View } from 'react-native';
 import Fade from 'react-native-fade';
 import { heightPercentageToDP } from 'react-native-responsive-screen';
 import { useDispatch, useSelector } from 'react-redux';
+import withTheme from '../../components/HOC';
 import { screenConstant } from '../../constants';
 import { ICONS } from '../../constants/Icons';
-import { COLORS, DARK_COLORS } from '../../constants/colors';
 import { STRINGS } from '../../constants/strings';
 import { logIn } from '../../store/common';
 import { styles } from './style';
 
-export default function Splash() {
+ function Splash({theme}) {
   const navigation = useNavigation();
   const dispatch = useDispatch();
   const isLogedIn = useSelector(state => state.common.isLogedIn);
   const [visible, setVisible] = useState(false);
-  const colorScheme = useSelector((state) => state.theme.theme);
+  const THEME = theme 
   useEffect(() => {
     setVisible(true);
 
@@ -66,7 +66,7 @@ export default function Splash() {
   }, [dispatch, navigation]);
 
   return (
-    <SafeAreaView style={[styles.container,{backgroundColor:colorScheme==='light'?COLORS.BACKGROUND:DARK_COLORS.BACKGROUND}]}>
+    <SafeAreaView style={[styles.container,{backgroundColor:THEME.BACKGROUND}]}>
       <View style={styles.view}>
         <Fade visible={visible} direction="up" duration={200}>
           <View style={styles.icon}>
@@ -78,7 +78,7 @@ export default function Splash() {
           </View>
           <View style={styles.viewText}>
             <Text style={styles.text1}>Note-Ta</Text>
-            <Text style={[styles.text2,{color:colorScheme==='light'?COLORS.TEXT1:DARK_COLORS.TEXT1}]}>king App</Text>
+            <Text style={[styles.text2,{color:THEME.TEXT1}]}>king App</Text>
           </View>
         </Fade>
         <ActivityIndicator style={styles.indicator} size={'large'} />
@@ -86,3 +86,5 @@ export default function Splash() {
     </SafeAreaView>
   );
 }
+
+export default withTheme(Splash)

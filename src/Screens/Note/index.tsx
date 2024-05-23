@@ -12,15 +12,14 @@ import {
 } from 'react-native';
 import { RichEditor, RichToolbar, actions } from 'react-native-pell-rich-editor';
 import { heightPercentageToDP } from 'react-native-responsive-screen';
-import { useSelector } from 'react-redux';
 import DateTime from '../../components/DateTime';
 import DropdownComponent from '../../components/Dropdown/dropdown';
+import withTheme from '../../components/HOC';
 import Header from '../../components/Header';
-import { COLORS, DARK_COLORS } from '../../constants/colors';
 import { STRINGS } from '../../constants/strings';
 import { styles } from './styles';
 
-const Note = ({route}) => {
+const Note = ({route,theme}) => {
   // console.log(route, 87);
 
   const user = auth().currentUser;
@@ -221,16 +220,13 @@ const Note = ({route}) => {
     }
   };
   const headerHeight = useHeaderHeight();
-  const colorScheme = useSelector(state => state.theme.theme);
+  const THEME = theme
   return (
     <SafeAreaView
       style={[
         styles.container,
         {
-          backgroundColor:
-            colorScheme === 'light'
-              ? COLORS.BACKGROUND
-              : DARK_COLORS.BACKGROUND,
+          backgroundColor:THEME.BACKGROUND
         },
       ]}>
       <KeyboardAvoidingView
@@ -255,16 +251,14 @@ const Note = ({route}) => {
           }}
           placeholder="Title"
           placeholderTextColor={
-            colorScheme === 'light' ? COLORS.NOTETEXT : DARK_COLORS.NOTETEXT
+            THEME.NOTETEXT
           }
           value={title}
           style={[
             styles.title,
             {
               color:
-                colorScheme === 'light'
-                  ? COLORS.NOTETEXT
-                  : DARK_COLORS.NOTETEXT,
+                THEME.NOTETEXT
             },
           ]}></TextInput>
         <RichEditor
@@ -275,11 +269,9 @@ const Note = ({route}) => {
           style={styles.rich}
           editorStyle={{
             backgroundColor:
-              colorScheme === 'light'
-                ? COLORS.BACKGROUND
-                : DARK_COLORS.BACKGROUND,
+              THEME.BACKGROUND,
             color:
-              colorScheme === 'light' ? COLORS.NOTETEXT : DARK_COLORS.NOTETEXT,
+              THEME.NOTETEXT,
           }}
           placeholder={'Start Writing Here'}
           onChange={text => {
@@ -317,4 +309,4 @@ const Note = ({route}) => {
   );
 };
 
-export default Note;
+export default withTheme(Note);

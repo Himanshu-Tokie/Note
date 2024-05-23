@@ -5,12 +5,12 @@ import {
   heightPercentageToDP,
   widthPercentageToDP,
 } from 'react-native-responsive-screen';
-import { COLORS } from '../../constants/colors';
+import { LIGHT_THEME_COLOR } from '../../constants/colors';
 
 export const styles = StyleSheet.create({
   container: {
     borderRadius: 50,
-    backgroundColor: COLORS.BACKGROUND1,
+    backgroundColor: LIGHT_THEME_COLOR.BACKGROUND1,
     width: widthPercentageToDP('82%'),
     padding: widthPercentageToDP('4%'),
     ...Platform.select({

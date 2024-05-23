@@ -1,11 +1,10 @@
 import { StyleSheet } from 'react-native';
 import { heightPercentageToDP } from 'react-native-responsive-screen';
-import { COLORS } from '../../constants/colors';
+import { LIGHT_THEME_COLOR } from '../../constants/colors';
 //  login
 export const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: COLORS.BACKGROUND,
   },
   subContainer: {
     paddingTop: heightPercentageToDP('4'),
@@ -13,7 +12,7 @@ export const styles = StyleSheet.create({
   },
 
   colorText: {
-    color: COLORS.BACKGROUND1,
+    color: LIGHT_THEME_COLOR.BACKGROUND1,
     fontWeight:'bold',
     paddingBottom:heightPercentageToDP('1%')
   },

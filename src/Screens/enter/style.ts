@@ -1,10 +1,10 @@
-import { StyleSheet } from "react-native";
+import { Platform, StyleSheet } from "react-native";
 import { heightPercentageToDP, widthPercentageToDP } from "react-native-responsive-screen";
-import { COLORS } from "../../constants/colors";
+import { LIGHT_THEME_COLOR } from "../../constants/colors";
 // Enter
 export const styles = StyleSheet.create({
     container:{
-        backgroundColor:COLORS.BACKGROUND,
+        backgroundColor:LIGHT_THEME_COLOR.BACKGROUND,
         flex:1,
         // justifyContent:'center',
         alignItems:'center',
@@ -19,19 +19,19 @@ export const styles = StyleSheet.create({
     text1:{
         fontFamily:'Nunito', 
         fontWeight:'bold',
-        color:COLORS.TEXT2,
+        color:LIGHT_THEME_COLOR.TEXT2,
         fontSize:heightPercentageToDP('3.2%')       
     },
     text2:{
         fontFamily:'Nunito', 
         fontWeight:'bold',
-        color:COLORS.TEXT1,
+        color:LIGHT_THEME_COLOR.TEXT1,
         fontSize:heightPercentageToDP('3.2%')        
     },
     textSave:{
         fontSize:heightPercentageToDP('3%'),
         fontFamily:'Nunito',
-        color:COLORS.SAVE
+        color:LIGHT_THEME_COLOR.SAVE
     },
     font:{
         fontWeight:'bold'
@@ -43,18 +43,47 @@ export const styles = StyleSheet.create({
     simpleText:{
         fontSize:heightPercentageToDP('1.8%'),
         fontFamily:'Nunito',
-        color:COLORS.TEXT1,
+        color:LIGHT_THEME_COLOR.TEXT1,
         paddingTop:heightPercentageToDP('.5%')
     },
     footer:{
         flexDirection:'row'
     },
     colorText:{
-        color:COLORS.BACKGROUND1,
+        color:LIGHT_THEME_COLOR.BACKGROUND1,
         paddingTop:heightPercentageToDP('1%'),
         fontWeight:'bold'
     },
     viewText:{
         flexDirection:'row'
     },
+    google: {
+        paddingTop: heightPercentageToDP('1%'),
+      },
+      googleContainer: {
+        flexDirection: 'row',
+        borderRadius: 50,
+        backgroundColor: 'white',
+        width: widthPercentageToDP('82%'),
+        padding: widthPercentageToDP('4%'),
+        alignContent: 'center',
+        justifyContent: 'center',
+        ...Platform.select({
+          ios: {
+            shadowColor: '#000',
+            shadowOffset: {width: 0, height: 2},
+            shadowOpacity: 0.25,
+            shadowRadius: 3.84,
+          },
+          android: {
+            elevation: 3,
+          },
+        }),
+      },
+      text: {
+        fontSize: heightPercentageToDP('2%'),
+        paddingLeft: widthPercentageToDP('2.5%'),
+        color: LIGHT_THEME_COLOR.GOOGLE,
+        fontWeight: 'bold',
+      },
 })

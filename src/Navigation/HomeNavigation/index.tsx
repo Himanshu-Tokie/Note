@@ -11,23 +11,21 @@ import Setting from '../../Screens/Setting';
 import Extar1 from '../../Screens/extra1';
 import Extar2 from '../../Screens/extra2';
 import AddLabel from '../../components/AddLabel/addLabel';
+import withTheme from '../../components/HOC';
 import Icon from '../../components/Icon';
 import Plus from '../../components/Plus/Plus';
 import { screenConstant } from '../../constants';
 import { ICONS } from '../../constants/Icons';
-import { COLORS, DARK_COLORS } from '../../constants/colors';
 import { STRINGS } from '../../constants/strings';
 import { styles } from './style';
-import withTheme from '../../components/HOC';
 
- function HomeNavigation({initialParams}) {
-  console.log(initialParams,987652345);
-  
+ function HomeNavigation({theme}) {
   const parentNavigation = useNavigation();
   const Tab = createBottomTabNavigator();
-  const colorScheme = useSelector(state => state.theme.theme);
+  // const THEME = route.params.theme
   const [show, setShow] = useState(false);
   const [labelData, setLabelData] = useState([]);
+  const colorScheme = useSelector(state=>state.theme.theme)
   const user = auth().currentUser;
   let uid = user?.uid;
   useEffect(() => {
@@ -110,7 +108,7 @@ import withTheme from '../../components/HOC';
           styles.footer,
           {
             backgroundColor:
-              colorScheme === 'light' ? COLORS.FOOTER : DARK_COLORS.FOOTER,
+              theme.FOOTER,
           },
         ]}>
         {state.routes.map((route, index) => {
@@ -185,15 +183,15 @@ import withTheme from '../../components/HOC';
         initialRouteName={screenConstant.Home}
         tabBar={props => <MyTabBar {...props} />}
         screenOptions={{headerShown: false}}>
-        <Tab.Screen name={screenConstant.Home} component={Home}/>
-        <Tab.Screen name={screenConstant.Extra1} component={Extar1} />
-        <Tab.Screen name={screenConstant.Note} component={Note} />
+        <Tab.Screen name={screenConstant.Home} component={Home} initialParams={{theme}}/>
+        <Tab.Screen name={screenConstant.Extra1} component={Extar1} initialParams={{theme}}/>
+        <Tab.Screen name={screenConstant.Note} component={Note} initialParams={{theme}}/>
         <Tab.Screen
           name={screenConstant.Extra2}
           component={Extar2}
-          initialParams={{parentNavigation}}
+          initialParams={{parentNavigation,theme}}
         />
-        <Tab.Screen name={screenConstant.Setting} component={Setting} />
+        <Tab.Screen name={screenConstant.Setting} component={Setting} initialParams={{theme}}/>
       </Tab.Navigator>
       {show && <AddLabel uid={uid} setShow={setShow} show={show} />}
     </>

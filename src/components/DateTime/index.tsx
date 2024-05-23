@@ -1,11 +1,10 @@
 import DateTimePicker from '@react-native-community/datetimepicker';
 import React, { useState } from 'react';
-import { StyleSheet, Text, TouchableOpacity, View } from 'react-native';
-import { heightPercentageToDP, widthPercentageToDP } from 'react-native-responsive-screen';
-import { useSelector } from 'react-redux';
-import { COLORS, DARK_COLORS } from '../../constants/colors';
+import { Text, TouchableOpacity, View } from 'react-native';
+import withTheme from '../HOC';
+import { styles } from './style';
 
-export default function DateTime({date, setDate}) {
+function DateTime({date, setDate,theme}) {
   const [mode, setMode] = useState('date');
   const [show, setShow] = useState(false);
 
@@ -27,18 +26,18 @@ export default function DateTime({date, setDate}) {
   const showTimepicker = () => {
     showMode('time');
   };
-  const colorScheme = useSelector(state => state.theme.theme);
+  const THEME = theme
 
   return (
     <>
-      <View style={[styles.container,{backgroundColor:colorScheme==='light'?COLORS.SETTING_BOX:DARK_COLORS.SETTING_BOX}]}>
+      <View style={[styles.container,{backgroundColor:THEME.SETTING_BOX}]}>
         <View style={styles.subContainer}>
           <View>
-            <Text style={[styles.text,{color:colorScheme==='light'?COLORS.TEXT1:DARK_COLORS.TEXT1,fontWeight:'bold'}]}>Pick Date</Text>
+            <Text style={[styles.text,{color:THEME.TEXT1,fontWeight:'bold'}]}>Pick Date</Text>
           </View>
           <View>
             <TouchableOpacity onPress={showDatepicker}>
-              <Text style={[styles.text,{color:colorScheme==='light'?COLORS.TEXT1:DARK_COLORS.TEXT1}]}>
+              <Text style={[styles.text,{color:THEME.TEXT1}]}>
                 {date.toLocaleString().slice(0,9)}
               </Text>
             </TouchableOpacity>
@@ -46,11 +45,11 @@ export default function DateTime({date, setDate}) {
         </View>
         <View style={[styles.subContainer]}>
           <View>
-            <Text style={[styles.text,{color:colorScheme==='light'?COLORS.TEXT1:DARK_COLORS.TEXT1,fontWeight:'bold'}]}>Pick Time</Text>
+            <Text style={[styles.text,{color:THEME.TEXT1,fontWeight:'bold'}]}>Pick Time</Text>
           </View>
           <View>
             <TouchableOpacity onPress={showTimepicker}>
-              <Text style={[styles.text,{color:colorScheme==='light'?COLORS.TEXT1:DARK_COLORS.TEXT1}]}>
+              <Text style={[styles.text,{color:THEME.TEXT1}]}>
                 {date.toLocaleString().slice(10)}
               </Text>
             </TouchableOpacity>
@@ -70,17 +69,5 @@ export default function DateTime({date, setDate}) {
   );
 }
 
-const styles = StyleSheet.create({
-  container:{
-    paddingHorizontal:widthPercentageToDP('5%')
-  },
-  subContainer:{
-    flexDirection:'row',
-    justifyContent:'space-between',
-    paddingVertical:heightPercentageToDP('1%')
-  },
-  text:{
-    fontFamily:'Nunito',
-    fontSize:heightPercentageToDP('2%')
-  }
-})
+export default withTheme(DateTime)
+

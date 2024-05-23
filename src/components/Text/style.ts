@@ -1,5 +1,5 @@
 import { StyleSheet } from "react-native";
-import { COLORS } from "../../constants/colors";
+import { LIGHT_THEME_COLOR } from "../../constants/colors";
 // customText
 export const style = StyleSheet.create({
     container:{
@@ -8,7 +8,7 @@ export const style = StyleSheet.create({
     },
     text:{
         fontSize:20,
-        color:COLORS.TEXT1,
+        color:LIGHT_THEME_COLOR.TEXT1,
         // fontWeight:'bold'
     }
 })

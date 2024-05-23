@@ -9,13 +9,13 @@ import ForgotPassword from "../../Screens/forgotPassword/forgotPass";
 import LogIn from "../../Screens/logIn";
 import SignUp from "../../Screens/signUp";
 import Splash from "../../Screens/splashScreen1";
-import { COLORS } from "../../constants/colors";
+import withTheme from "../../components/HOC";
 import { screenConstant } from "../../constants/index";
 import { loadThemeFromStorage } from "../../store/theme";
 import HomeNavigation from "../HomeNavigation";
-import withTheme from "../../components/HOC";
 
 function AuthNavigation({theme}) {
+    // console.log(theme,90909090909);
     
     const Stack = createNativeStackNavigator();
     const dispatch = useDispatch()
@@ -27,7 +27,7 @@ function AuthNavigation({theme}) {
             <NavigationContainer>
                 <Stack.Navigator initialRouteName={screenConstant.Splash1}
                     screenOptions={{
-                        headerStyle: { backgroundColor: COLORS.BACKGROUND },
+                        headerStyle: { backgroundColor: theme.BACKGROUND },
                         headerTintColor: 'rgb(107, 78, 253)',
                         headerTitleStyle: {
                             fontWeight: 'bold',
@@ -35,10 +35,10 @@ function AuthNavigation({theme}) {
                             fontSize: 20
                         },
                     }}>
-                    <Stack.Screen name={screenConstant.Splash1} component={Splash} options={{headerShown: false}}/>
+                    <Stack.Screen name={screenConstant.Splash1} component={Splash} options={{headerShown: false}} />
                     <Stack.Screen name={screenConstant.Enter} component={Enter} options={{ headerShown: false }} />
                     <Stack.Screen name={screenConstant.Login} component={LogIn} />
-                    <Stack.Screen name={screenConstant.HomeNavigation} component={HomeNavigation} options={{ headerShown: false }} initialParams={theme}/>
+                    <Stack.Screen name={screenConstant.HomeNavigation} component={HomeNavigation} options={{ headerShown: false }} />
                     <Stack.Screen name={screenConstant.Note} component={Note} options={{ headerShown: false }} />
                     <Stack.Screen name={screenConstant.SignUp} component={SignUp} />
                     <Stack.Screen name={screenConstant.ForgotPassword} component={ForgotPassword} />
@@ -48,5 +48,4 @@ function AuthNavigation({theme}) {
         </>
     )
 }
-
 export default withTheme(AuthNavigation)

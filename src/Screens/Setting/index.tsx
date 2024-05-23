@@ -3,21 +3,20 @@ import auth from '@react-native-firebase/auth';
 import { GoogleSignin } from '@react-native-google-signin/google-signin';
 import React from 'react';
 import { SafeAreaView, Text, TouchableOpacity, View } from 'react-native';
-import { useDispatch, useSelector } from 'react-redux';
+import { useDispatch } from 'react-redux';
 import ToggleSwitch from 'toggle-switch-react-native';
+import withTheme from '../../components/HOC';
 import Search from '../../components/Header';
 import { screenConstant } from '../../constants';
-import { COLORS, DARK_COLORS } from '../../constants/colors';
 import { STRINGS } from '../../constants/strings';
 import { logIn, updateUser } from '../../store/common';
 import { toggleTheme } from '../../store/theme';
 import { styles } from './style';
 
-export default function Setting({navigation}) {
+ function Setting({navigation,theme}) {
   const user = auth().currentUser;
   const dispatch = useDispatch();
-  const theme = useSelector(state => state.theme.theme);
-
+  const THEME = theme
   const signOut = async () => {
     try {
       if (user?.providerData[0].providerId !== 'google.com') {
@@ -49,17 +48,13 @@ export default function Setting({navigation}) {
       console.log(e);
     }
   };
-  const colorScheme = useSelector(state => state.theme.theme);
   return (
     <>
       <SafeAreaView
         style={[
           styles.container,
           {
-            backgroundColor:
-              colorScheme === 'light'
-                ? COLORS.BACKGROUND
-                : DARK_COLORS.BACKGROUND,
+            backgroundColor: THEME.BACKGROUND,
           },
         ]}>
         <View>
@@ -70,10 +65,7 @@ export default function Setting({navigation}) {
             style={[
               styles.box1,
               {
-                backgroundColor:
-                  colorScheme === 'light'
-                    ? COLORS.SETTING_BOX
-                    : DARK_COLORS.SETTING_BOX,
+                backgroundColor: THEME.SETTING_BOX,
               },
             ]}>
             <View style={styles.view}>
@@ -82,10 +74,7 @@ export default function Setting({navigation}) {
                   style={[
                     styles.text,
                     {
-                      color:
-                        colorScheme === 'light'
-                          ? COLORS.TEXT1
-                          : DARK_COLORS.TEXT1,
+                      color: THEME.TEXT1,
                     },
                   ]}>
                   Profile
@@ -98,10 +87,7 @@ export default function Setting({navigation}) {
                   style={[
                     styles.text,
                     {
-                      color:
-                        colorScheme === 'light'
-                          ? COLORS.TEXT1
-                          : DARK_COLORS.TEXT1,
+                      color: THEME.TEXT1,
                     },
                   ]}>
                   {STRINGS.THEME}
@@ -111,7 +97,7 @@ export default function Setting({navigation}) {
                 <ToggleSwitch
                   isOn={theme === 'dark'}
                   onColor="black"
-                  circleColor={COLORS.BACKGROUND1}
+                  circleColor={THEME.BACKGROUND1}
                   offColor="white"
                   labelStyle={{color: 'black', fontWeight: '900'}}
                   size="medium"
@@ -125,10 +111,7 @@ export default function Setting({navigation}) {
                   style={[
                     styles.text,
                     {
-                      color:
-                        colorScheme === 'light'
-                          ? COLORS.TEXT1
-                          : DARK_COLORS.TEXT1,
+                      color: THEME.TEXT1,
                     },
                   ]}>
                   Change Password
@@ -143,20 +126,14 @@ export default function Setting({navigation}) {
                 styles.box1,
                 styles.box2,
                 {
-                  backgroundColor:
-                    colorScheme === 'light'
-                      ? COLORS.SETTING_BOX
-                      : DARK_COLORS.SETTING_BOX,
+                  backgroundColor: THEME.SETTING_BOX,
                 },
               ]}>
               <Text
                 style={[
                   styles.text,
                   {
-                    color:
-                      colorScheme === 'light'
-                        ? COLORS.TEXT1
-                        : DARK_COLORS.TEXT1,
+                    color: THEME.TEXT1,
                   },
                   styles.textBold,
                 ]}>
@@ -170,3 +147,4 @@ export default function Setting({navigation}) {
     </>
   );
 }
+export default withTheme(Setting)

@@ -2,32 +2,29 @@ import { useNavigation } from '@react-navigation/native';
 import { useState } from 'react';
 import {
   Pressable,
-  StyleSheet,
   Text,
   TextInput,
   TouchableOpacity,
-  View,
+  View
 } from 'react-native';
-import {
-  heightPercentageToDP,
-  widthPercentageToDP,
-} from 'react-native-responsive-screen';
-import { useSelector } from 'react-redux';
 import { ICONS } from '../../constants/Icons';
-import { COLORS, DARK_COLORS } from '../../constants/colors';
+import { LIGHT_THEME_COLOR } from '../../constants/colors';
+import withTheme from '../HOC';
 import Icon from '../Icon';
+import { styles } from './style';
 
-export default function Header({
+ function Header({
   onChangeText,
   notesData,
   setSearchData,
   headerText,
+  theme
 }) {
   const navigation = useNavigation();
   const [isFocussed, setIsFocused] = useState(false);
   // console.log(isFocussed);
   const [value,setValue] = useState('')
-  const theme = useSelector((state) => state.theme.theme);
+  const THEME = theme
   return (
     <>
       <View style={styles.container}>
@@ -40,7 +37,7 @@ export default function Header({
         </Pressable>
         {!isFocussed && (
           <View>
-            <Text style={[styles.headerText,{color:theme === 'light'? COLORS.TEXT4:DARK_COLORS.TEXT4}]}>{headerText}</Text>
+            <Text style={[styles.headerText,{color:THEME.TEXT4}]}>{headerText}</Text>
           </View>
         )}
         <View
@@ -60,7 +57,7 @@ export default function Header({
                 style={[styles.text,{paddingTop:0}]}
                 placeholder="Search"
                 value={value}
-                placeholderTextColor={COLORS.HEADER}
+                placeholderTextColor={LIGHT_THEME_COLOR.HEADER}
                 onChangeText={text=>{onChangeText(text);setValue(text)}}
                 onFocus={() => {
                   setIsFocused(true);
@@ -81,46 +78,4 @@ export default function Header({
   );
 }
 
-const styles = StyleSheet.create({
-  container: {
-    flexDirection: 'row',
-    justifyContent: 'space-between',
-    marginHorizontal: widthPercentageToDP('2%'),
-    marginVertical: heightPercentageToDP('1.5%'),
-  },
-  searchContainer: {
-    flexDirection: 'row',
-    // justifyContent:'space-between',
-    marginHorizontal: widthPercentageToDP('2%'),
-    // flex:1
-  },
-  rightHeaderFocused: {
-    flex: 1,
-    marginLeft: widthPercentageToDP('2%'),
-  },
-  headerText: {
-    fontFamily: 'Nunito',
-    fontWeight: 'bold',
-    fontSize: heightPercentageToDP('2.2%'),
-    marginLeft: 10,
-    color: COLORS.TEXT1,
-    // marginHorizontal:60
-  },
-  leftHeader: {
-    flexDirection: 'row',
-  },
-  rightHeader: {
-    width: widthPercentageToDP('25%'),
-    // flex:()
-    // flex:1,
-  },
-  text: {
-    fontSize: heightPercentageToDP('2%'),
-    color: COLORS.TEXT4,
-    paddingTop: 2,
-    fontFamily: 'Nunito',
-  },
-  iconContainer: {
-    paddingRight: 5,
-  },
-});
+export default withTheme(Header)

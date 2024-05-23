@@ -1,10 +1,10 @@
 import { StyleSheet } from "react-native";
 import { heightPercentageToDP } from "react-native-responsive-screen";
-import { COLORS } from "../../constants/colors";
+import { LIGHT_THEME_COLOR } from "../../constants/colors";
 
 export const styles = StyleSheet.create({
     container:{
-        backgroundColor:COLORS.SPLASHSCREEN,
+        backgroundColor:LIGHT_THEME_COLOR.SPLASHSCREEN,
         flex:1,
         justifyContent:'center',
         alignItems:'center'
@@ -22,13 +22,13 @@ export const styles = StyleSheet.create({
     text1:{
         fontFamily:'Nunito', 
         fontWeight:'bold',
-        color:COLORS.TEXT2,
+        color:LIGHT_THEME_COLOR.TEXT2,
         fontSize:heightPercentageToDP('3.2%')       
     },
     text2:{
         fontFamily:'Nunito', 
         fontWeight:'bold',
-        color:COLORS.TEXT1,
+        color:LIGHT_THEME_COLOR.TEXT1,
         fontSize:heightPercentageToDP('3.2%')        
     },
     icon:{

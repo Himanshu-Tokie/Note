@@ -1,16 +1,16 @@
 import { StyleSheet } from "react-native";
 import { heightPercentageToDP, widthPercentageToDP } from "react-native-responsive-screen";
-import { COLORS } from "../../constants/colors";
+import { LIGHT_THEME_COLOR } from "../../constants/colors";
 
 export const styles = StyleSheet.create({
   // NOT
     a: {
       fontWeight: 'bold',
-      color: COLORS.BACKGROUND1,
+      color: LIGHT_THEME_COLOR.BACKGROUND1,
     },
     container: {
       flex: 1,
-      backgroundColor: COLORS.BACKGROUND,
+      backgroundColor: LIGHT_THEME_COLOR.BACKGROUND,
     },
     editor: {},
     rich: {
@@ -18,12 +18,12 @@ export const styles = StyleSheet.create({
     },
     // text under rich 
     richeditor:{
-      // color:COLORS.NOTETEXT,
+      // color:LIGHT_THEME_COLOR.NOTETEXT,
       fontFamily:'Nunito',
-      // backgroundColor: COLORS.BACKGROUND,
+      // backgroundColor: LIGHT_THEME_COLOR.BACKGROUND,
     },
     richBar: {
-      backgroundColor:COLORS.BACKGROUND1
+      backgroundColor:LIGHT_THEME_COLOR.BACKGROUND1
       // alignItems:'center',
       // alignContent:'center',
       // justifyContent:'center'

@@ -7,8 +7,8 @@ import { useDispatch, useSelector } from 'react-redux';
 import * as Yup from 'yup';
 import CustomButton from '../../components/Button/customButton';
 import FormikTemplate from '../../components/FormikTemplate/formikTemplate';
+import withTheme from '../../components/HOC';
 import { screenConstant } from '../../constants';
-import { COLORS, DARK_COLORS } from '../../constants/colors';
 import { STRINGS } from '../../constants/strings';
 import { logIn, updateUser } from '../../store/common';
 import { styles } from './style';
@@ -24,9 +24,11 @@ const SignupSchema = Yup.object().shape({
     ),
 });
 
-export default function LogIn({navigation}) {
+function LogIn({navigation, theme}) {
   // const [initializing, setInitializing] = useState(true);
-  const isLogedIn = useSelector(state => JSON.parse(state.common[STRINGS.IS_LOGGED_IN]));
+  const isLogedIn = useSelector(state =>
+    JSON.parse(state.common[STRINGS.IS_LOGGED_IN]),
+  );
   const dispatch = useDispatch();
   const [errorLogin, setErrorLogin] = useState(false);
   function onAuthStateChanged(user) {
@@ -38,7 +40,7 @@ export default function LogIn({navigation}) {
 
     // if (initializing) setInitializing(false);
   }
-  console.log(isLogedIn,typeof(isLogedIn), 1234);
+  console.log(isLogedIn, typeof isLogedIn, 1234);
 
   // useEffect(() => {
   //   const subscriber = auth().onAuthStateChanged(onAuthStateChanged);
@@ -51,14 +53,14 @@ export default function LogIn({navigation}) {
         email,
         password,
       );
-      
+
       console.log('login complete');
       dispatch(logIn(true));
-      dispatch(updateUser({uid: userCredential.user.uid, providerId: 'firebase'}));
-      await AsyncStorage.setItem(STRINGS.IS_LOGGED_IN, JSON.stringify(true))
-            console.log('data added to storage login');
-            
-      
+      dispatch(
+        updateUser({uid: userCredential.user.uid, providerId: 'firebase'}),
+      );
+      await AsyncStorage.setItem(STRINGS.IS_LOGGED_IN, JSON.stringify(true));
+      console.log('data added to storage login');
     } catch (error) {
       if (error.code === 'auth/invalid-credential') {
         console.log('User does not exist. Please register.');
@@ -73,13 +75,14 @@ export default function LogIn({navigation}) {
   const forgot = () => {
     navigation.navigate(screenConstant.ForgotPassword);
   };
-  const colorScheme = useSelector((state) => state.theme.theme);
+  const THEME = theme;
 
   // if (initializing) return null;
   if (!isLogedIn) {
     return (
       <>
-        <SafeAreaView style={[styles.container,{backgroundColor:colorScheme==='light'?COLORS.BACKGROUND:DARK_COLORS.BACKGROUND}]}>
+        <SafeAreaView
+          style={[styles.container, {backgroundColor: THEME.BACKGROUND}]}>
           {errorLogin && (
             <View style={styles.errorContainer}>
               <Text style={styles.error}>{STRINGS.INVALID_CREDENTIALS}</Text>
@@ -125,15 +128,18 @@ export default function LogIn({navigation}) {
                   <Text onPress={forgot} style={styles.colorText}>
                     {STRINGS.FORGOT_PASSWORD}
                   </Text>
-                  <Text style={{color:colorScheme==='light'?COLORS.FOOTER:DARK_COLORS.TEXT1}}>
+                  <Text
+                    style={{
+                      color:THEME.FOOTER,
+                    }}>
                     {STRINGS.SIGN_UP_CONDITIONS}
                   </Text>
-                    <CustomButton
-                      text="Log In"
-                      onPress={handleSubmit}
-                      // disabled={!isValid}
-                      style={[styles.button]}
-                    />
+                  <CustomButton
+                    text="Log In"
+                    onPress={handleSubmit}
+                    // disabled={!isValid}
+                    style={[styles.button]}
+                  />
                 </View>
               )}
             </Formik>
@@ -142,5 +148,9 @@ export default function LogIn({navigation}) {
         </SafeAreaView>
       </>
     );
-  } else {return navigation.navigate(screenConstant.HomeNavigation);}
+  } else {
+    return navigation.navigate(screenConstant.HomeNavigation);
+  }
 }
+
+export default withTheme(LogIn);

@@ -1,13 +1,9 @@
-// formik
-
 import { Platform, StyleSheet } from "react-native";
 import { heightPercentageToDP, widthPercentageToDP } from "react-native-responsive-screen";
 
 export const styles = StyleSheet.create({
     container:{
         backgroundColor:'white',
-        // marginHorizontal:20,
-        // width:70,
         marginBottom:heightPercentageToDP('1.5%'),
         paddingVertical:heightPercentageToDP('1.8%'),
         paddingHorizontal:widthPercentageToDP('2%'),
