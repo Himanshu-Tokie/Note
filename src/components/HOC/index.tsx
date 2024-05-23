@@ -5,7 +5,7 @@ import { DARK_THEME_COLOR, LIGHT_THEME_COLOR } from '../../constants/colors';
 const withTheme = (WrappedComponent) => (props) => {
   const themeMode = useSelector((state) => state.theme.theme);
   const theme = themeMode === 'light' ? LIGHT_THEME_COLOR : DARK_THEME_COLOR;
-  console.log(theme,'HOC');
+  // console.log(theme,'HOC');
   
   return <WrappedComponent {...props} theme={theme} />;
 };

@@ -157,7 +157,6 @@ function Home({navigation, theme}) {
                     data={label}
                     showsVerticalScrollIndicator={false}
                     numColumns={2}
-                    // numColumns={2}
                     renderItem={({item}) => (
                       <LabelTemplate
                         icon={

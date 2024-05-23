@@ -13,13 +13,14 @@ import { styles } from './style';
         labelData.push({'label':label.id})
     })
     const THEME = theme 
-
+    console.log(THEME.NOTETEXT,90);
+    
     return (
       <View style={[styles.container,{backgroundColor:THEME.BACKGROUND}]}>
         <Dropdown
           style={[styles.dropdown, isFocus && { borderColor: 'white' }]}
-          placeholderStyle={[styles.placeholderStyle,THEME.NOTETEXT]}
-          selectedTextStyle={[styles.selectedTextStyle,THEME.NOTETEXT]}
+          placeholderStyle={[styles.placeholderStyle,{color:THEME.NOTETEXT}]}
+          selectedTextStyle={[styles.selectedTextStyle,{color:THEME.NOTETEXT}]}
           data={labelData}
           maxHeight={heightPercentageToDP('30%')}
           labelField="label"

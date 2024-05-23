@@ -41,7 +41,7 @@ export const DARK_THEME_COLOR = {
         SPLASHSCREEN: 'rgb(238,238,242)',
         HOMESIZE: '#FFFFFF',//
         HEADER: "rgb(107,78,253)",
-        NOTETEXT: 'white',
+        NOTETEXT: '#FFFFFF',
         GOOGLE: '#757575',
         SAVE: 'white',
         FOOTER: '#191A1D',

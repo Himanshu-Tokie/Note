@@ -1,5 +1,6 @@
 import { default as auth } from '@react-native-firebase/auth';
 import firestore from '@react-native-firebase/firestore';
+import storage from '@react-native-firebase/storage';
 import { useHeaderHeight } from '@react-navigation/elements';
 import * as htmlparser2 from 'htmlparser2';
 import React, { useEffect, useRef, useState } from 'react';
@@ -16,10 +17,10 @@ import DateTime from '../../components/DateTime';
 import DropdownComponent from '../../components/Dropdown/dropdown';
 import withTheme from '../../components/HOC';
 import Header from '../../components/Header';
+import UserImage from '../../components/Image';
 import { STRINGS } from '../../constants/strings';
 import { styles } from './styles';
-
-const Note = ({route,theme}) => {
+const Note = ({route, theme}) => {
   // console.log(route, 87);
 
   const user = auth().currentUser;
@@ -30,14 +31,14 @@ const Note = ({route,theme}) => {
   let lable = 'Others';
   const reminder = useRef(false);
   const isNew = useRef(true);
-  const isCompleteNew =useRef(false)
+  const isCompleteNew = useRef(false);
   const noteIdExist = useRef(false);
   const [date, setDate] = useState(new Date());
   const dateRef = useRef(date);
   if (route.params != undefined) {
     if (route.params?.labelData != undefined) {
-      console.log(route.params?.labelData,90);
-      isCompleteNew.current =true;
+      console.log(route.params?.labelData, 90);
+      isCompleteNew.current = true;
     } else if (route.params?.note != undefined) {
       if (route.params.note.noteId == undefined) {
         lable = route.params.note.label;
@@ -65,15 +66,27 @@ const Note = ({route,theme}) => {
   const labelRef = useRef(lable);
   const titleRef = useRef(initialTitle);
   const [value, setValue] = useState(null);
-  useEffect(()=>{
-    labelRef.current = value
-  },[value])
+  useEffect(() => {
+    labelRef.current = value;
+  }, [value]);
   // console.log(value, 1);
   // console.log(articleData.current, 22);
   // console.log(titleRef, 33);
   // console.log(labelRef, 44);
   // console.log(dateRef.current, 55);
-  
+  const [photo, setPhoto] = useState(null);
+  useEffect(() => {
+    const reference = storage().ref(`user_image/`);
+    const uploadPhoto = async () => {
+      try {
+        await reference.putFile(photo);
+        console.log('photo uploaded successfully');
+      } catch (e) {
+        console.log(e, 'image error');
+      }
+    };
+    uploadPhoto();
+  }, [photo]);
   const createReminder = async () => {
     try {
       await firestore()
@@ -150,9 +163,9 @@ const Note = ({route,theme}) => {
   };
   const createNote = async () => {
     try {
-     if(labelRef.current === null){
-      labelRef.current = label
-     } 
+      if (labelRef.current === null) {
+        labelRef.current = label;
+      }
       const regex = /^[\s\r\n]*$/;
       const dom = htmlparser2.parseDocument(articleData.current);
       // console.log(dom, 44444444);
@@ -212,7 +225,6 @@ const Note = ({route,theme}) => {
     };
     return fetchData;
   }, []);
-
   const scrollRef = useRef(null);
   const onCursorPosition = scrollY => {
     if (scrollRef.current) {
@@ -220,13 +232,13 @@ const Note = ({route,theme}) => {
     }
   };
   const headerHeight = useHeaderHeight();
-  const THEME = theme
+  const THEME = theme;
   return (
     <SafeAreaView
       style={[
         styles.container,
         {
-          backgroundColor:THEME.BACKGROUND
+          backgroundColor: THEME.BACKGROUND,
         },
       ]}>
       <KeyboardAvoidingView
@@ -237,12 +249,15 @@ const Note = ({route,theme}) => {
         // keyboardVerticalOffset={Platform.OS === 'ios' ? 0 : keyboardOffset}
         style={styles.subContainer}>
         <View>
-          <Header headerText={isCompleteNew?value:label} />
+          <Header headerText={isCompleteNew ? value : label} />
         </View>
-        {
-          isCompleteNew.current &&
-        <DropdownComponent data={route.params?.labelData} value={value} setValue={setValue}/>
-        }
+        {isCompleteNew.current && (
+          <DropdownComponent
+            data={route.params?.labelData}
+            value={value}
+            setValue={setValue}
+          />
+        )}
         {/* <ScrollView style={styles.container} ref={scrollRef}> */}
         <TextInput
           onChangeText={text => {
@@ -250,17 +265,19 @@ const Note = ({route,theme}) => {
             setTitle(text);
           }}
           placeholder="Title"
-          placeholderTextColor={
-            THEME.NOTETEXT
-          }
+          placeholderTextColor={THEME.NOTETEXT}
           value={title}
           style={[
             styles.title,
             {
-              color:
-                THEME.NOTETEXT
+              color: THEME.NOTETEXT,
             },
-          ]}></TextInput>
+          ]}
+        />
+        {/* {
+            false &&
+            
+} */}
         <RichEditor
           disabled={false}
           containerStyle={styles.editor}
@@ -268,10 +285,8 @@ const Note = ({route,theme}) => {
           initialContentHTML={articleData.current}
           style={styles.rich}
           editorStyle={{
-            backgroundColor:
-              THEME.BACKGROUND,
-            color:
-              THEME.NOTETEXT,
+            backgroundColor: THEME.BACKGROUND,
+            color: THEME.NOTETEXT,
           }}
           placeholder={'Start Writing Here'}
           onChange={text => {
@@ -302,7 +317,13 @@ const Note = ({route,theme}) => {
             actions.setStrikethrough,
             actions.setUnderline,
           ]}
+          iconMap={{
+            [actions.insertImage]: () => (
+              <UserImage photo={photo} setPhoto={setPhoto} />
+            ),
+          }}
         />
+        {/* <UserImage photo={photo} setPhoto={setPhoto}/> */}
         {/* </ScrollView> */}
       </KeyboardAvoidingView>
     </SafeAreaView>

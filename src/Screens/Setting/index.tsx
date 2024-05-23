@@ -3,7 +3,7 @@ import auth from '@react-native-firebase/auth';
 import { GoogleSignin } from '@react-native-google-signin/google-signin';
 import React from 'react';
 import { SafeAreaView, Text, TouchableOpacity, View } from 'react-native';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import ToggleSwitch from 'toggle-switch-react-native';
 import withTheme from '../../components/HOC';
 import Search from '../../components/Header';
@@ -17,6 +17,7 @@ import { styles } from './style';
   const user = auth().currentUser;
   const dispatch = useDispatch();
   const THEME = theme
+  const isThemeOn = useSelector(state=>state.theme.theme)
   const signOut = async () => {
     try {
       if (user?.providerData[0].providerId !== 'google.com') {
@@ -95,7 +96,7 @@ import { styles } from './style';
               </View>
               <View>
                 <ToggleSwitch
-                  isOn={theme === 'dark'}
+                  isOn={isThemeOn === 'dark'}
                   onColor="black"
                   circleColor={THEME.BACKGROUND1}
                   offColor="white"
