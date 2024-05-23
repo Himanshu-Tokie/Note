@@ -18,8 +18,11 @@ import { ICONS } from '../../constants/Icons';
 import { COLORS, DARK_COLORS } from '../../constants/colors';
 import { STRINGS } from '../../constants/strings';
 import { styles } from './style';
+import withTheme from '../../components/HOC';
 
-export default function HomeNavigation() {
+ function HomeNavigation({initialParams}) {
+  console.log(initialParams,987652345);
+  
   const parentNavigation = useNavigation();
   const Tab = createBottomTabNavigator();
   const colorScheme = useSelector(state => state.theme.theme);
@@ -182,7 +185,7 @@ export default function HomeNavigation() {
         initialRouteName={screenConstant.Home}
         tabBar={props => <MyTabBar {...props} />}
         screenOptions={{headerShown: false}}>
-        <Tab.Screen name={screenConstant.Home} component={Home} />
+        <Tab.Screen name={screenConstant.Home} component={Home}/>
         <Tab.Screen name={screenConstant.Extra1} component={Extar1} />
         <Tab.Screen name={screenConstant.Note} component={Note} />
         <Tab.Screen
@@ -196,3 +199,4 @@ export default function HomeNavigation() {
     </>
   );
 }
+export default withTheme(HomeNavigation)

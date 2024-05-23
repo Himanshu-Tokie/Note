@@ -13,8 +13,10 @@ import { COLORS } from "../../constants/colors";
 import { screenConstant } from "../../constants/index";
 import { loadThemeFromStorage } from "../../store/theme";
 import HomeNavigation from "../HomeNavigation";
+import withTheme from "../../components/HOC";
 
-export default function AuthNavigation() {
+function AuthNavigation({theme}) {
+    
     const Stack = createNativeStackNavigator();
     const dispatch = useDispatch()
     useEffect(() => {
@@ -33,10 +35,10 @@ export default function AuthNavigation() {
                             fontSize: 20
                         },
                     }}>
-                        <Stack.Screen name={screenConstant.Splash1} component={Splash} options={{headerShown: false}}/>
+                    <Stack.Screen name={screenConstant.Splash1} component={Splash} options={{headerShown: false}}/>
                     <Stack.Screen name={screenConstant.Enter} component={Enter} options={{ headerShown: false }} />
                     <Stack.Screen name={screenConstant.Login} component={LogIn} />
-                    <Stack.Screen name={screenConstant.HomeNavigation} component={HomeNavigation} options={{ headerShown: false }} />
+                    <Stack.Screen name={screenConstant.HomeNavigation} component={HomeNavigation} options={{ headerShown: false }} initialParams={theme}/>
                     <Stack.Screen name={screenConstant.Note} component={Note} options={{ headerShown: false }} />
                     <Stack.Screen name={screenConstant.SignUp} component={SignUp} />
                     <Stack.Screen name={screenConstant.ForgotPassword} component={ForgotPassword} />
@@ -46,3 +48,5 @@ export default function AuthNavigation() {
         </>
     )
 }
+
+export default withTheme(AuthNavigation)

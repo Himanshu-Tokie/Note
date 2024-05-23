@@ -23,10 +23,14 @@ import { images } from '../../constants/Images';
 import { COLORS, DARK_COLORS } from '../../constants/colors';
 import { STRINGS } from '../../constants/strings';
 import { styles } from './style';
+import { useTheme } from '@react-navigation/native';
 
 export default function Home({navigation}) {
   // const userRedux = useSelector(state=>state.common.user)
   const user = auth().currentUser;
+  const theme = useTheme();
+  console.log(theme,18181818);
+  
   const colorScheme = useSelector((state) => state.theme.theme);
   // const colorScheme = 'dark'
   // console.log(user?.photoURL,1919191);
@@ -36,20 +40,9 @@ export default function Home({navigation}) {
   const addNote = () => {
     navigation.navigate(screenConstant.Note, {uid: user.uid});
   };
-  const isLogedIn = useSelector(state => state.common[STRINGS.IS_LOGGED_IN]);
+  // const isLogedIn = useSelector(state => state.common[STRINGS.IS_LOGGED_IN]);
 
   const [label, setLabel] = useState('');
-  // console.log(label);
-  // console.log(isLogedIn, 1234134124);
-  // useEffect(() => {
-  //   const unsubscribe = navigation.addListener('beforeRemove', e => {
-  //     if (JSON.parse(isLogedIn)) {
-  //       console.log(isLogedIn, 1234134124);
-  //       e.preventDefault();
-  //     }
-  //   });
-  //   return unsubscribe;
-  // }, [navigation]);
   useEffect(() => {
     getLabel();
     if(user)
