@@ -21,6 +21,7 @@ function AuthNavigation({theme}) {
     const dispatch = useDispatch()
     useEffect(() => {
         dispatch(loadThemeFromStorage());
+        // dispatch(loadImageFromStorage())
       }, [dispatch]);
     return (
         <>

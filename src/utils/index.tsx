@@ -1,10 +1,10 @@
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import firestore from '@react-native-firebase/firestore';
+import ImageResizer from 'react-native-image-resizer';
 import * as Yup from 'yup';
 import { screenConstant } from '../constants';
 import { STRINGS } from '../constants/strings';
 import { logIn, updateUser } from '../store/common';
-
 export const signUpUser = async (user, providerId,dispatch,navigation) => {
   try {
     console.log('new user Alert');
@@ -86,3 +86,20 @@ export const SignupSchema = Yup.object().shape({
   number: Yup.string()
   .matches(/^\d{10}$/, 'Number must be exactly 10 digits')
   .required('Enter Number')});
+
+export const imageCompressor = async (photo) => {
+  try {
+    const compressedImage = await ImageResizer.createResizedImage(
+      photo,
+      600, // max width
+      400, // max height
+      'JPEG', // format
+      80, // quality (0 to 100)
+    );
+    console.log('Compression complete');
+    return compressedImage.uri; // Return the URI of the compressed image
+  } catch (error) {
+    console.log('Image compression error:', error);
+    throw error;
+  }
+};

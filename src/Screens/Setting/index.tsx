@@ -28,6 +28,7 @@ import { styles } from './style';
         dispatch(logIn(false));
         dispatch(updateUser(null));
         await AsyncStorage.setItem(STRINGS.IS_LOGGED_IN, JSON.stringify(false));
+        AsyncStorage.clear()
         navigation.navigate(screenConstant.Enter);
       } else {
         try {
@@ -39,6 +40,7 @@ import { styles } from './style';
             STRINGS.IS_LOGGED_IN,
             JSON.stringify(false),
           ).then(() => console.log('success remove async'));
+          AsyncStorage.clear()
           navigation.navigate(screenConstant.Enter);
         } catch (error) {
           console.error(error);

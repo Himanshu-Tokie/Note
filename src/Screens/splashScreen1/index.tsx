@@ -26,8 +26,10 @@ import { styles } from './style';
       try {
         const keys = await AsyncStorage.getAllKeys();
         const fetchedData = await AsyncStorage.multiGet(keys);
+        const savedImage = await AsyncStorage.getItem('Images');
 
-        console.log(fetchedData, 789456);
+        console.log(fetchedData, 7255);
+        console.log(savedImage, 7256);
 
         setTimeout(() => {
           if (fetchedData.length) {

@@ -1,49 +1,46 @@
 import { default as auth } from '@react-native-firebase/auth';
 import firestore from '@react-native-firebase/firestore';
-import storage from '@react-native-firebase/storage';
 import { useHeaderHeight } from '@react-navigation/elements';
 import * as htmlparser2 from 'htmlparser2';
 import React, { useEffect, useRef, useState } from 'react';
 import {
-  Alert,
   FlatList,
   Image,
   KeyboardAvoidingView,
   Platform,
   SafeAreaView,
-  Text,
   TextInput,
   View,
 } from 'react-native';
 import { RichEditor, RichToolbar, actions } from 'react-native-pell-rich-editor';
-import { heightPercentageToDP } from 'react-native-responsive-screen';
+import {
+  heightPercentageToDP,
+  widthPercentageToDP,
+} from 'react-native-responsive-screen';
+import { useDispatch, useSelector } from 'react-redux';
 import DateTime from '../../components/DateTime';
 import DropdownComponent from '../../components/Dropdown/dropdown';
 import withTheme from '../../components/HOC';
 import Header from '../../components/Header';
 import UserImage from '../../components/Image';
 import { STRINGS } from '../../constants/strings';
+import { loadImage } from '../../store/Image';
+import { imageCompressor } from '../../utils';
 import { styles } from './styles';
 
-const data_ = [
-  { id: 1 },
-  { id: 2 },
-  { id: 3 },
-  { id: 4 },
-  { id: 5 },
-  { id: 6 },
-
-]
-
-const Note = ({ route, theme }) => {
+const Note = ({route, theme}) => {
   // console.log(route, 87);
-
+  const dispatch = useDispatch();
+  const imageInitData = useSelector(state => state.image.imageUri);
+  console.log(imageInitData,908);
+  
   const user = auth().currentUser;
   let uid = user?.uid;
   let initialTitle = '';
   let noteId = '';
   let data = '';
   let lable = 'Others';
+  let imageInitialData = [];
   const reminder = useRef(false);
   const isNew = useRef(true);
   const isCompleteNew = useRef(false);
@@ -64,6 +61,7 @@ const Note = ({ route, theme }) => {
         lable = route.params.note.label;
         isNew.current = false;
         noteIdExist.current = true;
+        if (imageInitData[noteId]) imageInitialData = imageInitData[noteId];
       }
       if (route.params.note.timestamp !== undefined) {
         // dateRef.current = route.params.note.timestamp
@@ -81,6 +79,7 @@ const Note = ({ route, theme }) => {
   const labelRef = useRef(lable);
   const titleRef = useRef(initialTitle);
   const [value, setValue] = useState(null);
+  // console.log(imageInitData[noteId], 88);
   useEffect(() => {
     labelRef.current = value;
   }, [value]);
@@ -90,42 +89,58 @@ const Note = ({ route, theme }) => {
   // console.log(labelRef, 44);
   // console.log(dateRef.current, 55);
   const [photo, setPhoto] = useState(null);
-
+  const [imageData, setImageData] = useState(imageInitialData);
+  const img = useRef([]);
+  console.log(imageData, 34);
+  const noteNewId = useRef(null)
   useEffect(() => {
     if (!photo || !uid) {
+      console.log('no photo or uid; Note-Image-uploader');
       return;
     }
 
     const photoName = photo?.split('/').pop(); // Simplified method to get the photo name
     console.log(photoName, 90);
 
-    const reference = storage().ref(`${uid}/${photoName}`);
+    // const reference = storage().ref(`${uid}/${photoName}`);
 
-    const uploadPhoto = async () => {
+    // const uploadPhoto = async () => {
+    //   try {
+    //     const uploadTask = reference.putFile(photo);
+
+    //     uploadTask.on('state_changed',
+    //       taskSnapshot => {
+    //         console.log(`${taskSnapshot.bytesTransferred} transferred out of ${taskSnapshot.totalBytes}`);
+    //       },
+    //       error => {
+    //         console.log(error, 'image error');
+    //         Alert.alert('Photo upload failed', error.message);
+    //       },
+    //       () => {
+    //         console.log('Image uploaded to the bucket!');
+    //         Alert.alert('Photo uploaded successfully');
+    //       }
+    //     );
+    //   } catch (e) {
+    //     console.log(e, 'image error');
+    //     Alert.alert('Photo upload failed', e.message);
+    //   }
+    // };
+
+    console.log(photo, 78);
+    const processImage = async () => {
       try {
-        const uploadTask = reference.putFile(photo);
-
-        uploadTask.on('state_changed',
-          taskSnapshot => {
-            console.log(`${taskSnapshot.bytesTransferred} transferred out of ${taskSnapshot.totalBytes}`);
-          },
-          error => {
-            console.log(error, 'image error');
-            Alert.alert('Photo upload failed', error.message);
-          },
-          () => {
-            console.log('Image uploaded to the bucket!');
-            Alert.alert('Photo uploaded successfully');
-          }
-        );
-      } catch (e) {
-        console.log(e, 'image error');
-        Alert.alert('Photo upload failed', e.message);
+        const newUri = await imageCompressor(photo);
+        setImageData(prevImageData => [...prevImageData, newUri]);
+        img.current = [...img.current, newUri];
+      } catch (error) {
+        console.log('Error compressing image:', error);
       }
     };
-
-    uploadPhoto();
+    processImage();
   }, [photo, uid]);
+  console.log(img.current, 2002);
+
   const createReminder = async () => {
     try {
       await firestore()
@@ -195,7 +210,9 @@ const Note = ({ route, theme }) => {
         title: titleRef.current,
         content: articleData.current,
       })
-      .then(() => {
+      .then((data) => {
+        console.log(data._documentPath._parts[3]);
+        noteNewId.current = data._documentPath._parts[3]
         console.log('new note added successfully');
       });
     // console.log('asdfafasdfasg');
@@ -229,7 +246,7 @@ const Note = ({ route, theme }) => {
           .doc(uid)
           .collection(STRINGS.FIREBASE.LABELS)
           .doc(labelRef.current)
-          .set({ count: updatedcount }, { merge: true })
+          .set({count: updatedcount}, {merge: true})
           .then(() => console.log('hurray'))
           .catch(() => console.log('hurray error00'));
         console.log(updatedcount, 98765);
@@ -261,13 +278,21 @@ const Note = ({ route, theme }) => {
           console.log('note created success');
         }
       }
+      if (noteIdExist.current) {
+        console.log(noteIdExist,'hi');
+        dispatch(loadImage({noteId: noteId, uri: img.current}));
+      }
+      else if(noteNewId.current){
+        console.log(noteNewId.current,'please');
+        dispatch(loadImage({noteId: noteNewId.current, uri: img.current}));
+      }
     };
     return fetchData;
   }, []);
   const scrollRef = useRef(null);
   const onCursorPosition = scrollY => {
     if (scrollRef.current) {
-      scrollRef.current.scrollTo({ y: scrollY - 30, animated: true });
+      scrollRef.current.scrollTo({y: scrollY - 30, animated: true});
     }
   };
   const headerHeight = useHeaderHeight();
@@ -315,18 +340,19 @@ const Note = ({ route, theme }) => {
         />
         {/* {
             true && */}
-        <View style={{backgroundColor:'red',height:30}}>
+        <View>
           <FlatList
             horizontal
-            data={data_}
-            // showsHorizontalScrollIndicator={false}
-            renderItem={({ item }) => (
-              <View>
-                <Image source={{uri:''}}></Image>
+            data={imageData}
+            showsHorizontalScrollIndicator={false}
+            renderItem={({item}) => (
+              <View style={{paddingHorizontal: widthPercentageToDP('0.5%')}}>
+                <Image
+                  source={{uri: item}}
+                  height={heightPercentageToDP('20%')}
+                  width={heightPercentageToDP('20%')}></Image>
               </View>
-            )}
-          >
-          </FlatList>
+            )}></FlatList>
         </View>
 
         {/* } */}
