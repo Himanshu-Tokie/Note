@@ -5,9 +5,13 @@ import { useHeaderHeight } from '@react-navigation/elements';
 import * as htmlparser2 from 'htmlparser2';
 import React, { useEffect, useRef, useState } from 'react';
 import {
+  Alert,
+  FlatList,
+  Image,
   KeyboardAvoidingView,
   Platform,
   SafeAreaView,
+  Text,
   TextInput,
   View,
 } from 'react-native';
@@ -20,7 +24,18 @@ import Header from '../../components/Header';
 import UserImage from '../../components/Image';
 import { STRINGS } from '../../constants/strings';
 import { styles } from './styles';
-const Note = ({route, theme}) => {
+
+const data_ = [
+  { id: 1 },
+  { id: 2 },
+  { id: 3 },
+  { id: 4 },
+  { id: 5 },
+  { id: 6 },
+
+]
+
+const Note = ({ route, theme }) => {
   // console.log(route, 87);
 
   const user = auth().currentUser;
@@ -37,7 +52,7 @@ const Note = ({route, theme}) => {
   const dateRef = useRef(date);
   if (route.params != undefined) {
     if (route.params?.labelData != undefined) {
-      console.log(route.params?.labelData, 90);
+      // console.log(route.params?.labelData, 90);
       isCompleteNew.current = true;
     } else if (route.params?.note != undefined) {
       if (route.params.note.noteId == undefined) {
@@ -75,18 +90,42 @@ const Note = ({route, theme}) => {
   // console.log(labelRef, 44);
   // console.log(dateRef.current, 55);
   const [photo, setPhoto] = useState(null);
+
   useEffect(() => {
-    const reference = storage().ref(`user_image/`);
+    if (!photo || !uid) {
+      return;
+    }
+
+    const photoName = photo?.split('/').pop(); // Simplified method to get the photo name
+    console.log(photoName, 90);
+
+    const reference = storage().ref(`${uid}/${photoName}`);
+
     const uploadPhoto = async () => {
       try {
-        await reference.putFile(photo);
-        console.log('photo uploaded successfully');
+        const uploadTask = reference.putFile(photo);
+
+        uploadTask.on('state_changed',
+          taskSnapshot => {
+            console.log(`${taskSnapshot.bytesTransferred} transferred out of ${taskSnapshot.totalBytes}`);
+          },
+          error => {
+            console.log(error, 'image error');
+            Alert.alert('Photo upload failed', error.message);
+          },
+          () => {
+            console.log('Image uploaded to the bucket!');
+            Alert.alert('Photo uploaded successfully');
+          }
+        );
       } catch (e) {
         console.log(e, 'image error');
+        Alert.alert('Photo upload failed', e.message);
       }
     };
+
     uploadPhoto();
-  }, [photo]);
+  }, [photo, uid]);
   const createReminder = async () => {
     try {
       await firestore()
@@ -190,7 +229,7 @@ const Note = ({route, theme}) => {
           .doc(uid)
           .collection(STRINGS.FIREBASE.LABELS)
           .doc(labelRef.current)
-          .set({count: updatedcount}, {merge: true})
+          .set({ count: updatedcount }, { merge: true })
           .then(() => console.log('hurray'))
           .catch(() => console.log('hurray error00'));
         console.log(updatedcount, 98765);
@@ -228,7 +267,7 @@ const Note = ({route, theme}) => {
   const scrollRef = useRef(null);
   const onCursorPosition = scrollY => {
     if (scrollRef.current) {
-      scrollRef.current.scrollTo({y: scrollY - 30, animated: true});
+      scrollRef.current.scrollTo({ y: scrollY - 30, animated: true });
     }
   };
   const headerHeight = useHeaderHeight();
@@ -275,9 +314,22 @@ const Note = ({route, theme}) => {
           ]}
         />
         {/* {
-            false &&
-            
-} */}
+            true && */}
+        <View style={{backgroundColor:'red',height:30}}>
+          <FlatList
+            horizontal
+            data={data_}
+            // showsHorizontalScrollIndicator={false}
+            renderItem={({ item }) => (
+              <View>
+                <Image source={{uri:''}}></Image>
+              </View>
+            )}
+          >
+          </FlatList>
+        </View>
+
+        {/* } */}
         <RichEditor
           disabled={false}
           containerStyle={styles.editor}
