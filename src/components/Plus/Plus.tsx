@@ -1,5 +1,5 @@
 import { TouchableOpacity, View } from 'react-native';
-import { ICONS } from '../../constants/Icons';
+import { ICONS } from '../../Constants/Icons';
 import { styles } from './style';
 
 export default function Plus({onPress}) {

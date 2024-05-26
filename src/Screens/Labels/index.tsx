@@ -2,12 +2,12 @@ import firestore from '@react-native-firebase/firestore';
 import React, { useEffect, useState } from 'react';
 import { View } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
-import CustomButton from '../../components/Button/customButton';
-import withTheme from '../../components/HOC';
-import Search from '../../components/Header';
-import StaggedLabel from '../../components/Staggered/staggeredView';
-import { screenConstant } from '../../constants';
-import { STRINGS } from '../../constants/strings';
+import CustomButton from '../../Components/Button/customButton';
+import withTheme from '../../Components/HOC';
+import Search from '../../Components/Header';
+import StaggedLabel from '../../Components/Staggered';
+import { SCREEN_CONSTANTS } from '../../Constants';
+import { STRINGS } from '../../Constants/Strings';
 import { styles } from './style';
 
 function Label({navigation, route, theme}) {
@@ -93,7 +93,7 @@ function Label({navigation, route, theme}) {
   }, [uid]);
 
   const addNewNote = () => {
-    navigation.navigate(screenConstant.Note, {note});
+    navigation.navigate(SCREEN_CONSTANTS.Note, {note});
   };
   return (
     <>

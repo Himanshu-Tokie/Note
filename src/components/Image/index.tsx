@@ -2,7 +2,7 @@ import React from 'react';
 import { StyleSheet, TouchableOpacity } from 'react-native';
 import { launchImageLibrary } from 'react-native-image-picker';
 import { heightPercentageToDP } from 'react-native-responsive-screen';
-import { ICONS } from '../../constants/Icons';
+import { ICONS } from '../../Constants/Icons';
 
 
 export default function UserImage({photo,setPhoto}) {

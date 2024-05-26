@@ -3,7 +3,7 @@ import 'react-native-gesture-handler';
 import { Provider } from 'react-redux';
 import { usePushNotification } from './src/Hooks/pushNotificationcustomHooks';
 import AuthNavigation from './src/Navigation/AuthNavigation';
-import { store } from './src/store';
+import { store } from './src/Store';
 
 export default function App() {
   const {

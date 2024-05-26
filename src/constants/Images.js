@@ -1,7 +1,7 @@
-export const images = {
-    LABEL: require('../assets/Background/Label.png'),
-    DARK_LABEL: require('../assets/Background/Label_dark.png'),
-    HOME: require('../assets/Background/Home.png'),
-    DEFAULTUSER: require('../assets/Images/defaultUser.png'),
-    HOME_DARK: require('../assets/Background/Home_dark.png')
+export const IMAGES = {
+    LABEL: require('../Assets/Background/label.png'),
+    DARK_LABEL: require('../Assets/Background/label_dark.png'),
+    HOME: require('../Assets/Background/home.png'),
+    DEFAULTUSER: require('../Assets/Images/defaultUser.png'),
+    HOME_DARK: require('../Assets/Background/home_dark.png')
   }

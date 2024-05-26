@@ -1,4 +1,4 @@
-export const screenConstant={
+export const SCREEN_CONSTANTS={
     Home:'home',
     Login:'login',
     Enter:'enter',

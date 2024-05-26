@@ -1,5 +1,5 @@
 import { StyleSheet } from "react-native";
-import { LIGHT_THEME_COLOR } from "../../constants/colors";
+import { LIGHT_THEME_COLOR } from "../../Constants/Colors";
 // customText
 export const style = StyleSheet.create({
     container:{

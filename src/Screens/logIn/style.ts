@@ -1,6 +1,6 @@
 import { StyleSheet } from 'react-native';
 import { heightPercentageToDP } from 'react-native-responsive-screen';
-import { LIGHT_THEME_COLOR } from '../../constants/colors';
+import { LIGHT_THEME_COLOR } from '../../Constants/Colors';
 //  login
 export const styles = StyleSheet.create({
   container: {

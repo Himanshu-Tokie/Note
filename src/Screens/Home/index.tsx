@@ -16,21 +16,21 @@ import {
 } from 'react-native-responsive-screen';
 import { ScrollView } from 'react-native-virtualized-view';
 import { useSelector } from 'react-redux';
-import withTheme from '../../components/HOC';
-import LabelTemplate from '../../components/labelTemplate/labelTemplate';
-import { ICONS } from '../../constants/Icons';
-import { images } from '../../constants/Images';
-import { STRINGS } from '../../constants/strings';
+import withTheme from '../../Components/HOC';
+import LabelTemplate from '../../Components/LabelTemplate/LabelTemplate';
+import { ICONS } from '../../Constants/Icons';
+import { STRINGS } from '../../Constants/Strings';
 import { styles } from './style';
+import { IMAGES } from '../../Constants/Images';
 
-function Home({navigation, theme}) {
+function Home({theme}) {
   // const userRedux = useSelector(state=>state.common.user)
   const THEME =  theme;
   const user = auth().currentUser;
 
   const colorScheme = useSelector(state => state.theme.theme);
 
-  const defaultImage = images.DEFAULTUSER;
+  const defaultImage = IMAGES.DEFAULTUSER;
   const photoURL = user?.photoURL
     ? {uri: {uri: user.photoURL}}
     : {uri: defaultImage};
@@ -123,7 +123,7 @@ function Home({navigation, theme}) {
               <View style={styles.imageContainer}>
                 <ImageBackground
                   source={
-                    colorScheme === 'light' ? images.HOME : images.HOME_DARK
+                    colorScheme === 'light' ? IMAGES.HOME : IMAGES.HOME_DARK
                   }
                   // resizeMode="cover"
                   style={styles.image}>

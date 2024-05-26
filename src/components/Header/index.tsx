@@ -7,8 +7,8 @@ import {
   TouchableOpacity,
   View
 } from 'react-native';
-import { ICONS } from '../../constants/Icons';
-import { LIGHT_THEME_COLOR } from '../../constants/colors';
+import { ICONS } from '../../Constants/Icons';
+import { LIGHT_THEME_COLOR } from '../../Constants/Colors';
 import withTheme from '../HOC';
 import Icon from '../Icon';
 import { styles } from './style';

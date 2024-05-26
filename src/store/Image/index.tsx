@@ -5,8 +5,12 @@ const image = createSlice({
   name: 'image',
   initialState: {
     imageUri: {},
+    isConnected:false
   },
   reducers: {
+    setConnectionStatus: (state, action) => {
+      state.isConnected = action.payload;
+    },
     loadImage: (state, action) => {
       const noteId = action.payload.noteId;
       const uri = action.payload.uri;
@@ -23,13 +27,15 @@ const image = createSlice({
         state.imageUri = imageData;
         
       }
-      AsyncStorage.setItem('Images', JSON.stringify(state.imageUri)).then(()=>{console.log('done');
+      AsyncStorage.setItem('Saved_Images', JSON.stringify(state.imageUri)).then(()=>{console.log('done');
       });
       console.log(state.imageUri, 'all image saved');
     },
     deleteImage: (state, action) => {},
     getFromAsyncStorage: (state, action) => {
-      state.imageUri = action.payload.savedImage;
+      state.imageUri = action.payload ?? {};
+      // console.log(action.payload,67);
+      
     },
   },
 });
@@ -40,6 +46,6 @@ export const loadImageFromStorage = () => async dispatch => {
   }
 };
 
-export const {loadImage, getFromAsyncStorage, getImageList} = image.actions;
+export const {loadImage, getFromAsyncStorage,setConnectionStatus} = image.actions;
 
 export default image.reducer;

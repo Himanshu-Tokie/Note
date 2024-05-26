@@ -1,6 +1,6 @@
 import React from "react";
 import { TextInput, TouchableOpacity, View } from "react-native";
-import { ICONS } from "../../constants/Icons";
+import { ICONS } from "../../Constants/Icons";
 import Icon from "../Icon";
 import { styles } from "./style";
 

@@ -6,7 +6,7 @@ import {
   useWindowDimensions
 } from 'react-native';
 import { RenderHTML } from 'react-native-render-html';
-import { screenConstant } from '../../constants';
+import { SCREEN_CONSTANTS } from '../../Constants';
 import withTheme from '../HOC';
 import { styles } from './style';
 function ListTemplate({note, nav, maxHeight, label, theme}) {
@@ -32,7 +32,7 @@ function ListTemplate({note, nav, maxHeight, label, theme}) {
     <>
       {!label && (
         <TouchableOpacity
-          onPress={() => nav.navigate(screenConstant.Note, {note})}
+          onPress={() => nav.navigate(SCREEN_CONSTANTS.Note, {note})}
           style={[styles.touch, {maxHeight}]}>
           <View
             style={[

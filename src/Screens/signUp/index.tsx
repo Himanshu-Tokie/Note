@@ -2,11 +2,11 @@ import { default as auth } from '@react-native-firebase/auth';
 import { Formik } from 'formik';
 import { KeyboardAvoidingView, Platform, SafeAreaView, ScrollView, Text, View } from 'react-native';
 import { useDispatch } from 'react-redux';
-import CustomButton from '../../components/Button/customButton';
-import FormikTemplate from '../../components/FormikTemplate/formikTemplate';
-import withTheme from '../../components/HOC';
-import { STRINGS } from '../../constants/strings';
-import { SignupSchema, signUpUser } from '../../utils';
+import CustomButton from '../../Components/Button/customButton';
+import FormikTemplate from '../../Components/FormikTemplate';
+import withTheme from '../../Components/HOC';
+import { STRINGS } from '../../Constants/Strings';
+import { SignupSchema, signUpUser } from '../../Utils';
 import { styles } from './style';
 
 // utils

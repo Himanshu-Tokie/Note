@@ -1,7 +1,7 @@
 import firestore from '@react-native-firebase/firestore';
 import React, { useEffect, useState } from 'react';
 import DialogInput from 'react-native-dialog-input';
-import { STRINGS } from '../../constants/strings';
+import { STRINGS } from '../../Constants/Strings';
 
 export default function AddLabel({uid,show,setShow}) {
   // const [show, setShow] = useState(false)

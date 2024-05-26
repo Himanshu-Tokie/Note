@@ -18,14 +18,14 @@ import {
   widthPercentageToDP,
 } from 'react-native-responsive-screen';
 import { useDispatch, useSelector } from 'react-redux';
-import DateTime from '../../components/DateTime';
-import DropdownComponent from '../../components/Dropdown/dropdown';
-import withTheme from '../../components/HOC';
-import Header from '../../components/Header';
-import UserImage from '../../components/Image';
-import { STRINGS } from '../../constants/strings';
-import { loadImage } from '../../store/Image';
-import { imageCompressor } from '../../utils';
+import DateTime from '../../Components/DateTime';
+import DropdownComponent from '../../Components/Dropdown/dropdown';
+import withTheme from '../../Components/HOC';
+import Header from '../../Components/Header';
+import UserImage from '../../Components/Image';
+import { STRINGS } from '../../Constants/Strings';
+import { loadImage } from '../../Store/Image';
+import { imageCompressor } from '../../Utils';
 import { styles } from './styles';
 
 const Note = ({route, theme}) => {
@@ -70,24 +70,16 @@ const Note = ({route, theme}) => {
       }
     }
   }
-  // if(reminder.current)setDate(route.params.note.timestamp);
   const RichText = useRef();
   const articleData = useRef(data);
   const [title, setTitle] = useState(initialTitle);
-  // const [value, setValue] = useState(data);
   const [label, setLable] = useState(lable);
   const labelRef = useRef(lable);
   const titleRef = useRef(initialTitle);
   const [value, setValue] = useState(null);
-  // console.log(imageInitData[noteId], 88);
   useEffect(() => {
     labelRef.current = value;
   }, [value]);
-  // console.log(value, 1);
-  // console.log(articleData.current, 22);
-  // console.log(titleRef, 33);
-  // console.log(labelRef, 44);
-  // console.log(dateRef.current, 55);
   const [photo, setPhoto] = useState(null);
   const [imageData, setImageData] = useState(imageInitialData);
   const img = useRef([]);
@@ -98,35 +90,6 @@ const Note = ({route, theme}) => {
       console.log('no photo or uid; Note-Image-uploader');
       return;
     }
-
-    const photoName = photo?.split('/').pop(); // Simplified method to get the photo name
-    console.log(photoName, 90);
-
-    // const reference = storage().ref(`${uid}/${photoName}`);
-
-    // const uploadPhoto = async () => {
-    //   try {
-    //     const uploadTask = reference.putFile(photo);
-
-    //     uploadTask.on('state_changed',
-    //       taskSnapshot => {
-    //         console.log(`${taskSnapshot.bytesTransferred} transferred out of ${taskSnapshot.totalBytes}`);
-    //       },
-    //       error => {
-    //         console.log(error, 'image error');
-    //         Alert.alert('Photo upload failed', error.message);
-    //       },
-    //       () => {
-    //         console.log('Image uploaded to the bucket!');
-    //         Alert.alert('Photo uploaded successfully');
-    //       }
-    //     );
-    //   } catch (e) {
-    //     console.log(e, 'image error');
-    //     Alert.alert('Photo upload failed', e.message);
-    //   }
-    // };
-
     console.log(photo, 78);
     const processImage = async () => {
       try {

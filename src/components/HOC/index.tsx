@@ -1,6 +1,6 @@
 import React from 'react';
 import { useSelector } from 'react-redux';
-import { DARK_THEME_COLOR, LIGHT_THEME_COLOR } from '../../constants/colors';
+import { DARK_THEME_COLOR, LIGHT_THEME_COLOR } from '../../Constants/Colors';
 
 const withTheme = (WrappedComponent) => (props) => {
   const themeMode = useSelector((state) => state.theme.theme);

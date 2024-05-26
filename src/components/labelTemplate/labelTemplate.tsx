@@ -9,15 +9,15 @@ import {
   heightPercentageToDP
 } from 'react-native-responsive-screen';
 import { useSelector } from 'react-redux';
-import { screenConstant } from '../../constants';
-import { images } from '../../constants/Images';
+import { SCREEN_CONSTANTS } from '../../Constants';
+import { IMAGES } from '../../Constants/Images';
 import withTheme from '../HOC';
 import { styles } from './style';
 
 function LabelTemplate({icon, text, files, note,theme}) {
   const nav = useNavigation();
   function navigationHandler() {
-    nav.navigate(screenConstant.Label, {text, note});
+    nav.navigate(SCREEN_CONSTANTS.Label, {text, note});
   }
   const colorScheme = useSelector(state=>state.theme.theme)
   const THEME = theme ;
@@ -25,7 +25,7 @@ function LabelTemplate({icon, text, files, note,theme}) {
     <>
       <View style={styles.sub}>
         <ImageBackground
-          source={colorScheme==='light'? images.LABEL:images.DARK_LABEL}
+          source={colorScheme==='light'? IMAGES.LABEL:IMAGES.DARK_LABEL}
           resizeMode="cover"
           style={styles.container}>
           <TouchableOpacity onPress={navigationHandler}>

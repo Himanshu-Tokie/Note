@@ -5,12 +5,12 @@ import { useState } from 'react';
 import { SafeAreaView, Text, View } from 'react-native';
 import { useDispatch, useSelector } from 'react-redux';
 import * as Yup from 'yup';
-import CustomButton from '../../components/Button/customButton';
-import FormikTemplate from '../../components/FormikTemplate/formikTemplate';
-import withTheme from '../../components/HOC';
-import { screenConstant } from '../../constants';
-import { STRINGS } from '../../constants/strings';
-import { logIn, updateUser } from '../../store/common';
+import CustomButton from '../../Components/Button/customButton';
+import FormikTemplate from '../../Components/FormikTemplate';
+import withTheme from '../../Components/HOC';
+import { SCREEN_CONSTANTS } from '../../Constants';
+import { STRINGS } from '../../Constants/Strings';
+import { logIn, updateUser } from '../../Store/Common';
 import { styles } from './style';
 
 const SignupSchema = Yup.object().shape({
@@ -31,21 +31,6 @@ function LogIn({navigation, theme}) {
   );
   const dispatch = useDispatch();
   const [errorLogin, setErrorLogin] = useState(false);
-  function onAuthStateChanged(user) {
-    console.log(user, 101);
-    if (!isLogedIn && user) {
-      dispatch(logIn(true));
-      dispatch(updateUser({uid: user.uid, providerId: 'firebase'}));
-    }
-
-    // if (initializing) setInitializing(false);
-  }
-  console.log(isLogedIn, typeof isLogedIn, 1234);
-
-  // useEffect(() => {
-  //   const subscriber = auth().onAuthStateChanged(onAuthStateChanged);
-  //   return subscriber;
-  // }, []);
 
   const logInUser = async (email, password) => {
     try {
@@ -73,7 +58,7 @@ function LogIn({navigation, theme}) {
   };
 
   const forgot = () => {
-    navigation.navigate(screenConstant.ForgotPassword);
+    navigation.navigate(SCREEN_CONSTANTS.ForgotPassword);
   };
   const THEME = theme;
 
@@ -149,7 +134,7 @@ function LogIn({navigation, theme}) {
       </>
     );
   } else {
-    return navigation.navigate(screenConstant.HomeNavigation);
+    return navigation.navigate(SCREEN_CONSTANTS.HomeNavigation);
   }
 }
 

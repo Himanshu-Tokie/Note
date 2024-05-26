@@ -1,49 +1,78 @@
 import { NavigationContainer } from "@react-navigation/native";
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
 import { useEffect } from "react";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import Label from "../../Screens/Labels";
 import Note from "../../Screens/Note";
-import Enter from "../../Screens/enter";
-import ForgotPassword from "../../Screens/forgotPassword/forgotPass";
-import LogIn from "../../Screens/logIn";
-import SignUp from "../../Screens/signUp";
-import Splash from "../../Screens/splashScreen1";
-import withTheme from "../../components/HOC";
-import { screenConstant } from "../../constants/index";
-import { loadThemeFromStorage } from "../../store/theme";
+import Enter from "../../Screens/MainScreen";
+import ForgotPassword from "../../Screens/ForgotPassword";
+import LogIn from "../../Screens/LogIn";
+import SignUp from "../../Screens/SignUp";
+import Splash from "../../Screens/SplashScreen";
+import withTheme from "../../Components/HOC";
+import { loadThemeFromStorage } from "../../Store/Theme";
 import HomeNavigation from "../HomeNavigation";
+import NetInfo from '@react-native-community/netinfo';
+import { setConnectionStatus } from "../../Store/Image";
+import { SCREEN_CONSTANTS } from "../../Constants";
 
 function AuthNavigation({theme}) {
-    // console.log(theme,90909090909);
-    
+    const isConnected = useSelector(state=>state.image.isConnected)
+    const isLoggedIn = useSelector(state=>state.common.isLogedIn)   
     const Stack = createNativeStackNavigator();
     const dispatch = useDispatch()
     useEffect(() => {
         dispatch(loadThemeFromStorage());
-        // dispatch(loadImageFromStorage())
-      }, [dispatch]);
+        const unsubscribe = NetInfo.addEventListener(state => {
+            dispatch(setConnectionStatus(state.isConnected));
+            if (state.isConnected) {
+            //   syncPhotos(dispatch, photos);
+            console.log(state.isConnected,82);
+            }
+          });
+      
+          return () => {
+            unsubscribe();
+          };
+        }, [dispatch]);
+      
+        useEffect(() => {
+            console.log('Network connection status:', isConnected);
+            if (isConnected) {
+                // Sync photos if neede
+                // syncPhotos(dispatch, photos);
+                console.log(isConnected,98);
+                
+            }
+        }, [isConnected]);
     return (
         <>
             <NavigationContainer>
-                <Stack.Navigator initialRouteName={screenConstant.Splash1}
+                <Stack.Navigator initialRouteName={SCREEN_CONSTANTS.Splash1}
                     screenOptions={{
                         headerStyle: { backgroundColor: theme.BACKGROUND },
                         headerTintColor: 'rgb(107, 78, 253)',
                         headerTitleStyle: {
                             fontWeight: 'bold',
-                            color: 'black',
+                            color: '#000000',
                             fontSize: 20
                         },
                     }}>
-                    <Stack.Screen name={screenConstant.Splash1} component={Splash} options={{headerShown: false}} />
-                    <Stack.Screen name={screenConstant.Enter} component={Enter} options={{ headerShown: false }} />
-                    <Stack.Screen name={screenConstant.Login} component={LogIn} />
-                    <Stack.Screen name={screenConstant.HomeNavigation} component={HomeNavigation} options={{ headerShown: false }} />
-                    <Stack.Screen name={screenConstant.Note} component={Note} options={{ headerShown: false }} />
-                    <Stack.Screen name={screenConstant.SignUp} component={SignUp} />
-                    <Stack.Screen name={screenConstant.ForgotPassword} component={ForgotPassword} />
-                    <Stack.Screen name={screenConstant.Label} component={Label} options={{ headerShown: false }} />
+                        {!isLoggedIn ? (
+                    <>
+                        <Stack.Screen name={SCREEN_CONSTANTS.Splash1} component={Splash} options={{ headerShown: false }} />
+                        <Stack.Screen name={SCREEN_CONSTANTS.Enter} component={Enter} options={{ headerShown: false }} />
+                        <Stack.Screen name={SCREEN_CONSTANTS.Login} component={LogIn} />
+                        <Stack.Screen name={SCREEN_CONSTANTS.SignUp} component={SignUp} />
+                        <Stack.Screen name={SCREEN_CONSTANTS.ForgotPassword} component={ForgotPassword} />
+                    </>
+                ) : (
+                    <>
+                        <Stack.Screen name={SCREEN_CONSTANTS.HomeNavigation} component={HomeNavigation} options={{ headerShown: false }} />
+                        <Stack.Screen name={SCREEN_CONSTANTS.Note} component={Note} options={{ headerShown: false }} />
+                        <Stack.Screen name={SCREEN_CONSTANTS.Label} component={Label} options={{ headerShown: false }} />
+                    </>
+                )}
                 </Stack.Navigator>
             </NavigationContainer>
         </>

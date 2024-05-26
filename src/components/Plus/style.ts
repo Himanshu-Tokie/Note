@@ -1,5 +1,5 @@
 import { Platform, StyleSheet } from "react-native";
-import { LIGHT_THEME_COLOR } from "../../constants/colors";
+import { LIGHT_THEME_COLOR } from "../../Constants/Colors";
 
 export const styles = StyleSheet.create({
     container: {

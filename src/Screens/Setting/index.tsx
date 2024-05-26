@@ -5,12 +5,12 @@ import React from 'react';
 import { SafeAreaView, Text, TouchableOpacity, View } from 'react-native';
 import { useDispatch, useSelector } from 'react-redux';
 import ToggleSwitch from 'toggle-switch-react-native';
-import withTheme from '../../components/HOC';
-import Search from '../../components/Header';
-import { screenConstant } from '../../constants';
-import { STRINGS } from '../../constants/strings';
-import { logIn, updateUser } from '../../store/common';
-import { toggleTheme } from '../../store/theme';
+import withTheme from '../../Components/HOC';
+import Search from '../../Components/Header';
+import { SCREEN_CONSTANTS } from '../../Constants';
+import { STRINGS } from '../../Constants/Strings';
+import { logIn, updateUser } from '../../Store/Common';
+import { toggleTheme } from '../../Store/Theme';
 import { styles } from './style';
 
  function Setting({navigation,theme}) {
@@ -29,7 +29,7 @@ import { styles } from './style';
         dispatch(updateUser(null));
         await AsyncStorage.setItem(STRINGS.IS_LOGGED_IN, JSON.stringify(false));
         AsyncStorage.clear()
-        navigation.navigate(screenConstant.Enter);
+        navigation.navigate(SCREEN_CONSTANTS.Enter);
       } else {
         try {
           await GoogleSignin.signOut().catch(e => console.log(e));
@@ -41,7 +41,7 @@ import { styles } from './style';
             JSON.stringify(false),
           ).then(() => console.log('success remove async'));
           AsyncStorage.clear()
-          navigation.navigate(screenConstant.Enter);
+          navigation.navigate(SCREEN_CONSTANTS.Enter);
         } catch (error) {
           console.error(error);
         }
